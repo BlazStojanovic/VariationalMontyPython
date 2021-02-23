@@ -1,0 +1,129 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{hartree1928auxil}
+D.~R. Hartree, The wave mechanics of an atom with a non-coulomb central field.
+  part i. theory and methods, Mathematical Proceedings of the Cambridge
+  Philosophical Society 24~(1) (1928) 89–110.
+\newblock \href {https://doi.org/10.1017/S0305004100011919}
+  {\path{doi:10.1017/S0305004100011919}}.
+
+\bibitem{fock1930naherungsmethode}
+V.~Fock, N{\"a}herungsmethode zur l{\"o}sung des quantenmechanischen
+  mehrk{\"o}rperproblems, Zeitschrift f{\"u}r Physik 61~(1-2) (1930) 126--148.
+
+\bibitem{hohenberg1964inhomogeneous}
+P.~Hohenberg, W.~Kohn, Inhomogeneous electron gas, Physical review 136~(3B)
+  (1964) B864.
+
+\bibitem{kohn1999nobel}
+W.~Kohn, Nobel lecture: Electronic structure of matter—wave functions and
+  density functionals, Reviews of Modern Physics 71~(5) (1999) 1253.
+
+\bibitem{skylaris2005introducing}
+C.-K. Skylaris, P.~D. Haynes, A.~A. Mostofi, M.~C. Payne, Introducing onetep:
+  Linear-scaling density functional simulations on parallel computers, The
+  Journal of chemical physics 122~(8) (2005) 084119.
+
+\bibitem{foulkes2001quantum}
+W.~Foulkes, L.~Mitas, R.~Needs, G.~Rajagopal, Quantum monte carlo simulations
+  of solids, Reviews of Modern Physics 73~(1) (2001) 33.
+
+\bibitem{austin2012quantum}
+B.~M. Austin, D.~Y. Zubarev, W.~A. Lester~Jr, Quantum monte carlo and related
+  approaches, Chemical reviews 112~(1) (2012) 263--288.
+
+\bibitem{mcmillan1965ground}
+W.~L. McMillan, Ground state of liquid he 4, Physical Review 138~(2A) (1965)
+  A442.
+
+\bibitem{ceperley1977monte}
+D.~Ceperley, G.~V. Chester, M.~H. Kalos, Monte carlo simulation of a
+  many-fermion study, Physical Review B 16~(7) (1977) 3081.
+
+\bibitem{carleo2012localization}
+G.~Carleo, F.~Becca, M.~Schir{\'o}, M.~Fabrizio, Localization and glassy
+  dynamics of many-body quantum systems, Scientific reports 2~(1) (2012) 1--6.
+
+\bibitem{carleo2014light}
+G.~Carleo, F.~Becca, L.~Sanchez-Palencia, S.~Sorella, M.~Fabrizio, Light-cone
+  effect and supersonic correlations in one-and two-dimensional bosonic
+  superfluids, Physical Review A 89~(3) (2014) 031602.
+
+\bibitem{ido2015time}
+K.~Ido, T.~Ohgoe, M.~Imada, Time-dependent many-variable variational monte
+  carlo method for nonequilibrium strongly correlated electron systems,
+  Physical Review B 92~(24) (2015) 245106.
+
+\bibitem{gubernatis_kawashima_werner_2016}
+J.~Gubernatis, N.~Kawashima, P.~Werner, Quantum Monte Carlo Methods: Algorithms
+  for Lattice Models, Cambridge University Press, 2016.
+\newblock \href {https://doi.org/10.1017/CBO9780511902581}
+  {\path{doi:10.1017/CBO9780511902581}}.
+
+\bibitem{reynolds1990diffusion}
+P.~J. Reynolds, J.~Tobochnik, H.~Gould, Diffusion quantum monte carlo,
+  Computers in Physics 4~(6) (1990) 662--668.
+
+\bibitem{kalos1962monte}
+M.~Kalos, Monte carlo calculations of the ground state of three-and four-body
+  nuclei, Physical Review 128~(4) (1962) 1791.
+
+\bibitem{kalos1966stochastic}
+M.~Kalos, Stochastic wave function for atomic helium, Journal of Computational
+  Physics 1~(2) (1966) 257--276.
+
+\bibitem{anderson1975random}
+J.~B. Anderson, A random-walk simulation of the schr{\"o}dinger equation: H+ 3,
+  The Journal of Chemical Physics 63~(4) (1975) 1499--1503.
+
+\bibitem{ceperley1980ground}
+D.~M. Ceperley, B.~J. Alder, Ground state of the electron gas by a stochastic
+  method, Physical review letters 45~(7) (1980) 566.
+
+\bibitem{vosko1980accurate}
+S.~H. Vosko, L.~Wilk, M.~Nusair, Accurate spin-dependent electron liquid
+  correlation energies for local spin density calculations: a critical
+  analysis, Canadian Journal of physics 58~(8) (1980) 1200--1211.
+
+\bibitem{ceperley1995path}
+D.~M. Ceperley, Path integrals in the theory of condensed helium, Reviews of
+  Modern Physics 67~(2) (1995) 279.
+
+\bibitem{prokof1998exact}
+N.~Prokof’Ev, B.~Svistunov, I.~Tupitsyn, Exact, complete, and universal
+  continuous-time worldline monte carlo approach to the statistics of discrete
+  quantum systems, Journal of Experimental and Theoretical Physics 87~(2)
+  (1998) 310--321.
+
+\bibitem{needs2020variational}
+R.~Needs, M.~Towler, N.~Drummond, P.~Lopez~Rios, J.~Trail, Variational and
+  diffusion quantum monte carlo calculations with the casino code, The Journal
+  of chemical physics 152~(15) (2020) 154106.
+
+\bibitem{ONeill2003wave}
+D.~P. O’Neill, P.~M. Gill, Wave functions and two-electron probability
+  distributions of the hooke’s-law atom and helium, Physical Review A 68~(2)
+  (2003) 022505.
+
+\bibitem{hastings1970monte}
+W.~K. Hastings, Monte carlo sampling methods using markov chains and their
+  applications (1970).
+
+\bibitem{assaraf1999zero}
+R.~Assaraf, M.~Caffarel, Zero-variance principle for monte carlo algorithms,
+  Physical review letters 83~(23) (1999) 4682.
+
+\bibitem{umrigar1988optimized}
+C.~Umrigar, K.~Wilson, J.~Wilkins, Optimized trial wave functions for quantum
+  monte carlo calculations, Physical Review Letters 60~(17) (1988) 1719.
+
+\bibitem{sorella1998green}
+S.~Sorella, Green function monte carlo with stochastic reconfiguration,
+  Physical review letters 80~(20) (1998) 4558.
+
+\end{thebibliography}

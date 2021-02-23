@@ -1,0 +1,10 @@
+name: VMC
+dependencies:
+    - python=3.6
+    - numpy
+    - matplotlib
+    - jax
+    - PyCUDA
+    - scipy
+    
+    
