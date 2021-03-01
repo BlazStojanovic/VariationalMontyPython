@@ -27,4 +27,6 @@
 \let \numberline \tmptocnumberline 
 \contentsline {section}{\numberline {Appendix \nobreakspace {}A}Energy and energy variance gradient estimation}{8}{}%
 \contentsline {section}{\numberline {Appendix \nobreakspace {}B}Trial wave function optimization algorithms}{8}{}%
-\contentsline {section}{\numberline {Appendix \nobreakspace {}C}Basis sets}{8}{}%
+\contentsline {section}{\numberline {Appendix \nobreakspace {}C}Hartree-Fock}{8}{}%
+\contentsline {section}{\numberline {Appendix \nobreakspace {}D}Basis sets}{9}{}%
+\contentsline {subsection}{\numberline {Appendix \nobreakspace {}D.1}Gaussian basis set}{9}{}%

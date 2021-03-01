@@ -1,5 +1,5 @@
 """
-Project: VQMC - Variational Quantum Monte Carlo for a 3d "Hookimu"
+Project: VQMC - Variational Quantum Monte Carlo for a 3d "Hookium"
 Author: Blaz Stojanovic
 Date: 11/02/2021
 ----------

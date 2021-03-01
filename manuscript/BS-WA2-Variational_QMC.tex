@@ -185,7 +185,7 @@
 	
 	\subsection{Hookium}
 	%% Very quick introduction to Hookium
-	We can construct a toy model of two (? spinless ?) electrons, that resembles the helium atom, where the electrons are bound to the nucleus with a harmonic instead of a Coulomb potential. 
+	We can construct a toy model of two electrons, that resembles the helium atom, where the electrons are bound to the nucleus with a harmonic instead of a Coulomb potential. 
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.35\linewidth]{../diagrams/Hookium/hookium_diagram}
@@ -367,7 +367,6 @@
 	\subsubsection{paralelization}
 	\subsubsection{GPU acceleration}
 	
-	
 	\newpage
 		a
 	\newpage
@@ -405,8 +404,61 @@
 	\section{Trial wave function optimization algorithms}
 	\label{app:optmethods}
 	
+	\section{Hartree-Fock}
+	\label{app:HF}
+
+	\begin{equation}
+		S_{p q}=\int b_{p}(\mathbf{r}) b_{q}(\mathbf{r}) d \mathbf{r}
+	\end{equation}
+
+	\begin{equation}
+		D_{p q}=2 \sum_{a=1}^{\frac{N}{2}} c_{a p} c_{a q}
+	\end{equation}
+
+	\begin{equation}
+		\rho(\mathbf{r})=\sum_{p q} D_{p q} b_{p}(\mathbf{r}) b_{q}(\mathbf{r})
+	\end{equation}
+
+	\begin{equation}
+		\mathbf{F}=\mathbf{H}_{\text {core }}+\mathbf{G}
+	\end{equation}
+
+	\begin{equation}
+		\mathbf{H}_{\text {core }}=\mathbf{T}+\mathbf{V}
+	\end{equation}
+	
+	\begin{equation}
+		T_{p q}=-\frac{1}{2} \int \phi_{p}(\mathbf{r}) \nabla^{2} \phi_{q}(\mathbf{r}) d \mathbf{r}
+	\end{equation}
+
+	\begin{equation}
+		V_{p q}=\int \phi_{p}(\mathbf{r})
+		\left[\sum_{A=1}^{M} 
+		V(\mathbf r, \{k_A\})
+		\right] \phi_{q}(\mathbf{r}) d \mathbf{r}
+	\end{equation}
+	
+	\begin{equation}
+		G_{p q}=\sum_{r s} D_{r s}\left[(p q \mid r s)-\frac{1}{2}(p r \mid s q)\right]
+	\end{equation}
+	where
+	\begin{equation}
+		(p q \mid r s)=
+		\int \frac{
+			\phi_{p}\left(\mathbf{r}_{\mathbf{1}}\right) \phi_{q}\left(\mathbf{r}_{\mathbf{1}}\right) \phi_{r}\left(\mathbf{r}_{\mathbf{2}}\right) \phi_{s}\left(\mathbf{r}_{\mathbf{2}}\right)}{\left|\mathbf{r}_{\mathbf{1}}-\mathbf{r}_{\mathbf{2}}\right|} d \mathbf{r}_{\mathbf{1}} d \mathbf{r}_{\mathbf{2}}
+	\end{equation}
+
+	\begin{equation}
+		E_{\mathrm{RHF}}=\operatorname{Tr}\left(\mathbf{D H}_{\text {core }}\right)+\frac{1}{2} \operatorname{Tr}(\mathbf{D G})
+	\end{equation}
+
 	\section{Basis sets}
 	\label{app:basissets}
+	\subsection{Gaussian basis set}
+	
+	
+	
+	
 	%% Authors are advised to submit their bibtex database files. They are
 	%% requested to list a bibtex style file in the manuscript if they do
 	%% not want to use elsarticle-num.bst.
