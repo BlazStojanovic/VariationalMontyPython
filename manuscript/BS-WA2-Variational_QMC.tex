@@ -354,7 +354,7 @@
 	and the $b$ parameters remain to be optimized variationally. 
 	
 	\subsubsection{Basis sets}
-	There are various choices of single particle states $\left\{\psi_k(\mathbf{r})\right\}$ that compose the Slater determinant. They can be obtained from less expensive electronic structure methods, LDA and HF are popular choices, or they can be from a standard basis set, such as atomic orbitals, Gaussian or plane wave sets. In this work, we will use HF orbitals and compare the results to atomic orbital basis set, see~\ref{app:basissets}.
+	There are various choices of single particle states $\left\{\psi_k(\mathbf{r})\right\}$ that compose the Slater determinant. They can be obtained from less expensive electronic structure methods, LDA and HF are popular choices, or they can be from a standard basis set, such as atomic orbitals, Gaussian or plane wave sets. In this work, we will use HF orbitals and compare the results to the harmonic oscillator basis set, see~\ref{app:basissets}.
 	
 	\subsection{Computational Considerations}
 	You write this after the software is complete
@@ -455,7 +455,9 @@
 	\section{Basis sets}
 	\label{app:basissets}
 	\subsection{Gaussian basis set}
-	
+	\begin{equation}
+		G_{i j k}(\mathbf{r}, \alpha, \mathbf{A})=x_{A}^{i} y_{A}^{j} z_{A}^{k} \exp \left(-\alpha r_{A}^{2}\right)
+	\end{equation}
 	
 	
 	

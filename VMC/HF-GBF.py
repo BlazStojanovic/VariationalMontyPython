@@ -80,7 +80,13 @@ def getElDensity(r, D, basis, M):
 			rho += D[p, q]*basis.eval()*basis.eval()
 	return rho
 
-def SCFLoop(C0, basis, maxiter, mintol):
+def SCFLoop(C0, basis, maxiter, mintol):	
 	"""
 	Self consistent loop. 
 	"""
+	pass
+
+
+
+if __name__ == '__main__':
+	print(basis.normFactor(1, 3, 3, 0.95))
