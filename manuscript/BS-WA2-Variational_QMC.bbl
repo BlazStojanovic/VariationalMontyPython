@@ -126,4 +126,21 @@ C.~Umrigar, K.~Wilson, J.~Wilkins, Optimized trial wave functions for quantum
 S.~Sorella, Green function monte carlo with stochastic reconfiguration,
   Physical review letters 80~(20) (1998) 4558.
 
+\bibitem{mcmurchie1978one}
+L.~E. McMurchie, E.~R. Davidson, One-and two-electron integrals over cartesian
+  gaussian functions, Journal of Computational Physics 26~(2) (1978) 218--231.
+
+\bibitem{obara1986efficient}
+S.~Obara, A.~Saika, Efficient recursive computation of molecular integrals over
+  cartesian gaussian functions, The Journal of chemical physics 84~(7) (1986)
+  3963--3974.
+
+\bibitem{fermann2020fundamentals}
+J.~T. Fermann, E.~F. Valeev, Fundamentals of molecular integrals evaluation,
+  arXiv preprint arXiv:2007.12057 (2020).
+
+\bibitem{helgaker1995gaussian}
+T.~Helgaker, P.~R. Taylor, Gaussian basis sets and molecular integrals, in:
+  Modern Electronic Structure Theory: Part II, 1995, pp. 725--856.
+
 \end{thebibliography}

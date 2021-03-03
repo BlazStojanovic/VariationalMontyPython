@@ -11,7 +11,7 @@ Contains:
 import jax
 import jax.numpy as jnp
 import numpy as np
-import Utilities.Wavefunction.GaussianBasis as basis
+import .Wavefunction.GaussianBasis as basis
 
 def constructF(D, basis, M):
 	"""

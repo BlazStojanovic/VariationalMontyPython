@@ -4,45 +4,46 @@ The top-level auxiliary file: BS-WA2-Variational_QMC.aux
 The style file: elsarticle-num.bst
 Database file #1: WA2-references.bib
 Warning--empty journal in hastings1970monte
-You've used 27 entries,
+Warning--empty publisher in helgaker1995gaussian
+You've used 31 entries,
             2952 wiz_defined-function locations,
-            859 strings with 9555 characters,
-and the built_in function-call counts, 7364 in all, are:
-= -- 688
-> -- 219
-< -- 0
-+ -- 91
-- -- 64
-* -- 558
-:= -- 1035
-add.period$ -- 29
-call.type$ -- 27
-change.case$ -- 26
+            880 strings with 10127 characters,
+and the built_in function-call counts, 8629 in all, are:
+= -- 816
+> -- 247
+< -- 1
++ -- 103
+- -- 72
+* -- 635
+:= -- 1194
+add.period$ -- 33
+call.type$ -- 31
+change.case$ -- 30
 chr.to.int$ -- 0
-cite$ -- 28
-duplicate$ -- 206
-empty$ -- 848
-format.name$ -- 81
-if$ -- 1892
+cite$ -- 33
+duplicate$ -- 251
+empty$ -- 998
+format.name$ -- 93
+if$ -- 2228
 int.to.chr$ -- 0
-int.to.str$ -- 27
-missing$ -- 28
-newline$ -- 91
-num.names$ -- 27
-pop$ -- 133
+int.to.str$ -- 31
+missing$ -- 32
+newline$ -- 103
+num.names$ -- 31
+pop$ -- 161
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 486
+skip$ -- 576
 stack$ -- 0
-substring$ -- 434
-swap$ -- 30
-text.length$ -- 0
+substring$ -- 522
+swap$ -- 42
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 1
-while$ -- 60
-width$ -- 29
-write$ -- 225
-(There was 1 warning)
+warning$ -- 2
+while$ -- 71
+width$ -- 33
+write$ -- 258
+(There were 2 warnings)
