@@ -11,7 +11,7 @@ Contains:
 # TODO, find a way to implement Hermite polynomials in JAX for optimisation!
 
 import jax.numpy as jnp
-import jax.numpy.special
+import jax.scipy.special
 from jax import jit, grad
 
 @jit

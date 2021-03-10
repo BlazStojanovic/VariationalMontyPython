@@ -8,7 +8,7 @@ Contains:
 
 	TODO proper credit assignment.
 
-	The conde in this file is only slightly adapted from the code of Joshua Goings which draws from Helgaker, 
+	The code in this file is only slightly adapted from the code of Joshua Goings which draws from Helgaker, 
 	Trygve, and Peter R. Taylor. “Gaussian basis sets and molecular integrals.” 
 	Modern Electronic Structure (1995).
 """
@@ -20,6 +20,17 @@ from scipy.special import hyp1f1
 
 def gaussian_product_center(a,A,b,B):
     return (a*A+b*B)/(a+b)
+
+def Boys(n, T):
+	"""
+	Boys function, express it with gammaln and gammaincc as 
+
+	1/2 x^(-(1/2) - n) (Gamma[1/2 + n] - Gamma[1/2 + n, x])
+
+	"""
+
+	pass
+
 
 def eval(r, rc, params):
 	"""

@@ -9,10 +9,11 @@
 \contentsline {subsubsection}{\numberline {2.3.1}Trial wave functions $\Psi _{T}$}{5}{}%
 \contentsline {subsubsection}{\numberline {2.3.2}Basis sets}{6}{}%
 \contentsline {subsection}{\numberline {2.4}Computational Considerations}{6}{}%
-\contentsline {subsubsection}{\numberline {2.4.1}bla}{6}{}%
-\contentsline {subsubsection}{\numberline {2.4.2}bla bla}{6}{}%
-\contentsline {subsubsection}{\numberline {2.4.3}paralelization}{6}{}%
-\contentsline {subsubsection}{\numberline {2.4.4}GPU acceleration}{6}{}%
+\contentsline {subsubsection}{\numberline {2.4.1}Software structure}{6}{}%
+\contentsline {subsubsection}{\numberline {2.4.2}Automatic differentiation}{6}{}%
+\contentsline {subsubsection}{\numberline {2.4.3}Gradient estimator}{6}{}%
+\contentsline {subsubsection}{\numberline {2.4.4}Parallelization}{6}{}%
+\contentsline {subsubsection}{\numberline {2.4.5}GPU Acceleration}{6}{}%
 \contentsline {section}{\numberline {3}Results and analysis}{7}{}%
 \contentsline {subsection}{\numberline {3.1}CPU vs. GPU speedup}{7}{}%
 \contentsline {section}{\numberline {4}Conclusion}{8}{}%
@@ -24,4 +25,4 @@
 \contentsline {section}{\numberline {Appendix \nobreakspace {}C}Hartree-Fock}{8}{}%
 \contentsline {section}{\numberline {Appendix \nobreakspace {}D}Basis sets}{9}{}%
 \contentsline {subsection}{\numberline {Appendix \nobreakspace {}D.1}Gaussian basis set}{9}{}%
-\contentsline {subsection}{\numberline {Appendix \nobreakspace {}D.2}Harmonic Oscilllator basis set}{10}{}%
+\contentsline {subsection}{\numberline {Appendix \nobreakspace {}D.2}Harmonic Oscillator basis set}{10}{}%

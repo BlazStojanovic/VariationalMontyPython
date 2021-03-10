@@ -172,12 +172,13 @@
 		Quantum Monte Carlo methods have had a lot of success at finite temperatures. Auxiliary-field Monte Carlo, or Path Integral Monte Carlo~\cite{ceperley1995path}, which leads to ring-polymer molecular dynamics, may be used for this purpose. Additionally QMC is not limited to continuum space applications and has been extensively used to study lattice models, notable examples being the cluster/loop algorithm and the worm algorithm~\cite{gubernatis_kawashima_werner_2016, prokof1998exact}.
 	
 	%% Computational considerations
-		Quantum Monte Carlo methods are generally more computationally expensive than DFT approaches, but on the other hand QMGPU something somethingC codes are, as a rule of thumb, simpler to implement. Furthermore, since the wave function does not need to be stored directly QMC has reasonable storage requirements. The high computational cost of the QMC methods is remedied by the fact that they are intrinsically parallelisable, the core calculation involves generating (pseudo)-random numbers, performing a simple calculation and in the end averaging over the results. Therefore, implementations of QMC algorithms that have been applied to practical problems are optimised to run on massively parallel hardware with little overhead~\cite{needs2020variational}. Finally, the repetitive nature of the Monte Carlo calculation lends itself to hardware acceleration using either graphical processing units (GPUs) or field-programmable gate arrays (FPGAs)~\cite{austin2012quantum}.
+		Quantum Monte Carlo methods are generally more computationally expensive than DFT approaches, but on the other hand QMC codes are, as a rule of thumb, simpler to implement. Furthermore, since the wave function does not need to be stored directly QMC has reasonable storage requirements. The high computational cost of the QMC methods is remedied by the fact that they are intrinsically parallelisable, the core calculation involves generating (pseudo)-random numbers, performing a simple calculation and in the end averaging over the results. Therefore, implementations of QMC algorithms that have been applied to practical problems are optimised to run on massively parallel hardware with little overhead~\cite{needs2020variational}. Finally, the repetitive nature of the Monte Carlo calculation lends itself to hardware acceleration using either graphical processing units (GPUs) or field-programmable gate arrays (FPGAs)~\cite{austin2012quantum}.
 		
 		
 	
 	\subsection{Graphical processing units}
 	%% In general about GPUs in science, especially as it comes to applications in quantum chemistry ~300 besed
+		TODOTODOTODOTODOTODO
 		GPU history,
 		a little about architecture,
 		uses in science, 
@@ -354,7 +355,7 @@
 	and the $b$ parameters remain to be optimized variationally. 
 	
 	\subsubsection{Basis sets}
-	There are various choices of single particle states $\left\{\psi_k(\mathbf{r})\right\}$ that compose the Slater determinant. They can be obtained from less expensive electronic structure methods, LDA and HF are popular choices, or they can be from a standard basis set, such as atomic orbitals, Gaussian or plane wave sets. In this work, we will compare performance of HF orbitals obtained from Cartesian Gaussian-type orbitals (GTOs)
+	There are various choices of single particle states $\left\{\psi_k(\mathbf{r})\right\}$ that compose the Slater determinant. They can be obtained from less expensive electronic structure methods, popular choices being LDA or HF, they can be from a standard basis set, such as atomic orbitals, Gaussian or plane wave sets, or they can be designed for the particular case at hand. In this work, we will compare performance of HF orbitals obtained from Cartesian Gaussian-type orbitals (GTOs)
 	\begin{equation}
 	G_{i j k}(\mathbf{r}, \alpha, \mathbf{A})=(x-x_{A})^{i} (y-y_{A})^{j} (z-z_{A})^{k} e^{-\alpha r_{A}^{2}},
 	\end{equation}
@@ -362,18 +363,16 @@
 	\begin{equation}
 		\phi_{k}(r)=\frac{H_{2 k-1}(r / \sqrt{2})}{2^{k} \sqrt{(2 k-1) !} r / \sqrt{2}} \frac{\exp \left(-r^{2} / 4\right)}{(2 \pi)^{3 / 4}}.
 	\end{equation}
-	TODO fix to be better! !!!!!!!!!!!!!
+	Both basis sets and implementation of Hartree-Fock are discussed in~\ref{app:basissets} and~\ref{app:HF} in more detail.  
 	
 	\subsection{Computational Considerations}
 	You write this after the software is complete
 	
-	% Slater-Jastrow
-	%% Cusp conditions
-	
-	\subsubsection{bla}
-	\subsubsection{bla bla}
-	\subsubsection{paralelization}
-	\subsubsection{GPU acceleration}
+	\subsubsection{Software structure}
+	\subsubsection{Automatic differentiation}
+	\subsubsection{Gradient estimator}
+	\subsubsection{Parallelization}
+	\subsubsection{GPU Acceleration}
 	
 	\newpage
 		a
@@ -382,10 +381,8 @@
 	\label{sec:results}
 
 
-\subsection{CPU vs. GPU speedup}
+	\subsection{CPU vs. GPU speedup}
 	
-
-
 	
 	\newpage
 	\section{Conclusion}
@@ -406,51 +403,60 @@
 	
 	\section{Hartree-Fock}
 	\label{app:HF}
-
+	Restricted Hartree-Fock is applicable to \emph{closed-shell} systems, where there is an even number of electrons that form spin-up and spin-down pairs. The unrestricted Hartree-Fock calculation, where spin is explicitly considered, is only slightly more complicated. Both make use of a Slater determinant state and are solved using self-consistent field iteration. By far the most common approach is to expand single electron states in terms of a basis set, see~\ref{app:basissets}, as
 	\begin{equation}
-		S_{p q}=\int \phi_{p}(\mathbf{r}) \phi_{q}(\mathbf{r}) d \mathbf{r}
+		\psi_{i}(\mathbf{r})=\sum_{j=1}^{n} c_{i j} \phi_{i}(\mathbf{r}).
 	\end{equation}
-
+	An \emph{exact} HF calculation gives an upper bound on the ground state energy of the system, this is because it does not contain electron correlation. In practice exact HF energy is not achieved because the basis set is finite. In the restricted case, truncated expansion in terms of a basis set leads to \emph{Roothan-Hall equations}
 	\begin{equation}
-		D_{p q}=2 \sum_{a=1}^{\frac{N}{2}} c_{a p} c_{a q}
+		\mathbf{F}\mathbf{C} = \mathbf{S}\mathbf{C}\mathbf{\epsilon}.
 	\end{equation}
-
+	It is a nonlinear generalized eigenvalue problem, where the \emph{Fock} matrix $\mathbf{F}$ depends on the coefficient matrix $\mathbf{C}$. $\mathbf{S}$ is the \emph{overlap} matrix, essentially containing information of how close the basis set is to orthogonality
 	\begin{equation}
-		\rho(\mathbf{r})=\sum_{p q} D_{p q} \phi_{p}(\mathbf{r}) \phi_{q}(\mathbf{r})
+		S_{p q}=\int \phi_{p}(\mathbf{r}) \phi_{q}(\mathbf{r}) d \mathbf{r},
 	\end{equation}
-
+	and $\mathbf{\epsilon}$ is a diagonal matrix of orbital energies. The density matrix $\mathbf{D}$ can be defined in terms of $\mathbf{C}$ as
 	\begin{equation}
-		\mathbf{F}=\mathbf{H}_{\text {core }}+\mathbf{G}
+		D_{p q}=2 \sum_{a=1}^{\frac{N}{2}} c_{a p} c_{a q},
 	\end{equation}
-
+	from which the electron density is easily expressed
 	\begin{equation}
-		\mathbf{H}_{\text {core }}=\mathbf{T}+\mathbf{V}
+		\rho(\mathbf{r})=\sum_{p q} D_{p q} \phi_{p}(\mathbf{r}) \phi_{q}(\mathbf{r}).
 	\end{equation}
-	
+	The Fock matrix is in the literature usually decomposed into
+	\begin{equation}
+		\mathbf{F}=\mathbf{H}_{\text {core }}+\mathbf{G},
+	\end{equation}
+	where $\mathbf{H}_{\text {core }}$ is the sum of the kinetic and potential contributions
+	\begin{equation}
+		\mathbf{H}_{\text {core }}=\mathbf{T}+\mathbf{V}, 
+	\end{equation}
+	defined in terms of basis functions as
 	\begin{equation}
 		T_{p q}=-\frac{1}{2} \int \phi_{p}(\mathbf{r}) \nabla^{2} \phi_{q}(\mathbf{r}) d \mathbf{r}
 	\end{equation}
-
+	and
 	\begin{equation}
 		V_{p q}=\int \phi_{p}(\mathbf{r})
 		\left[\sum_{A=1}^{M} 
 		V(\mathbf r, \{k_A\})
-		\right] \phi_{q}(\mathbf{r}) d \mathbf{r}
+		\right] \phi_{q}(\mathbf{r}) d \mathbf{r}. 
 	\end{equation}
-	
+	$\mathbf{G}$ is the two-electron contribution to the Fock operator, defined as
 	\begin{equation}
 		G_{p q}=\sum_{r s} D_{r s}\left[(p q \mid r s)-\frac{1}{2}(p r \mid s q)\right]
 	\end{equation}
-	where
+	where $(p q \mid r s)$ is the \emph{two-electron} integral, in literature written in \emph{chemists'} notation with round brackets
 	\begin{equation}
 		(p q \mid r s)=
 		\int \frac{
-			\phi_{p}\left(\mathbf{r}_{\mathbf{1}}\right) \phi_{q}\left(\mathbf{r}_{\mathbf{1}}\right) \phi_{r}\left(\mathbf{r}_{\mathbf{2}}\right) \phi_{s}\left(\mathbf{r}_{\mathbf{2}}\right)}{\left|\mathbf{r}_{\mathbf{1}}-\mathbf{r}_{\mathbf{2}}\right|} d \mathbf{r}_{\mathbf{1}} d \mathbf{r}_{\mathbf{2}}
+			\phi_{p}\left(\mathbf{r}_{\mathbf{1}}\right) \phi_{q}\left(\mathbf{r}_{\mathbf{1}}\right) \phi_{r}\left(\mathbf{r}_{\mathbf{2}}\right) \phi_{s}\left(\mathbf{r}_{\mathbf{2}}\right)}{\left|\mathbf{r}_{\mathbf{1}}-\mathbf{r}_{\mathbf{2}}\right|} d \mathbf{r}_{\mathbf{1}} d \mathbf{r}_{\mathbf{2}}.
 	\end{equation}
-
+	In terms of quantities defined the energy of HF is
 	\begin{equation}
-		E_{\mathrm{RHF}}=\operatorname{Tr}\left(\mathbf{D H}_{\text {core }}\right)+\frac{1}{2} \operatorname{Tr}(\mathbf{D G})
+		E=\operatorname{Tr}\left(\mathbf{D H}_{\text {core }}\right)+\frac{1}{2} \operatorname{Tr}(\mathbf{D G}).
 	\end{equation}
+	Roothan-Hall equations are solved by iterating between two steps. In the first step, the Fock matrix is constructed from the density matrix (i.e. expansion coefficients), and in the second a new set of coefficients and consequently a new density matrix is obtained by solving the generalized eigenvalue problem. Repeating the two steps converges the system towards self-consistency.
 
 	\section{Basis sets}
 	\label{app:basissets}
@@ -528,7 +534,72 @@
 	where $p = \alpha + \beta$ and $p^\prime = \gamma + \delta$ are sums of Gaussian exponents. 
 
 
-	\subsection{Harmonic Oscilllator basis set}
+	\subsection{Harmonic Oscillator basis set}
+	The harmonic Oscillator basis set is composed of eigenfunctions of the Harmonic oscillator in three dimensions
+	\begin{equation}
+			\phi_{k}(r)=\frac{H_{2 k-1}(r / \sqrt{2})}{2^{k} \sqrt{(2 k-1) !} r / \sqrt{2}} \frac{\exp \left(-r^{2} / 4\right)}{(2 \pi)^{3 / 4}}.
+	\end{equation}
+	This basis set is not nearly as commonly used as the GTOs, but is a good enough basis set for Hooke's law atom. The integrals required for Hartree-Fock are straightforward to compute and cheap to evaluate, especially with no angular dependence involved, one only needs to use Hermite recurrence relations
+	\begin{equation}
+		H_{n+1}(x)=2 x H_{n}(x)-H_{n}^{\prime}(x),
+	\end{equation} 
+	where the derivatives satisfy
+	\begin{equation}
+		H_{n}^{\prime}(x)=2 n H_{n-1}(x).
+	\end{equation}
+	The overlap integral is the most straightforward, using orthogonality between the polynomials
+	\begin{equation}
+		\int_{-\infty}^{\infty} H_{m}(x) H_{n}(x) e^{-x^{2}} d x=\sqrt{\pi} 2^{n} n ! \delta_{n m},
+	\end{equation}
+	we obtain
+	\begin{equation}
+		S_{kl}=\int_{0}^{\infty} \phi_{k}(r) \phi_{l}(r) 4\pi r^2 \mathrm{d} r= \delta_{kl}.
+	\end{equation}
+	The potential matrix element is not much more difficult to compute
+	\begin{equation}
+		\begin{aligned}
+			V_{kl} &=k \int_{0}^{\infty} \phi_{k}(r) r^2 \phi_{l}(r) 4\pi r^2 \mathrm{d} r = \\
+				   &=(4k-1) \delta_{kl} + \delta_{kl+1}\sqrt{4k^2-6k+2} \\
+				   &\qquad\qquad\quad+\delta_{kl-1}\sqrt{4k^2+2k},
+		\end{aligned}
+	\end{equation}
+	because one uses the recurrence relations once $V_{kl}$ is tridiagonal instead of diagonal. The kinetic integral is a bit more arduous to evaluate and involves several applications of aforementioned recurrence and derivative expressions
+	\begin{equation}
+		\begin{aligned}
+			T_{kl} &= -\frac{1}{2} \int_{0}^{\infty} \phi_{k}(r) \left(\nabla^2 \phi_{l}(r)\right) 4\pi r^2 \mathrm{d} r = \\
+			&=\frac{(3+4k)}{8} \delta_{kl} - \frac{1}{4}\delta_{kl+1}\sqrt{\frac{1}{2}(1-3n+2n^2)} \\
+			&\qquad\qquad\qquad-\frac{1}{4}\delta_{kl-1}\sqrt{\frac{1}{2}(n+2n^2)}.
+		\end{aligned}
+	\end{equation}
+	Finally the two-electon integral is the toughest to perform, the Coulomb factor can be expanded using the multipole expansion
+	\begin{equation}
+		\frac{1}{r_{12}}=\sum_{l=0}^{\infty} \sum_{m=-l}^{+l} \frac{4 \pi}{2 l+1} \frac{r_{<}^{l}}{r_{>}^{l+1}} Y_{I}^{m}\left(\theta_{1}, \phi_{1}\right) Y_{l}^{m *}\left(\theta_{2}, \phi_{2}\right),
+	\end{equation}
+	and since the basis functions do not contain any dependence on $\phi$ or $\theta$ only the first term ($l=0$ and $m=0$) of the expansion is nonzero, the spherical harmonics for $m=l=0$ then contribute a factor of $\sqrt{4\pi}$ each. What remains is 
+	\begin{equation}
+		\begin{aligned}
+			(pq|rs) &= 16\pi^2\bigg[
+			\int_{0}^{\infty} \phi_{p}(r_1)\phi_{q}(r_1)r_1\mathrm{d}r_1
+			\int_{0}^{r_1}\phi_{r}(r_2)\phi_{s}(r_2)r^2_2\mathrm{d}r_2\\
+			&+
+			\int_{0}^{\infty} \phi_{p}(r_1)\phi_{q}(r_1)r^2_1\mathrm{d}r_1
+			\int_{r_1}^{\infty} \phi_{r}(r_2)\phi_{s}(r_2)r_2\mathrm{d}r_2
+			\bigg]
+		\end{aligned}
+	\end{equation}
+	where the integral was split because of $r_>$. The expression simplifies into
+	\begin{equation}
+		\begin{aligned}
+			(pq|rs) &= 4\pi\bigg[
+			\int_{0}^{\infty} \phi_{p}(r_1)\phi_{q}(r_1)4\pi r_1\mathrm{d}r_1
+			\int_{0}^{r_1}\phi_{r}(r_2)\phi_{s}(r_2)4\pi r^2_2\mathrm{d}r_2\\
+			&+
+			\int_{0}^{\infty} \phi_{p}(r_1)\phi_{q}(r_1)4\pi r^2_1\mathrm{d}r_1
+			\int_{r_1}^{\infty} \phi_{r}(r_2)\phi_{s}(r_2)4\pi r_2\mathrm{d}r_2
+			\bigg]
+		\end{aligned}
+	\end{equation}	
+	
 	%% Authors are advised to submit their bibtex database files. They are
 	%% requested to list a bibtex style file in the manuscript if they do
 	%% not want to use elsarticle-num.bst.

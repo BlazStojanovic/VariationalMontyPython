@@ -11,8 +11,8 @@ import jax
 import jax.numpy as jnp
 from jax import jit
 
-import GaussianBasis
-import HOBasis
+from Utilities.Wavefunction import GaussianBasis
+from Utilities.Wavefunction import HOBasis
 
 class System:
 	
@@ -66,7 +66,7 @@ class System:
 		self.ne = ne
 
 	def constructBasis(self, noPerCenter, cs, coefs, basistype='Gaussian'):
-		assert (basistype="Gaussian") or (basistype="HO"), "Only Gaussian and HO basis are supported!"
+		assert (basistype=="Gaussian") or (basistype=="HO"), "Only Gaussian and HO basis are supported!"
 		self.basistype = basistype
 
 		assert basisNo > 0
