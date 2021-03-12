@@ -33,7 +33,7 @@ class System:
 
 		# center types
 		for ctype in ctypes:
-			assert (ctype == 'hooke'), "Only hookium center types are supported at the moment!"
+			assert (ctype == 'hooke' or ctype == 'coulomb'), "Only hookium center types are supported at the moment!"
 		self.ctypes=ctypes
 
 		# center coefficients (k if hookium, Z if coulomb)

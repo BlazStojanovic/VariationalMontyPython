@@ -13,14 +13,10 @@ import jax.numpy as jnp
 
 # Sto-2g exponents, s-type orbital
 sto2g_exponents = {'He-s' : jnp.array([[0.2432879285E+01],
-					    	 [0.4330512863E+00]]),
-				   'H-s' : jnp.array([[0.4301284983E+00],
-							 [0.6789135305E+00]])}
-sto2g_coefficients = {'He-s' : jnp.array([[0.9163596281E-02, 
-								 0.4936149294E-01, 
-								 0.1685383049E+00]]),
-					  'H-s' : jnp.array([[0.4301284983E+00,
-							 0.6789135305E+00]])}
+					    	 [0.4330512863E+00]])}
+
+sto2g_coefficients = {'He-s' : jnp.array([[0.4301284983E+00, 
+								 0.6789135305E+00]])}
 
 # Sto-3g exponents
 sto3g_exponents = {'He-s' : jnp.array([[0.6362421394E+01],

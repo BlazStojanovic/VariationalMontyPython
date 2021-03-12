@@ -142,9 +142,9 @@ def Spq(r1, r2, p1, p2):
 	# N2 = normFactor(l, m, n, a2)
 	# Norm = N1*N2 # TODO fix norm
 
-	# S1 = E(i,l,0,0,a1,a2) # X
-	# S2 = E(j,m,0,0,a1,a2) # Y
-	# S3 = E(k,n,0,0,a1,a2) # Z
+	# S1 = E(l1,l2,0,r1[0]-r2[0],alpha1,alpha2) # X
+	# S2 = E(m1,m2,0,r1[1]-r2[1],alpha1,alpha2) # Y
+	# S3 = E(n1,n2,0,r1[2]-r2[2],alpha1,alpha2) # Z
 
 	return S1*S2*S3 #*jnp.power(jnp.pi/(a1+a2),1.5)
 

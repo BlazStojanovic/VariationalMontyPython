@@ -76,6 +76,7 @@ def constructG(D, V2B, bpos, bparam, M):
 
 	return G
 
+# TODO still can be improved and hopefully give between 1.5x and 2x performance
 def constructV2B(bpos, bparam, M):
 	"""
 	Construct the two-electon tensor (pqrs)
@@ -113,22 +114,27 @@ def constructT(bpos, bparam, M):
 
 	return T
 
-def constructV(bpos, bparam, M, k):
+def constructV(bpos, bparam, rc, M, k, ctype='hooke'):
 	"""
 	Construct the potential energy matrix
 	"""
+	# Check which type of center it is
+	if ctype == 'hooke':
+		potpq = gbf.Vpq
+	elif ctype == 'coulomb':
+		potpq = gbf.Vcpq
+
 	V = jnp.zeros((M, M), dtype=jnp.float64)
 	for p in range(M):
 		for q in range(p, M):
 			# Potential term
-			# Here there should be a loop over all atom centers! Not applicable in Hookium.
-			vpq = gbf.Vpq(bpos[p], bpos[q], jnp.array([0.0, 0.0, 0.0]), bparam[p], bparam[q], k) # VCPQ TODO Z=k at [0.0,0.0,0.0] atm
+			vpq = potpq(bpos[p], bpos[q], rc, bparam[p], bparam[q], k)
 			V = jax.ops.index_update(V, (p, q), vpq)
 			V = jax.ops.index_update(V, (q, p), vpq)
 
 	return V
 
-def SCFLoop(bpos, bparam, M, nel, maxiter, mintol, k, D0=None, C0=None):	
+def SCFLoop(bparam, cpos, centers, ccoefs, ncs, M, nel, mintol=1e-5, maxiter=100, D0=None, C0=None):	
 	"""
 	The self consistent field loop is the procedure of finding the density matrix with the lowest
 	energy. It consists of steps
@@ -139,45 +145,97 @@ def SCFLoop(bpos, bparam, M, nel, maxiter, mintol, k, D0=None, C0=None):
 					FC = SCA
 
 		giving C, from which D is constructed. 
+
+	Parameters
+	----------
+	bparam: parameters of the basis functions, VERY IMPORTANT: they must be tiled in the exact same way as the 
+			bpos is, this has to be done outside of the SCF loop for easier gradients. 
+
+	cpos: 	positions of the nuclear centers
+
+	centers: center types
+
+	ccoefs: coefficients of centers
+
+	ncs: number of centers
+
+	M: number of basis functions used PER center
+
+	nel: number of electrons, must be even as this is a restricted HF calculation
+
+	mintol: tolerance for energy between consecutive SCF steps
+
+	maxiter: maximum number of iterations of the SCF loop
+
+	DO: Default=None, initial density matrix
+
+	C0: Default=None, initial expansion coefficient matrix
 	
+	Returns
+	----------
+	E: Self consistent HF energy
+
 	"""
+	# Construct basis position matrix
+	# With M basis at each site
+	bpos = jnp.tile(cpos, (ncs, 1))
+
+	# Number of all basis functions
+	Mt = M*ncs
 
 	# construct overlap matrix
-	S = constructS(bpos, bparam, M)
-	T = constructT(bpos, bparam, M)
-	V = constructV(bpos, bparam, M, k) # TODO Fix for System
-	V2B = constructV2B(bpos, bparam, M)
+	S = constructS(bpos, bparam, Mt)
+	T = constructT(bpos, bparam, Mt)
 
-	if D0 is None:
-		if C0 is None:
-			C0 = initC(M, nel)	
-		D = constructD0(C0, M, nel)
+	# V = jnp.zeros((Mt, Mt), dtype=jnp.float64)
+	
+	# Iterate over every nuclear center in system to obtain potential matrix
+	# for c in range(ncs): 
+	# 	""" 
+	# 	Sum potential over all centers
+	# 	"""
+	# 	ty = centers[c]
+	# 	rc = cpos[c] # position of the center
+	# 	k = ccoefs[c] # coefficient of the center
+
+	# 	V += constructV(bpos, bparam, rc, Mt, k, ctype=ty) # TODO Fix for System
+	
+	V = constructV(bpos, bparam, cpos[0], Mt, ccoefs[0])
+	V2B = constructV2B(bpos, bparam, Mt)
+	# if D0 is None:
+	# 	if C0 is None:
+	# 		C0 = initC(Mt, nel)	
+	# 	D = constructD0(C0, Mt, nel)
+
+	C0 = initC(Mt, nel)	
+	D = constructD0(C0, Mt, nel)
+
 
 	E0 = jnp.inf
-	i = 0
-	while i < maxiter:
-		i += 1
-		G = constructG(D, V2B, bpos, bparam, M)
+	for i in range(maxiter):
+		G = constructG(D, V2B, bpos, bparam, Mt)
 		F = T+V+G
 
 		### F -> D step
 		C = solveGEP(F, S)
- 
+		# C = jnp.ones((M, M))
+
 		### D -> F step
-		D = constructD(C, M, nel)
+		D = constructD(C, Mt, nel)
 
 		# Check energy
 		E = SCFEnergy(D, T, V, G)
 
 		# TODO add nuclear interaction
+		# En = Enucl(cpos, ccoefs)
 
-		print("After iteration {}: E = {}".format(i, E))
+		# print("After iteration {}: E = {}".format(i+1, E))
 		if(jnp.abs(E-E0) < mintol):
 			break
 
 		E0 = E
 
-	return E, D
+	return E
 
 # @jit
 def solveGEP(F,S):
@@ -194,6 +252,9 @@ def solveGEP(F,S):
 	return V
 
 
-@jit
+# @jit
 def SCFEnergy(D, T, V, G):
 	return jnp.trace(jnp.dot(D, (T+V))) + 0.5*jnp.trace(jnp.dot(D, G))
+
+def Enucl(cpos, ccoefs):
+	return -0.0

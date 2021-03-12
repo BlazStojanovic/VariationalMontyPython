@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2021.1.21)  10 MAR 2021 11:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2021.1.21)  11 MAR 2021 15:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1004,70 +1004,80 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: ../diagrams/Hookium/hookium_diagram.pdf Graphic file (type pdf)
 <use ../diagrams/Hookium/hookium_diagram.pdf>
 Package pdftex.def Info: ../diagrams/Hookium/hookium_diagram.pdf  used on input
- line 192.
+ line 191.
 (pdftex.def)             Requested size: 77.70135pt x 106.80682pt.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
-(Font)              scaled to size 6.0pt on input line 193.
+(Font)              scaled to size 6.0pt on input line 192.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
-(Font)              scaled to size 5.0pt on input line 193.
+(Font)              scaled to size 5.0pt on input line 192.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
-(Font)              scaled to size 6.0pt on input line 193.
+(Font)              scaled to size 6.0pt on input line 192.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
-(Font)              scaled to size 5.0pt on input line 193.
+(Font)              scaled to size 5.0pt on input line 192.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
-(Font)              scaled to size 6.0pt on input line 193.
+(Font)              scaled to size 6.0pt on input line 192.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
-(Font)              scaled to size 5.0pt on input line 193.
+(Font)              scaled to size 5.0pt on input line 192.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
-(Font)              scaled to size 6.0pt on input line 193.
+(Font)              scaled to size 6.0pt on input line 192.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
-(Font)              scaled to size 5.0pt on input line 193.
+(Font)              scaled to size 5.0pt on input line 192.
 LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
-(Font)              scaled to size 6.0pt on input line 193.
+(Font)              scaled to size 6.0pt on input line 192.
 LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
-(Font)              scaled to size 5.0pt on input line 193.
+(Font)              scaled to size 5.0pt on input line 192.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
-(Font)              scaled to size 6.0pt on input line 193.
+(Font)              scaled to size 6.0pt on input line 192.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
-(Font)              scaled to size 5.0pt on input line 193.
+(Font)              scaled to size 5.0pt on input line 192.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
-(Font)              scaled to size 6.0pt on input line 193.
+(Font)              scaled to size 6.0pt on input line 192.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
-(Font)              scaled to size 5.0pt on input line 193.
+(Font)              scaled to size 5.0pt on input line 192.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Overfull \hbox (0.82857pt too wide) detected at line 203
+Overfull \hbox (0.82857pt too wide) detected at line 202
 \LS1/libertinust1math/m/n/10 	 [] = [] [] [] [] \LS1/libertinust1math/m/it/10 ;
 
  []
 
 [3 <../diagrams/Hookium/hookium_diagram.pdf>]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.5pt on input line 225.
+(Font)              scaled to size 6.5pt on input line 224.
 
-Underfull \hbox (badness 1629) in paragraph at lines 237--239
+Underfull \hbox (badness 1629) in paragraph at lines 236--238
 \T1/LinuxLibertineT-TLF/m/n/10 Under con-di-tions where the cen-tral limit the-
 o-rem
  []
 
 [4] [5] [6] [7] (./BS-WA2-Variational_QMC.bbl)
-Underfull \hbox (badness 1107) in paragraph at lines 401--401
+Underfull \hbox (badness 2547) in paragraph at lines 400--400
+[]\T1/LinuxLibertineT-TLF/b/n/10 Forward mode dif-fer-en-ti-a-tion of
+ []
+
+
+Underfull \hbox (badness 1895) in paragraph at lines 400--400
+\T1/LinuxLibertineT-TLF/b/n/10 the gen-er-al-ized eigen-value prob-
+ []
+
+
+Underfull \hbox (badness 1107) in paragraph at lines 403--403
 []\T1/LinuxLibertineT-TLF/b/n/10 Trial wave func-tion op-ti-miza-tion
  []
 
 [8] [9]
-Underfull \vbox (badness 2237) has occurred while \output is active []
+Underfull \vbox (badness 2261) has occurred while \output is active []
 
  [10]
-Overfull \hbox (19.98604pt too wide) detected at line 589
+Overfull \hbox (19.98604pt too wide) detected at line 592
 [][]
  []
 
 
-Overfull \hbox (32.79597pt too wide) detected at line 601
+Overfull \hbox (32.79597pt too wide) detected at line 604
 [][]
  []
 
@@ -1079,8 +1089,8 @@ LaTeX Font Warning: Size substitutions with differences
  ) 
 Here is how much of TeX's memory you used:
  8393 strings out of 479383
- 124498 string characters out of 5875830
- 419266 words of memory out of 5000000
+ 124499 string characters out of 5875830
+ 421198 words of memory out of 5000000
  25313 multiletter control sequences out of 15000+600000
  487965 words of font info for 112 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1097,7 +1107,7 @@ exmf-dist/fonts/type1/public/libertine/LinLibertineT.pfb></usr/share/texmf-dist
 /fonts/type1/public/libertine/LinLibertineTB.pfb></usr/share/texmf-dist/fonts/t
 ype1/public/libertine/LinLibertineTI.pfb></usr/share/texmf-dist/fonts/type1/pub
 lic/bbold-type1/bbold7.pfb>
-Output written on BS-WA2-Variational_QMC.pdf (11 pages, 457620 bytes).
+Output written on BS-WA2-Variational_QMC.pdf (11 pages, 457776 bytes).
 PDF statistics:
  85 PDF objects out of 1000 (max. 8388607)
  65 compressed objects within 1 object stream

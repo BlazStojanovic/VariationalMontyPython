@@ -8,10 +8,10 @@
 \contentsline {subsection}{\numberline {2.3}Variational Quantum Monte Carlo}{4}{}%
 \contentsline {subsubsection}{\numberline {2.3.1}Trial wave functions $\Psi _{T}$}{5}{}%
 \contentsline {subsubsection}{\numberline {2.3.2}Basis sets}{6}{}%
-\contentsline {subsection}{\numberline {2.4}Computational Considerations}{6}{}%
+\contentsline {subsection}{\numberline {2.4}Technical Considerations}{6}{}%
 \contentsline {subsubsection}{\numberline {2.4.1}Software structure}{6}{}%
 \contentsline {subsubsection}{\numberline {2.4.2}Automatic differentiation}{6}{}%
-\contentsline {subsubsection}{\numberline {2.4.3}Gradient estimator}{6}{}%
+\contentsline {subsubsection}{\numberline {2.4.3}Gradient estimators}{6}{}%
 \contentsline {subsubsection}{\numberline {2.4.4}Parallelization}{6}{}%
 \contentsline {subsubsection}{\numberline {2.4.5}GPU Acceleration}{6}{}%
 \contentsline {section}{\numberline {3}Results and analysis}{7}{}%
@@ -20,8 +20,9 @@
 \contentsline {subsection}{\numberline {4.1}Code expandability and complexity}{8}{}%
 \contentsline {section}{Bibliography}{8}{}%
 \let \numberline \tmptocnumberline 
-\contentsline {section}{\numberline {Appendix \nobreakspace {}A}Energy and energy variance gradient estimation}{8}{}%
+\contentsline {section}{\numberline {Appendix \nobreakspace {}A}Forward mode differentiation of the generalized eigenvalue problem}{8}{}%
 \contentsline {section}{\numberline {Appendix \nobreakspace {}B}Trial wave function optimization algorithms}{8}{}%
+\contentsline {subsection}{\numberline {Appendix \nobreakspace {}B.1}Conjugate gradients}{8}{}%
 \contentsline {section}{\numberline {Appendix \nobreakspace {}C}Hartree-Fock}{8}{}%
 \contentsline {section}{\numberline {Appendix \nobreakspace {}D}Basis sets}{9}{}%
 \contentsline {subsection}{\numberline {Appendix \nobreakspace {}D.1}Gaussian basis set}{9}{}%

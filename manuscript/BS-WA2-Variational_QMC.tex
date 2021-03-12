@@ -175,14 +175,13 @@
 		Quantum Monte Carlo methods are generally more computationally expensive than DFT approaches, but on the other hand QMC codes are, as a rule of thumb, simpler to implement. Furthermore, since the wave function does not need to be stored directly QMC has reasonable storage requirements. The high computational cost of the QMC methods is remedied by the fact that they are intrinsically parallelisable, the core calculation involves generating (pseudo)-random numbers, performing a simple calculation and in the end averaging over the results. Therefore, implementations of QMC algorithms that have been applied to practical problems are optimised to run on massively parallel hardware with little overhead~\cite{needs2020variational}. Finally, the repetitive nature of the Monte Carlo calculation lends itself to hardware acceleration using either graphical processing units (GPUs) or field-programmable gate arrays (FPGAs)~\cite{austin2012quantum}.
 		
 		
-	
 	\subsection{Graphical processing units}
 	%% In general about GPUs in science, especially as it comes to applications in quantum chemistry ~300 besed
 		TODOTODOTODOTODOTODO
 		GPU history,
 		a little about architecture,
 		uses in science, 
-		uses in ab initio methods in particular
+%		uses in ab initio methods in particulartom
 	
 	\subsection{Hookium}
 	%% Very quick introduction to Hookium
@@ -365,12 +364,12 @@
 	\end{equation}
 	Both basis sets and implementation of Hartree-Fock are discussed in~\ref{app:basissets} and~\ref{app:HF} in more detail.  
 	
-	\subsection{Computational Considerations}
+	\subsection{Technical Considerations}
 	You write this after the software is complete
 	
 	\subsubsection{Software structure}
 	\subsubsection{Automatic differentiation}
-	\subsubsection{Gradient estimator}
+	\subsubsection{Gradient estimators}
 	\subsubsection{Parallelization}
 	\subsubsection{GPU Acceleration}
 	
@@ -395,11 +394,15 @@
 	\bibliography{WA2-references.bib}
 	
 	\appendix
-	\section{Energy and energy variance gradient estimation}
-	\label{app:gradients}
+%	\section{Energy and energy variance gradient estimation}
+%	\label{app:gradients}
+	
+	\section{Forward mode differentiation of the generalized eigenvalue problem}
+	\label{app:GenEigGrad}
 	
 	\section{Trial wave function optimization algorithms}
 	\label{app:optmethods}
+	\subsection{Conjugate gradients}
 	
 	\section{Hartree-Fock}
 	\label{app:HF}

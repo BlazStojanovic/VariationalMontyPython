@@ -39,7 +39,14 @@ def di(r1, r2):
 	"""
 	Evaluate distance between r1 and r2
 	"""
-	return jnp.square(jnp.linalg.norm(r1-r2))
+
+	d = r1-r2
+	is_zero = jnp.allclose(d, 0.)
+	d = jnp.where(is_zero, jnp.ones_like(d), d)  # replace d with ones if is_zero
+	l = jnp.linalg.norm(d)
+	l = jnp.where(is_zero, 0., l)  # replace norm with zero if is_zero
+
+	return jnp.square(l)
 
 @jit
 def GPC(r1, r2, p1, p2):
