@@ -39,7 +39,7 @@ def di(r1, r2):
 	"""
 	Evaluate distance between r1 and r2
 	"""
-
+	# Avoid NaNs
 	d = r1-r2
 	is_zero = jnp.allclose(d, 0.)
 	d = jnp.where(is_zero, jnp.ones_like(d), d)  # replace d with ones if is_zero
@@ -75,8 +75,8 @@ def evaluate(r, rc, params):
     		params[0] = alpha: width of the gaussian
 	"""
 
-	alpha = params[0]
-
+	# alpha = params[0]
+	alpha = params.T
 	R = r - rc
 
 	return normFactor(alpha)*jnp.exp(-alpha*jnp.square(jnp.linalg.norm(R, axis=-1)))
@@ -136,6 +136,7 @@ def Tpq(r1, r2, p1, p2):
 
 	return q*(3.0-2.0*q*di(r1, r2))*jnp.power((jnp.pi/p), 1.5)*K(r1, r2, p1, p2)
 
+@jit
 def Vx(x1, x2, xc, p1, p2):
 	"""
 	One dimensional contribution to potential integration.
@@ -149,6 +150,7 @@ def Vx(x1, x2, xc, p1, p2):
 
 	return enu/den
 
+@jit
 def Sx(x1, x2, p1, p2):
 	"""
 	One dimensional overlap integral.
@@ -159,7 +161,7 @@ def Sx(x1, x2, p1, p2):
 
 	return jnp.sqrt(jnp.pi/p)*jnp.exp(-a1*a2*(x1-x2)**2/(a1+a2))
 
-
+@jit
 def Vpq(r1, r2, rc, p1, p2, k):
 	"""
 	Potential energy contribution of two primitive Gaussians, 

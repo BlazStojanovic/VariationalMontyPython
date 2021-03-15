@@ -37,32 +37,32 @@ if __name__ == '__main__':
 
 	maxiter = 100
 	mintol  = 1e-5
-	E, D = hf.SCFLoop(bparam, cpos, centers, ccoefs, ncs, M, nel)
-
+	E, D, C = hf.SCFLoop(bparam, cpos, centers, ccoefs, ncs, M, nel)
+	print(E)
 
 	# Density in the z=0 plane
-	x = jnp.linspace(-5, 5, 100)
-	y = jnp.linspace(-5, 5, 100)
-	Z = jnp.zeros((1, 100*100))
+	# x = jnp.linspace(-5, 5, 100)
+	# y = jnp.linspace(-5, 5, 100)
+	# Z = jnp.zeros((1, 100*100))
 
-	X, Y = jnp.meshgrid(x, y)
-	X = jnp.ravel(X)
-	Y = jnp.ravel(Y)
+	# X, Y = jnp.meshgrid(x, y)
+	# X = jnp.ravel(X)
+	# Y = jnp.ravel(Y)
 
-	R = jnp.vstack((X, Y, Z)).T
+	# R = jnp.vstack((X, Y, Z)).T
 
-	Rc = jnp.array([0, 0, 0], dtype=jnp.float32)
+	# Rc = jnp.array([0, 0, 0], dtype=jnp.float32)
 
-	rho = hf.getElDensity(R, D, bpos, bparam, M)
-	print(jnp.shape(rho))
-	rho = jnp.reshape(rho, (100, 100))
-	X = jnp.reshape(X, (100, 100))
-	Y = jnp.reshape(Y, (100, 100))
-	print(jnp.shape(rho))
+	# rho = hf.getElDensity(R, D, bpos, bparam, M)
+	# print(jnp.shape(rho))
+	# rho = jnp.reshape(rho, (100, 100))
+	# X = jnp.reshape(X, (100, 100))
+	# Y = jnp.reshape(Y, (100, 100))
+	# print(jnp.shape(rho))
 
-	plt.pcolormesh(X, Y, rho, shading='auto')
-	plt.colorbar()
-	plt.show()
+	# plt.pcolormesh(X, Y, rho, shading='auto')
+	# plt.colorbar()
+	# plt.show()
 	
 	## HeH calculation
 

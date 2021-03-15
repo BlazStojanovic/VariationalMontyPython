@@ -134,7 +134,9 @@ def constructV(bpos, bparam, rc, M, k, ctype='hooke'):
 
 	return V
 
-def SCFLoop(bparam, cpos, centers, ccoefs, ncs, M, nel, mintol=1e-5, maxiter=100, D0=None, C0=None):	
+def SCFLoop(bparam, cpos, centers, ccoefs, ncs, M, nel, mintol=1e-8, maxiter=100, D0=None, C0=None):	
+# def SCFLoop(bparam):
+
 	"""
 	The self consistent field loop is the procedure of finding the density matrix with the lowest
 	energy. It consists of steps
@@ -174,6 +176,8 @@ def SCFLoop(bparam, cpos, centers, ccoefs, ncs, M, nel, mintol=1e-5, maxiter=100
 	Returns
 	----------
 	E: Self consistent HF energy
+
+	D: Density matrix
 
 	"""
 	# Construct basis position matrix
@@ -235,7 +239,7 @@ def SCFLoop(bparam, cpos, centers, ccoefs, ncs, M, nel, mintol=1e-5, maxiter=100
 
 		E0 = E
 
-	return E
+	return E, (D, C)
 
 # @jit
 def solveGEP(F,S):
@@ -251,8 +255,7 @@ def solveGEP(F,S):
 
 	return V
 
-
-# @jit
+@jit
 def SCFEnergy(D, T, V, G):
 	return jnp.trace(jnp.dot(D, (T+V))) + 0.5*jnp.trace(jnp.dot(D, G))
 

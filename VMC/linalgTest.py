@@ -1,3 +1,10 @@
+"""
+Disclaimer, this is not my code. It was authored by 
+Dominic Jack, who posted it on his blog, https://jackd.github.io/posts/generalized-eig-jvp/
+
+"""
+
+
 from Utilities.Linalg.eigh import symmetrize, eigh, standardize_angle
 import jax.numpy as jnp
 import numpy as np

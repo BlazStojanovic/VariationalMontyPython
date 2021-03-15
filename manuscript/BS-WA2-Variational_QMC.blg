@@ -3,47 +3,48 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: BS-WA2-Variational_QMC.aux
 The style file: elsarticle-num.bst
 Database file #1: WA2-references.bib
+Warning--empty year in cuda
 Warning--empty journal in hastings1970monte
 Warning--empty publisher in helgaker1995gaussian
-You've used 31 entries,
+You've used 35 entries,
             2952 wiz_defined-function locations,
-            880 strings with 10127 characters,
-and the built_in function-call counts, 8629 in all, are:
-= -- 816
-> -- 247
+            905 strings with 10912 characters,
+and the built_in function-call counts, 9706 in all, are:
+= -- 914
+> -- 287
 < -- 1
-+ -- 103
-- -- 72
-* -- 635
-:= -- 1194
-add.period$ -- 33
-call.type$ -- 31
-change.case$ -- 30
++ -- 119
+- -- 84
+* -- 717
+:= -- 1337
+add.period$ -- 37
+call.type$ -- 35
+change.case$ -- 34
 chr.to.int$ -- 0
-cite$ -- 33
-duplicate$ -- 251
-empty$ -- 998
-format.name$ -- 93
-if$ -- 2228
+cite$ -- 38
+duplicate$ -- 281
+empty$ -- 1119
+format.name$ -- 108
+if$ -- 2501
 int.to.chr$ -- 0
-int.to.str$ -- 31
-missing$ -- 32
-newline$ -- 103
-num.names$ -- 31
-pop$ -- 161
+int.to.str$ -- 35
+missing$ -- 35
+newline$ -- 115
+num.names$ -- 34
+pop$ -- 184
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 576
+skip$ -- 646
 stack$ -- 0
-substring$ -- 522
-swap$ -- 42
+substring$ -- 591
+swap$ -- 45
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 2
-while$ -- 71
-width$ -- 33
-write$ -- 258
-(There were 2 warnings)
+warning$ -- 3
+while$ -- 80
+width$ -- 37
+write$ -- 287
+(There were 3 warnings)

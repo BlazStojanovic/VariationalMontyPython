@@ -26,9 +26,9 @@ sto3g_exponents = {'He-s' : jnp.array([[0.6362421394E+01],
 							 [0.6239137298E+00],
 							 [0.1688554040E+00 ]])}
 
-sto3g_coefficients = {'He-s' : jnp.array([[0.9163596281E-02, 
-								 0.4936149294E-01, 
-								 0.1685383049E+00]]),
+sto3g_coefficients = {'He-s' : jnp.array([[0.1543289673E+00, 
+								 0.5353281423E+00, 
+								 0.4446345422E+00]]),
 					  'H-s' : jnp.array([[0.1543289673E+00,
 							 0.5353281423E+00,
 							 0.4446345422E+00]])}
@@ -105,13 +105,13 @@ sto6g_coefficients = {'H-s' : jnp.array([[0.9163596281E-02,
 
 # Exponents used in the O'Neill and Gill paper
 paper_exponents = jnp.array([[2.4],
-					    [1.2],
-					    [0.6],
-					    [0.37297],
-					    [0.30241],
-					    [0.23185],
-					    [0.0750],
-					    [0.0375]])
+						    [1.2],
+						    [0.6],
+						    [0.37297],
+						    [0.30241],
+						    [0.23185],
+						    [0.0750],
+						    [0.0375]])
 
 # cc-pV6Z exponents
 ccpV6Z_exponents = {'He-s' : jnp.array([[4.785000E+03],

@@ -105,6 +105,25 @@ R.~Needs, M.~Towler, N.~Drummond, P.~Lopez~Rios, J.~Trail, Variational and
   diffusion quantum monte carlo calculations with the casino code, The Journal
   of chemical physics 152~(15) (2020) 154106.
 
+\bibitem{cuda}
+Cuda c++ programming guide,\\
+  https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html.
+
+\bibitem{anderson2007quantum}
+A.~G. Anderson, W.~A. Goddard~III, P.~Schr{\"o}der, Quantum monte carlo on
+  graphical processing units, Computer Physics Communications 177~(3) (2007)
+  298--306.
+
+\bibitem{meredith2009accuracy}
+J.~S. Meredith, G.~Alvarez, T.~A. Maier, T.~C. Schulthess, J.~S. Vetter,
+  Accuracy and performance of graphics processors: A quantum monte carlo
+  application case study, Parallel Computing 35~(3) (2009) 151--163.
+
+\bibitem{esler2010accelerating}
+K.~Esler, J.~Kim, D.~Ceperley, L.~Shulenburger, Accelerating quantum monte
+  carlo simulations of real materials on gpu clusters, Computing in Science \&
+  Engineering 14~(1) (2010) 40--51.
+
 \bibitem{ONeill2003wave}
 D.~P. O’Neill, P.~M. Gill, Wave functions and two-electron probability
   distributions of the hooke’s-law atom and helium, Physical Review A 68~(2)

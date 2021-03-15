@@ -10,10 +10,15 @@ Contains:
 	are optimizable. 
 """
 
+from Utilities.Wavefunction import Jastrow as js
+
 import jax
 import jax.numpy as jnp
 from jax import jit
 
-
-class WaveFunction:
+def sth():
 	pass
+
+def trialWaveFunction():
+	pass
+

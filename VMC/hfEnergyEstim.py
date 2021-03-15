@@ -1,29 +1,25 @@
-"""
-Project: VQMC - Variational Quantum Monte Carlo for a 3d "Hookium"
-Author: Blaz Stojanovic
-Date: 11/03/2021
-----------
-Contains: 
 
-This file contains an example of optimization of input parameters into a Hartree fock calculation
-of Hookium, by use of forward mode jax differentiation. 
 
-"""
-
-from Utilities.Wavefunction import LCGOData as orbitals
 from Utilities.HartreeFock import HartreeFockG as hf
+from Utilities.Wavefunction import LCGOData as orbitals
 
 import jax 
 import jax.numpy as jnp
 from jax import jacfwd
 import time
 
+import matplotlib.pyplot as plt
+
 def update(bparam, cpos, centers, ccoefs, ncs, M, nel, maxiter, alpha):
-	db = jacfwd(hf.SCFLoop, argnums=0)(bparam, cpos, centers, ccoefs, ncs, M, nel, maxiter=maxiter, mintol=1e-6)
+	db, dD, dC = jacfwd(hf.SCFLoop, argnums=0)(bparam, cpos, centers, ccoefs, ncs, M, nel, maxiter=maxiter, mintol=1e-6)
+	print(bparam - alpha*db)
 	return bparam - alpha*db
 
 if __name__ == '__main__':
 	
+	
+
+
 	# Setup of initial parameters
 	nel = 2
 	bparam = orbitals.sto3g_exponents.get('He-s')
@@ -42,8 +38,8 @@ if __name__ == '__main__':
 	mintol  = 1e-5
 
 	# Optimization parameters
-	alpha = 0.03
-	epochs = 15
+	alpha = 0.01
+	epochs = 30
 
 	for epoch in range(epochs):
 		start_time = time.time()
@@ -55,9 +51,31 @@ if __name__ == '__main__':
 		# E = hf.SCFLoop(bparam, cpos, centers, ccoefs, ncs, M, nel, maxiter=maxiter, mintol=1e-6)
 		# print("Self consistent Hartree-Fock Energy {}".format(E))
 
-	# bparam = jnp.array([[6.3623724],
-	# 				 [1.1564877 ],
-	# 				 [0.21456912]])
-	E = hf.SCFLoop(bparam, cpos, centers, ccoefs, ncs, M, nel, maxiter=maxiter, mintol=1e-6)	
+
+	E, D = hf.SCFLoop(bparam, cpos, centers, ccoefs, ncs, M, nel, maxiter=maxiter, mintol=1e-6)	
 
 	print("Optimal value E = {:.6f}Eh, was found with params: ".format(E), bparam)
+
+	# Density in the z=0 plane
+	x = jnp.linspace(-5, 5, 100)
+	y = jnp.linspace(-5, 5, 100)
+	Z = jnp.zeros((1, 100*100))
+
+	X, Y = jnp.meshgrid(x, y)
+	X = jnp.ravel(X)
+	Y = jnp.ravel(Y)
+
+	R = jnp.vstack((X, Y, Z)).T
+
+	Rc = jnp.array([0, 0, 0], dtype=jnp.float32)
+
+	rho = hf.getElDensity(R, D, bpos, bparam, M)
+	print(jnp.shape(rho))
+	rho = jnp.reshape(rho, (100, 100))
+	X = jnp.reshape(X, (100, 100))
+	Y = jnp.reshape(Y, (100, 100))
+	print(jnp.shape(rho))
+
+	plt.pcolormesh(X, Y, rho, shading='auto')
+	plt.colorbar()
+	plt.show()
