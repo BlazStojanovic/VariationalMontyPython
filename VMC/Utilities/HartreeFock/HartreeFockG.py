@@ -11,7 +11,7 @@ Contains:
 
 import jax
 import jax.numpy as jnp
-from jax import random, jit, vmap, pmap
+from jax import random, jit, vmap, pmap, partial
 from Utilities.Wavefunction import GaussianBasisS as gbf
 from Utilities.Linalg import eigh
 import numpy as np
@@ -77,6 +77,7 @@ def constructG(D, V2B, bpos, bparam, M):
 	return G
 
 # TODO still can be improved and hopefully give between 1.5x and 2x performance
+# @jit
 def constructV2B(bpos, bparam, M):
 	"""
 	Construct the two-electon tensor (pqrs)
@@ -98,6 +99,8 @@ def constructV2B(bpos, bparam, M):
 					V2B = jax.ops.index_update(V2B, (q, p, s, r), v2b)
 
 	return V2B
+
+# constructV2B = jit(constructV2B, static_argnums=2)
 
 def constructT(bpos, bparam, M):
 	"""
@@ -135,8 +138,6 @@ def constructV(bpos, bparam, rc, M, k, ctype='hooke'):
 	return V
 
 def SCFLoop(bparam, cpos, centers, ccoefs, ncs, M, nel, mintol=1e-8, maxiter=100, D0=None, C0=None):	
-# def SCFLoop(bparam):
-
 	"""
 	The self consistent field loop is the procedure of finding the density matrix with the lowest
 	energy. It consists of steps
@@ -250,6 +251,7 @@ def solveGEP(F,S):
 
 	"""
 	w, V = eigh.eigh(F, S)
+	# print(w)
 	# w, V = scipy.linalg.eigh(F, b=S)
 
 

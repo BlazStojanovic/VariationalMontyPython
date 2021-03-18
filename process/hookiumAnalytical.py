@@ -32,10 +32,10 @@ def wfunction_r(r1, r2):
     # R1 = np.linalg.norm(r1, axis=1) # TODO doublecheck
     R2 = np.linalg.norm(r2, axis=1) # TODO doublecheck
 
-    return 1.0/(2.0*np.sqrt(8.0*np.power(np.pi, 5.0/2.0) + 5.0*np.power(np.pi, 3.0)))*(1+r12)*np.exp(-1.0/4.0*(np.square(R1) + np.square(R2)))
+    return 1.0/(2.0*np.sqrt(8.0*np.power(np.pi, 5.0/2.0) + 5.0*np.power(np.pi, 3.0)))*(1+0.5*r12)*np.exp(-1.0/4.0*(np.square(R1) + np.square(R2)))
 
-def intracule_r(u):
-    return 1.0/(8+5*np.pi**0.5)*np.square(u)*(1+np.square(u)/2.0)*np.exp(-np.square(u)/4)
+def intracule_r(r):
+    return 1.0/(8.0+5.0*np.pi**0.5)*np.square(r)*np.square(1.0+r/2.0)*np.exp(-np.square(r)/4.0)
 
 
 def intracule_wigner_approximate(u, v):

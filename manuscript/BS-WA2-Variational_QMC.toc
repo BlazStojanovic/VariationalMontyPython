@@ -19,13 +19,14 @@
 \contentsline {subsection}{\numberline {3.1}Hookium}{8}{}%
 \contentsline {subsubsection}{\numberline {3.1.1}HF energy}{8}{}%
 \contentsline {subsubsection}{\numberline {3.1.2}Variational Monte Carlo}{8}{}%
-\contentsline {subsubsection}{\numberline {3.1.3}CPU vs. GPU speedup}{8}{}%
+\contentsline {subsubsection}{\numberline {3.1.3}Variational Monte Carlo}{8}{}%
+\contentsline {subsubsection}{\numberline {3.1.4}CPU vs. GPU speedup}{8}{}%
 \contentsline {subsection}{\numberline {3.2}Hookium molecule}{8}{}%
 \contentsline {section}{\numberline {4}Conclusion}{9}{}%
 \contentsline {subsection}{\numberline {4.1}Code expandability and complexity}{9}{}%
 \contentsline {section}{Bibliography}{9}{}%
 \let \numberline \tmptocnumberline 
-\contentsline {section}{\numberline {Appendix \nobreakspace {}A}Hartree-Fock}{10}{}%
-\contentsline {section}{\numberline {Appendix \nobreakspace {}B}Basis sets}{10}{}%
-\contentsline {subsection}{\numberline {Appendix \nobreakspace {}B.1}Gaussian basis set}{10}{}%
-\contentsline {subsection}{\numberline {Appendix \nobreakspace {}B.2}Harmonic Oscillator basis set}{12}{}%
+\contentsline {section}{\numberline {Appendix \nobreakspace {}A}Hartree-Fock}{11}{}%
+\contentsline {section}{\numberline {Appendix \nobreakspace {}B}Basis sets}{11}{}%
+\contentsline {subsection}{\numberline {Appendix \nobreakspace {}B.1}Gaussian basis set}{11}{}%
+\contentsline {subsection}{\numberline {Appendix \nobreakspace {}B.2}Harmonic Oscillator basis set}{13}{}%

@@ -33,16 +33,18 @@
 \citation{austin2012quantum}
 \citation{cuda}
 \citation{cuda}
+\citation{cuda}
 \citation{anderson2007quantum,meredith2009accuracy,esler2010accelerating}
 \citation{anderson1975random,meredith2009accuracy}
 \citation{ONeill2003wave}
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Graphical processing units}{3}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces A comparison of a CPU and GPU, from\nobreakspace  {}\cite  {cuda}.}}{3}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces A comparison of a CPU and GPU, from\nobreakspace  {}\cite  {cuda}.\relax }}{3}{}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:cuda-gpu}{{1}{3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Hookium}{3}{}\protected@file@percent }
 \citation{foulkes2001quantum}
 \citation{hastings1970monte}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Hookium atom, two electrons that are bound to the nucleus with springs of coefficient $k$ and interact via the Coulomb force.}}{4}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Hookium atom, two electrons that are bound to the nucleus with springs of coefficient $k$ and interact via the Coulomb force.\relax }}{4}{}\protected@file@percent }
 \newlabel{fig:hookiumdiagram}{{2}{4}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Implementation}{4}{}\protected@file@percent }
 \newlabel{sec:impl}{{2}{4}}
@@ -52,13 +54,13 @@
 \newlabel{subsec:Impl-MCMC}{{2.2}{4}}
 \citation{foulkes2001quantum}
 \citation{foulkes2001quantum}
-\citation{assaraf1999zero}
-\newlabel{eq:detailed_balance}{{9}{5}}
-\newlabel{alg:MCMC}{{1}{5}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Metropolis-Hastings}}{5}{}\protected@file@percent }
+\newlabel{eq:detailed_balance}{{11}{5}}
+\newlabel{alg:MCMC}{{\caption@xref {alg:MCMC}{ on input line 284}}{5}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Metropolis-Hastings\relax }}{5}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Variational Quantum Monte Carlo}{5}{}\protected@file@percent }
-\newlabel{eq:variational_princ}{{12}{5}}
-\newlabel{eq:E_V}{{13}{5}}
+\newlabel{eq:variational_princ}{{14}{5}}
+\newlabel{eq:E_V}{{15}{5}}
+\citation{assaraf1999zero}
 \citation{umrigar1988optimized}
 \citation{sorella1998green}
 \citation{foulkes2001quantum}
@@ -73,13 +75,14 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.3}Gradient estimators}{7}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.4}Parallelization}{7}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.5}GPU Acceleration}{7}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Diagram of the general software framework developed to solve the Hookium atom with VMC. It is comprised of two modules, that need not be used together. Both the $a)$ Hartree-Fock and $b)$ the VMC module are fully variational and allow for rich variational approaches to a particular problem.}}{8}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Diagram of the general software framework developed to solve the Hookium atom with VMC. It is comprised of two modules, that need not be used together. Both the $a)$ Hartree-Fock and $b)$ the VMC module are fully variational and allow for rich variational approaches to a particular problem.\relax }}{8}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3}Results and analysis}{8}{}\protected@file@percent }
 \newlabel{sec:results}{{3}{8}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Hookium}{8}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}HF energy}{8}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Variational Monte Carlo}{8}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}CPU vs. GPU speedup}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}Variational Monte Carlo}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.4}CPU vs. GPU speedup}{8}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Hookium molecule}{8}{}\protected@file@percent }
 \bibstyle{elsarticle-num}
 \bibdata{WA2-references.bib}
@@ -93,6 +96,20 @@
 \bibcite{mcmillan1965ground}{{8}{}{{}}{{}}}
 \bibcite{ceperley1977monte}{{9}{}{{}}{{}}}
 \bibcite{carleo2012localization}{{10}{}{{}}{{}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Blah blah results\relax }}{9}{}\protected@file@percent }
+\newlabel{fig:wfsandpints}{{4}{9}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {$\rho (\mathbf {r})$, $N=10^3$ samples}}}{9}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {$\rho (\mathbf {r})$, $N=10^4$ samples}}}{9}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {$\rho (\mathbf {r})$, $N=10^5$ samples}}}{9}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(d)}{\ignorespaces {$P(u)$, $N=10^3$ samples}}}{9}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(e)}{\ignorespaces {$P(u)$, $N=10^4$ samples}}}{9}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(f)}{\ignorespaces {$P(u)$, $N=10^5$ samples}}}{9}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \relax }}{9}{}\protected@file@percent }
+\newlabel{fig:hfoptimization}{{5}{9}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Conclusion}{9}{}\protected@file@percent }
+\newlabel{sec:conclusion}{{4}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Code expandability and complexity}{9}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Bibliography}{9}{}\protected@file@percent }
 \bibcite{carleo2014light}{{11}{}{{}}{{}}}
 \bibcite{ido2015time}{{12}{}{{}}{{}}}
 \bibcite{gubernatis_kawashima_werner_2016}{{13}{}{{}}{{}}}
@@ -113,28 +130,26 @@
 \bibcite{hastings1970monte}{{28}{}{{}}{{}}}
 \bibcite{assaraf1999zero}{{29}{}{{}}{{}}}
 \bibcite{umrigar1988optimized}{{30}{}{{}}{{}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \relax }}{10}{}\protected@file@percent }
+\newlabel{fig:blocking+jast}{{6}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces \relax }}{10}{}\protected@file@percent }
+\newlabel{fig:basic-optim}{{7}{10}}
 \bibcite{sorella1998green}{{31}{}{{}}{{}}}
 \bibcite{mcmurchie1978one}{{32}{}{{}}{{}}}
 \bibcite{obara1986efficient}{{33}{}{{}}{{}}}
 \bibcite{fermann2020fundamentals}{{34}{}{{}}{{}}}
 \bibcite{helgaker1995gaussian}{{35}{}{{}}{{}}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces }}{9}{}\protected@file@percent }
-\newlabel{fig:hfoptimization}{{4}{9}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Conclusion}{9}{}\protected@file@percent }
-\newlabel{sec:conclusion}{{4}{9}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Code expandability and complexity}{9}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{Bibliography}{9}{}\protected@file@percent }
 \@writefile{toc}{\let\numberline\tmptocnumberline}
+\@writefile{toc}{\contentsline {section}{\numberline {Appendix \nobreakspace  {}A}Hartree-Fock}{11}{}\protected@file@percent }
+\newlabel{app:HF}{{Appendix \nobreakspace  {}A}{11}}
+\@writefile{toc}{\contentsline {section}{\numberline {Appendix \nobreakspace  {}B}Basis sets}{11}{}\protected@file@percent }
+\newlabel{app:basissets}{{Appendix \nobreakspace  {}B}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {Appendix \nobreakspace  {}B.1}Gaussian basis set}{11}{}\protected@file@percent }
 \citation{mcmurchie1978one,obara1986efficient}
-\@writefile{toc}{\contentsline {section}{\numberline {Appendix \nobreakspace  {}A}Hartree-Fock}{10}{}\protected@file@percent }
-\newlabel{app:HF}{{Appendix \nobreakspace  {}A}{10}}
-\@writefile{toc}{\contentsline {section}{\numberline {Appendix \nobreakspace  {}B}Basis sets}{10}{}\protected@file@percent }
-\newlabel{app:basissets}{{Appendix \nobreakspace  {}B}{10}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {Appendix \nobreakspace  {}B.1}Gaussian basis set}{10}{}\protected@file@percent }
 \citation{fermann2020fundamentals}
 \citation{helgaker1995gaussian}
+\newlabel{eq:recHermitGauss}{{B.8}{12}}
 \citation{helgaker1995gaussian}
-\newlabel{eq:recHermitGauss}{{B.8}{11}}
 \providecommand\NAT@force@numbers{}\NAT@force@numbers
-\@writefile{toc}{\contentsline {subsection}{\numberline {Appendix \nobreakspace  {}B.2}Harmonic Oscillator basis set}{12}{}\protected@file@percent }
-\gdef \@abspage@last{12}
+\@writefile{toc}{\contentsline {subsection}{\numberline {Appendix \nobreakspace  {}B.2}Harmonic Oscillator basis set}{13}{}\protected@file@percent }
+\gdef \@abspage@last{13}

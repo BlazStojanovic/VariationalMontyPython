@@ -41,6 +41,9 @@ if __name__ == '__main__':
 	# 			 orbitals.sto6g_coefficients,
 	# 			 orbitals.ccpV6Z_coefficients]
 
+	exponents = [orbitals.sto3g_exponents]
+	coefficients = [orbitals.sto3g_coefficients]
+
 	# Setup of initial parameters
 	nel = 2
 	centers = ['hooke']
@@ -51,16 +54,16 @@ if __name__ == '__main__':
 	mintol  = 1e-5
 
 	# Optimization parameters
-	alpha = 0.01
-	epochs = 20
+	alpha = 0.1
+	epochs = 1
 
 	HF_energy = np.zeros((len(exponents), epochs + 1))
 
 	i = 0
 	for coef, expo in zip(coefficients, exponents):
 		bparam = expo.get('He-s')
-		C = coef.get('He-s')
-		M = jnp.shape(C)[1]
+		coefficients = coef.get('He-s')
+		M = jnp.shape(coefficients)[1]
 
 		ncs = 1
 		bpos = jnp.zeros((M, 3))
@@ -76,7 +79,7 @@ if __name__ == '__main__':
 			start_time = time.time()
 			alpha *= 0.5
 			bparam = update(bparam, cpos, centers, ccoefs, ncs, M, nel, maxiter, alpha)
-
+			print(bparam)
 			if bparam.any() <= 0:
 				break
 
@@ -84,9 +87,11 @@ if __name__ == '__main__':
 
 			print("Epoch {} in {:0.2f} sec".format(epoch, epoch_time))
 
-		E, (D, C) = hf.SCFLoop(bparam, cpos, centers, ccoefs, ncs, M, nel, maxiter=maxiter, mintol=1e-8)	
+		E, (D, C) = hf.SCFLoop(bparam, cpos, centers, ccoefs, ncs, M, nel, maxiter=maxiter, mintol=1e-8)
+		print(C)
 		HF_energy[i, -1] = E	
 		print("Optimal value E = {:.6f}Eh, was found with params: ".format(E), bparam)
+		print(C)
 
 		i+=1
 

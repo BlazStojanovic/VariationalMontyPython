@@ -81,6 +81,8 @@ def evaluate(r, rc, params):
 
 	return normFactor(alpha)*jnp.exp(-alpha*jnp.square(jnp.linalg.norm(R, axis=-1)))
 
+# evaluate = jnp.vectorize(evaluate)
+
 @jit
 def Spq(r1, r2, p1, p2):
 	"""

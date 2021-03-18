@@ -10,16 +10,26 @@ Contains:
 
 import jax
 import jax.numpy as jnp
+from jax import jit
 
-def uB(rij, a, b):
-	return a*rij*jnp.reciprocal(1 + b*rij)
+# @jit
+# def uB(rij, a, b):
+# 	return a*rij*jnp.reciprocal(1.0 + b*rij)
 
-def uA(rij, a, b):
+@jit
+def u(rij, a, b):
 	"""
-	a and b are lists!
+	a and b is list!
 	"""
-	return jnp.sum() # TODO
+	N = jnp.shape(b)[0]
+	pows = jnp.arange(N)+1
+	rijs = jnp.power(jnp.ones(N)*rij, pows)
+	return a*rij*jnp.reciprocal(1.0 + jnp.sum(jnp.dot(rijs, b)))
 
-def JastrowB(rij, a, b):
-	return jnp.exp(uB(rij, a, b))
+@jit
+def Jastrow(rij, a, b):
+	return jnp.exp(u(rij, a, b))
 
+@jit
+def Hastrow(rij, a):
+	pass

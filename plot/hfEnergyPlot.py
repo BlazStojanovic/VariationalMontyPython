@@ -71,7 +71,7 @@ plt.legend()
 ax.indicate_inset_zoom(axins)
 
 ax.set_xlabel("epoch")
-ax.set_ylabel("$E_{HF}$")
+ax.set_ylabel("$E_{HF}$ [a.u.]")
 
 plt.ylim([2.038, 2.045])
 plt.savefig("../plots/HF_optimization.png", bbox_inches='tight')

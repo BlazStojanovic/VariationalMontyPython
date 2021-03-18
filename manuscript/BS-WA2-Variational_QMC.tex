@@ -26,6 +26,8 @@
 
 \documentclass[final,3p,times,twocolumn]{elsarticle}
 \usepackage{pdfpages}
+\usepackage{booktabs} % Tables
+\usepackage{pifont}
 
 %% Use the option review to obtain double line spacing
 %% \documentclass[preprint,review,12pt]{elsarticle}
@@ -49,7 +51,9 @@
 
 %% The amssymb package provides various useful mathematical symbols
 \usepackage{amssymb}
-
+\usepackage{float}
+\usepackage{subfig}
+\usepackage{graphicx}
 
 %% Font setting, for my own eyes
 \usepackage{libertine}
@@ -64,6 +68,9 @@
 
 %% So that references are listed in the Contents
 \usepackage[nottoc,notlot,notlof]{tocbibind}
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
 
 %% The amsthm package provides extended theorem environments
 %% \usepackage{amsthm}
@@ -203,21 +210,21 @@
 	\end{figure}
 	The Hamiltonian of the model is then defined as 
 	\begin{equation}
-		\hat{H}=-\frac{1}{2} \nabla_{1}^{2}-\frac{1}{2} \nabla_{1}^{2}+\frac{1}{2} k r_{1}^{2}+\frac{1}{2} k r_{2}^{2}+\frac{1}{r_{12}}.
+		\hat{H}=-\frac{1}{2} \nabla_{1}^{2}-\frac{1}{2} \nabla_{2}^{2}+\frac{1}{2} k r_{1}^{2}+\frac{1}{2} k r_{2}^{2}+\frac{1}{r_{12}}.
 	\end{equation}
 	This model is referred to as \emph{hookium} (sometimes harmonium). Although it is quantitatively different from helium some meaningful qualitative comparisons can be made~\cite{ONeill2003wave}. Most notably hookium has an analytical solution for the case $k=\frac{1}{4}$, making it an ideal candidate to benchmark computational methods, which is the topic of this written assignment. The normalized closed form wave function solution of the ground state in position space is
 	\begin{equation}
 		\Psi\left(\mathbf{r}_{1}, \mathbf{r}_{2}\right)=\frac{1}{2 \sqrt{8 \pi^{5 / 2}+5 \pi^{3}}}\left(1+\frac{r_{12}}{2}\right) \exp \left(-\frac{r_{1}^{2}+r_{2}^{2}}{4}\right), 
 	\end{equation}
 	the energy of the state is $E=2$. 
-%	The probability of finding two electrons distance $u$ apart is the position intractule $P(u)$, is also useful. It is defined as
-%	\begin{equation}
-%		P(u)=\iiint\left|\Psi\left(\mathbf{r}_{1}, \mathbf{r}_{2}\right)\right|^{2} \delta\left(\mathbf{r}_{12}-\mathbf{u}\right) d \mathbf{r}_{1} d \mathbf{r}_{2} d \Omega_{\mathbf{u}},
-%	\end{equation}
-%	for hookium it too has a closed form
-%	\begin{equation}
-%		P(u)=\frac{1}{8+5 \pi^{1 / 2}} u^{2}\left(1+\frac{u}{2}\right)^{2} \exp \left(-\frac{u^{2}}{4}\right).
-%	\end{equation}
+	The probability of finding two electrons distance $u$ apart is the position intractule $P(u)$, is also useful. It is defined as
+	\begin{equation}
+		P(u)=\iiint\left|\Psi\left(\mathbf{r}_{1}, \mathbf{r}_{2}\right)\right|^{2} \delta\left(\mathbf{r}_{12}-\mathbf{u}\right) d \mathbf{r}_{1} d \mathbf{r}_{2} d \Omega_{\mathbf{u}},
+	\end{equation}
+	for hookium it too has a closed form
+	\begin{equation}
+		P(u)=\frac{1}{8+5 \pi^{1 / 2}} u^{2}\left(1+\frac{u}{2}\right)^{2} \exp \left(-\frac{u^{2}}{4}\right).
+	\end{equation}
 	Values of $h=m=c=1$ and $1E_h = 1$ will be assumed throughout this report. 
 	Hookium will be studied with the VMC method and the above expressions will be used to compare the accuracy of the numerical method.
 	
@@ -253,7 +260,7 @@
 	\subsection{Metropolis-Hastings algorithm}
 		\label{subsec:Impl-MCMC}
 	The integration technique from the previous section relies on our ability to obtain samples from a probability distribution $\mathrm{P}(\mathbf{R})$. In the case of QMC these distributions are high-dimensional and cannot be directly sampled from, moreover their normalizations are usually not known. 
-	The Metropolis-Hastings algorithm~\cite{hastings1970monte}, see Algorithm~\ref{alg:MCMC}, avoids direct sampling from the distribution $\mathrm{P}(\mathbf{R})$ and is insensitive to its normalization. It uses a Markov process whose stationary distribution $\pi(\mathbf{R})$ is $\pi(\mathbf{R}) = \mathrm{P}(\mathbf{R})$	
+	The Metropolis-Hastings algorithm~\cite{hastings1970monte}, see Algorithm~1, avoids direct sampling from the distribution $\mathrm{P}(\mathbf{R})$ and is insensitive to its normalization. It uses a Markov process whose stationary distribution $\pi(\mathbf{R})$ is $\pi(\mathbf{R}) = \mathrm{P}(\mathbf{R})$	
 	to generate a sequence of configurations $\left\{\mathbf{R}_n\right\}_\mathrm{P}$ 
 	that are drawn from $\mathrm{P}(\mathbf{R})$. A Markov process is completely defined with its transition probability $\mathrm{P}(\mathbf{R} \rightarrow \mathbf{R}^\prime)$, which is the probability of transitioning from state $\mathbf{R}$ to state $\mathbf{R}^\prime$. For the process to have a unique stationary distribution two conditions must be met, the process must be \emph{ergodic} and it must obey \emph{detailed balance}
 	\begin{equation}
@@ -281,7 +288,7 @@
 		\While{no. samples less than $N$}{
 			Generate new configuration $\mathbf{R}^\prime$ with transition probability $\mathrm{T}(\mathbf{R}\rightarrow\mathbf{R}^\prime)$\;
 			
-			Accept the move ($\mathbf{R} \rightarrow \mathbf{R}^\prime$) with probability $A\left(\mathbf{R} \rightarrow \mathbf{R}^{\prime}\right)=\min \left(1, \frac{\mathrm{T}\left(\mathrm{R}^{\prime} \rightarrow \mathrm{R}\right) \mathrm{P}\left(\mathrm{R}^{\prime}\right)}{\mathrm{T}\left(\mathrm{R} \rightarrow \mathrm{R}^{\prime}\right) \mathrm{P}(\mathrm{R})}\right)$\;
+			Accept the move ($\mathbf{R} \rightarrow \mathbf{R}^\prime$) with probability $A\left(\mathbf{R} \rightarrow \mathbf{R}^{\prime}\right)=\min \left(1, \frac{\mathrm{T}\left(\mathbf{R}^{\prime} \rightarrow \mathbf{R}\right) \mathrm{P}\left(\mathbf{R}^{\prime}\right)}{\mathrm{T}\left(\mathbf{R} \rightarrow \mathbf{R}^{\prime}\right) \mathrm{P}(\mathbf{R})}\right)$\;
 			
 			Append $\mathbf{R}$ to the set of confifigurations;
 			
@@ -355,13 +362,14 @@
 	The first term describes the nuclear-electronic correlation and the second electron-electron correlation, in this project we will focus only on the second term. 
 	Various forms of $u(\mathbf{r}_{i}, \mathbf{r}_{j})$ exist depending on application area, a common form for atomic and molecular calculations is
 	\begin{equation}
-		u(r_{ij})=\frac{a_{ij} r_{ij}}{1+b_{ij} r_{ij}}.
+		u(r_{ij})=\frac{a_{ij} r_{ij}}{1+b_{ij} r_{ij}}. TODO ADVANCED JASTROW
 	\end{equation}
 	The parameters $a_{ij}$ are chosen to satisfy the \emph{cusp conditions},  
 	\begin{equation}
-		\left.\frac{d u}{d r}\right|_{r=0}=\left\{\begin{array}{cl}-\frac{1}{2}, & \text { for opposite spins, } \\ -\frac{1}{4}, & \text { for parallel spins. }\end{array}\right.
+		\left.\frac{d u}{d r}\right|_{r=0}=\left\{\begin{array}{cl}\frac{1}{2}, & \text { for opposite spins, } \\ \frac{1}{4}, & \text { for parallel spins. }\end{array}\right.
 	\end{equation}
 	and the $b$ parameters remain to be optimized variationally. 
+%	As we will se, the cusp condition at Hookium centers $\frac{d u}{d r} = 0.0$ is automatically fulfilled by both our basis sets.
 	
 	\subsubsection{Basis sets}
 	There are various choices of single particle states $\left\{\psi_k(\mathbf{r})\right\}$ that compose the Slater determinant. They can be obtained from less expensive electronic structure methods, popular choices being LDA or HF, they can be from a standard basis set, such as atomic orbitals, Gaussian or plane wave sets, or they can be designed for the particular case at hand. In this work, we will compare performance of HF orbitals obtained from Cartesian Gaussian-type orbitals (GTOs)
@@ -373,6 +381,14 @@
 		\phi_{k}(r)=\frac{H_{2 k-1}(r / \sqrt{2})}{2^{k} \sqrt{(2 k-1) !} r / \sqrt{2}} \frac{\exp \left(-r^{2} / 4\right)}{(2 \pi)^{3 / 4}}.
 	\end{equation}
 	Both basis sets and implementation of Hartree-Fock are discussed in more detail in~\ref{app:basissets} and~\ref{app:HF}.  
+	
+	\begin{figure*}[h]
+		\vspace*{-2cm}
+		\makebox[\linewidth]{
+			\includegraphics[width=1.3\textwidth]{../diagrams/Software/software_diagram.pdf}
+		}
+		\caption{Diagram of the general software framework developed to solve the Hookium atom with VMC. It is comprised of two modules, that need not be used together. Both the $a)$ Hartree-Fock and $b)$ the VMC module are fully variational and allow for rich variational approaches to a particular problem.}
+	\end{figure*}
 	
 	\subsubsection{Generating trial moves}
 	When proposing trial moves, we would like to minimize the correlation between subsequent states $\mathbf{R}$ and $\mathbf{R}^\prime$ as well as maximize the acceptance probability $A(\mathbf{R} \rightarrow \mathbf{R}^{\prime})$. Trial move probability determines both the size and average acceptance of the moves, practice we seek a compromise between both. First proposal probabilities were symmetric, meaning that the acceptance probability factors into
@@ -388,15 +404,6 @@
 	\subsection{Technical Considerations}
 	You write this after the software is complete
 	
-	\begin{figure*}[h]
-		\vspace*{-2cm}
-		\makebox[\linewidth]{
-		\includegraphics[width=1.3\textwidth]{../diagrams/Software/software_diagram.pdf}
-		}
-		\caption{Diagram of the general software framework developed to solve the Hookium atom with VMC. It is comprised of two modules, that need not be used together. Both the $a)$ Hartree-Fock and $b)$ the VMC module are fully variational and allow for rich variational approaches to a particular problem.}
-	\end{figure*}
-	
-	
 	\subsubsection{Software structure}
 	\subsubsection{Automatic differentiation}
 	\subsubsection{Gradient estimators}
@@ -409,6 +416,20 @@
 	\newpage
 	\section{Results and analysis}
 	\label{sec:results}
+	
+	\begin{figure*}[h]
+		\subfloat[$\rho(\mathbf{r})$, $N=10^3$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/wf-8g-1j-1e3.png}}
+		\subfloat[$\rho(\mathbf{r})$, $N=10^4$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/wf-8g-1j-1e4.png}}
+		\subfloat[$\rho(\mathbf{r})$, $N=10^5$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/wf-8g-1j-1e5.png}} \\
+		\subfloat[$P(u)$, $N=10^3$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/pint1e3-8g1j.png}} 
+		\subfloat[$P(u)$, $N=10^4$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/pint1e4-8g1j.png}}
+		\subfloat[$P(u)$, $N=10^5$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/pint1e5-8g1j.png}}
+		\caption{Blah blah results}
+		\label{fig:wfsandpints}
+	\end{figure*}
+
+	
+
 
 	\subsection{Hookium}
 	\subsubsection{HF energy}
@@ -418,9 +439,35 @@
 		\caption{}
 		\label{fig:hfoptimization}
 	\end{figure}
-	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=\linewidth]{../plots/blocking.png}
+		\caption{}
+		\label{fig:blocking+jast}
+	\end{figure}
 	\subsubsection{Variational Monte Carlo}
-	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=\linewidth]{../plots/vmc-opt-1g.png}
+		\caption{}
+		\label{fig:basic-optim}
+	\end{figure}
+	\subsubsection{Variational Monte Carlo}
+
+	\begin{table*}
+		\centering
+		\begin{tabular}{@{}lcccr@{}} 
+			\toprule
+			Basis & Optim. & $J_1$ & $J_2$ & $E_V \pm \sigma_E$\\ \midrule
+			STO-2g + J1 & \xmark & \textbackslash & \textbackslash & 2.375010 $\pm$ 0.783208 \\ 
+			STO-4g + J1 & \xmark & \textbackslash & \textbackslash & 2.024604 $\pm$ 0.237808 \\ 
+			STO-2g + J1 & \cmark & -0.06367405 & \textbackslash & 2.144614 $\pm$ 0.508516\\ 
+			STO-4g + J1 & \cmark & 0.32431903 & \textbackslash & 2.009259 $\pm$ 0.169574\\ 
+			1g + J1 	& \cmark & 0.20198098 & \textbackslash & 2.000155 $\pm$ 0.012942\\ 
+			1g + J2 	& \cmark & 0.22442447 & -0.00406822 & 2.000112 $\pm$ 0.006640\\ 
+			\bottomrule
+		\end{tabular}
+	\end{table*}
 
 	\subsubsection{CPU vs. GPU speedup}
 	

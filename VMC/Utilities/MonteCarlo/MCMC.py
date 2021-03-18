@@ -10,31 +10,49 @@ Contains:
 """
 import jax
 import jax.numpy as jnp
+import jax.random as rnd
 from jax import jit, grad, vmap, partial
 
-@partial(jit, static_argnums=0)
-def Tl(twf, config, optParam, bparam, c):
-	d2Psi = grad(grad(twf, argnums=0))(config, optParam, bparam, c)
-	return -0.5*jnp.sum(d2Psi)
-
-# @jit
-def Vl(config, system):
-	# only hookium atm, add functionallty later
-	is_zero = jnp.allclose(config, 0.)
-	d = jnp.where(is_zero, jnp.ones_like(config), config)  # replace d with ones if is_zero
-	l = jnp.linalg.norm(config)
-	l = jnp.where(is_zero, 0., l)  # replace norm with zero if is_zero
-
-	return 0.5*k*jnp.square(l) # k/2*(r1^2 + r2^2)
-
-# @jit
-def E_local(twf, config, system):
-	PsiVal = twf(config)
-	return (Tl(twf, config) + Vl(config, system)*PsiVal)*jnp.reciprocal(PsiVal)
-
-def MCMove(config, dist):
+@jit
+def trialProb(config, nconfig, drift, tau, N=2):
+	"""
+	Trial probability for moving from config to nconfig
 	
-	dif = 0.0 # Sample from Gaussian with 
+	Parameters:
+	----------
+	config: current configuration
 
-	return config + dif
+	nconfig: proposed configuration
+
+	tau: timestep
+
+	Returns:
+	----------
+	T(config -> nconfig)
+
+	"""
+	n = jnp.power(2.0*jnp.pi*tau, 1.5*N)
+	# TODO this may need fixing if gradients are needed
+	return jnp.exp(-jnp.square(jnp.linalg.norm(nconfig-config-tau*drift))/(2.0*tau))/n
+
+@jit
+def greenMove(config, drift, tau, prngkey):
+	"""
+	Proposes a trial move drawn from a isotropic gaussian with 
+	a given average step size. 
+
+	Parameters:
+	----------
+	config: current configuration of the system
+
+	drift: the drift velocity, setting it to zero gives gaussian trial move probability
+
+	tau: timestep
+
+	Returns:
+	----------
+	new configuration
+	"""
+	# Perturbation drawn from Normal distribution with average of zero and standard deviation of sqrt of timestep
+	return config + rnd.normal(prngkey, jnp.shape(config), dtype=jnp.float32)*jnp.sqrt(tau) + drift*tau
 
