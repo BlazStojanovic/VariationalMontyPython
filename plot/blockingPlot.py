@@ -58,7 +58,7 @@ ax2.plot(Eb2, '-', color='red', label='$E_b$')
 ax2.plot(bav2, '-', color='blue', linewidth=1, label=r'$\langle E_b \rangle$')
 ax2.plot(bav2+bvar2, '-', color='blue', alpha=0.3)
 ax2.plot(bav2-bvar2, '-', color='blue', alpha=0.3)
-ax2.fill_between(np.arange(len(Eb2)), bav2+bvar2, bav2-bvar2, alpha=0.3)
+ax2.fill_between(np.arange(len(Eb2)), bav2+bvar2, bav2-bvar2, alpha=0.3, label=r'$\langle E_b \rangle \pm \sigma_b$')
 
 ax2.set_ylim([1.5, 4])
 

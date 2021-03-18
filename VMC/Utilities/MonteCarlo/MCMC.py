@@ -5,8 +5,7 @@ Date: 23/02/2021
 ----------
 Contains: 
 	Markov Chain Monte carlo code, 
-	functions to perform the evaluation of local energy,
-	and the Metropolis sampling. 
+	helper functions for Metropolis Sampling.
 """
 import jax
 import jax.numpy as jnp

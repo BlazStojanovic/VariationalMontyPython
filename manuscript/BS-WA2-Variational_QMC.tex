@@ -141,10 +141,8 @@
 			Avenue, Cambridge. CB3 0HE}
 		
 		\begin{abstract}
-			REDO  \\
-			In this written assignment, we implement a Variational Quantum Monte Carlo (VMC) code to study the three dimensional, two electron \emph{Hookium} system. We calculate the ground state wavefunction in position space, and compare it to a known analytical solution, both directly and via position and via intracule. With aid from the Hartree-Fock method, we estimate the correlation energy of the system. The code is implemented in Python using the \emph{JAX} library and is extended to work on graphical processing units (GPUs), a comparison between CPU and GPU performance is conducted.
+			In this written assignment we implement a fully Variational Quantum Monte Carlo (VMC) code in order to study Hooke's-law atom (Hookium), a model in which the Coulomb interaction between the nucleus and electrons is replaced with a harmonic one. Numerically obtained ground state energies and position intracules are compared to analytical solutions in the special case of $k=\frac{1}{4}$. Alongside the VMC a variational Hartree-Fock method with Cartesian Gaussian basis functions is implemented, which permits calculations of the Correlation energy as well as aids in construction of trial wave functions used in the Monte Carlo method. The software is implemented in JAX, making it possible to run it on a GPU and evaluate gradients by using automatic differentiation. Energy and variance based optimisation is compared in the case of Hookium and correlation energies are calculated for a range of $k$'s. 
 		\end{abstract}
-		
 	\end{frontmatter}
 	
 	%%
@@ -157,7 +155,7 @@
 	%% main text
 	\section{Introduction}
 	\label{sec:intro}
-	The Schr{\"o}dinger equation underpins a large part of quantum chemistry and solid state physics. However, the quantum many-body problem, which amounts to solving the $3N$-dimensional Schr\"odinger equation is notoriously hard to solve. Ever since the postulation of the equation in 1925, great efforts have been made in solving the equation, both analytically and numerically. Perhaps most impactful was the development of various approximate methods to solve the many-body problem with the available computational resources. Hartree-Fock (HF) approaches~\cite{hartree1928auxil, fock1930naherungsmethode} solve an auxiliary system of independent electrons in a self-consistent field and assume that the wave function (for fermions) can be represented as a single Slater determinant. HF method does not include electron correlation, which makes it a good approximation only in systems where correlation contributions are small. Post-Hartree-Fock methods, such as Coupled Cluster, Configuration interaction and M\o ller-Plesset theory include correlation by considering a linear combination of determinants, they can be extremely accurate but come at a high computational cost. 
+	The Schr{\"o}dinger equation underpins a large part of quantum chemistry and solid state physics. However, the quantum many-body problem, which amounts to solving the $3N$-dimensional Schr\"odinger equation is notoriously hard to solve. Ever since the postulation of the equation in 1925, great efforts have been made in solving the equation, both analytically and numerically. Perhaps most impactful was the development of various approximate methods to solve the many-body problem with the available computational resources. Hartree-Fock (HF) approaches solve an auxiliary system of independent electrons in a self-consistent field and assume that the wave function (for fermions) can be represented as a single Slater determinant. The HF method does not include electron correlation, which makes it a good approximation only in systems where correlation contributions are small. Post-Hartree-Fock methods, such as Coupled Cluster, Configuration interaction and M\o ller-Plesset theory include correlation by considering a linear combination of determinants, they can be extremely accurate but come at a high computational cost. 
 
 	One of the most popular approaches used today is Density Functional Theory (DFT). It reformulates the many-body electron problem in terms of the $3$-dimensional electron density $n(\mathbf{r})$, which is found by minimising the total energy functional $E[n(\mathbf{r})]$~\cite{hohenberg1964inhomogeneous}. DFT provides an alternative line of thought to the truncated Hilbert space of single particle orbitals~\cite{kohn1999nobel} and is used extensively for simulating large systems as linear scaling variants of DFT exist~\cite{skylaris2005introducing}. 
 	While DFT is theoretically exact the true energy functional $E[n(\mathbf{r})]$ is not known and its parameterisations employ more accurate \emph{ab initio} methods. One of which being Quantum Monte Carlo (QMC).
@@ -165,16 +163,16 @@
 	\subsection{Quantum Monte Carlo methods}
 	\label{subsec:intro-QMC}
 	%% General about QMC
-	Quantum Monte Carlo is a class of methods that use statistical sampling to directly deal with high-dimeGPU something somethingnsional integration that arises from working with the many-body wave function. QMC methods are among the most accurate achieving chemical accuracy for smaller systems~\cite{foulkes2001quantum}, and can achieve any degree of statistical precision sought. Quantum Monte Carlo is also very versatile and can be applied at both zero and finite temperatures~\cite{austin2012quantum}.	
+	Quantum Monte Carlo is a class of methods that use statistical sampling to directly deal with high-dimensional integration that arises from working with the many-body wave function. QMC methods are among the most accurate achieving chemical accuracy for smaller systems~\cite{foulkes2001quantum}, and can achieve any degree of statistical precision sought. Quantum Monte Carlo is also very versatile and can be applied at both zero and finite temperatures~\cite{austin2012quantum}.	
 	%% Zero temperature methods
-		%% Variational quantum monte carlo
-		The most basic zero temperature QMC method is variational QMC (VMC). The method is composed of roughly two parts, firstly it directly evaluates the variational energy $E_V = \langle \Psi_{T} | H | \Psi_{T} \rangle / \langle \Psi_{T} | \Psi_{T} \rangle$ of the system using Monte Carlo integration and a trial wave function $\Psi_{T}$. Secondly the parameters of the trial wave function are optimised such as to minimise the variational energy $E_V$, giving the method its name. The first application of VMC was to ground state ${}^4$He~\cite{mcmillan1965ground}, it was later extended for studying many-body fermionic systems~\cite{ceperley1977monte}. A way of obtaining excitation energies using VMC is to use a trial wave function that models an excited state of the system, if the trial wave function obeys a certain symmetry, the variational principle guarantees that this VMC energy calculation gives an upper bound on the lowest exact eigenstate of this symmetry. Furthermore, the method can be extended to study non-equilibrium properties of bosonic~\cite{carleo2012localization, carleo2014light}, and fermionic~\cite{ido2015time} systems. The main advantage of VMC is its simplicity while the main drawback is that the accuracy is limited by the flexibility and form of the trial wave function~\cite{austin2012quantum}. As such VMC is usually employed as a first step in more advanced QMC simulations. 
+	%% Variational quantum monte carlo
+	The most basic zero temperature QMC method is variational QMC (VMC). The method is composed of two parts, firstly it directly evaluates the variational energy $E_V = \langle \Psi_{T} | \hat H | \Psi_{T} \rangle / \langle \Psi_{T} | \Psi_{T} \rangle$ of the system using Monte Carlo integration and a trial wave function $\Psi_{T}$. Secondly the parameters of the trial wave function are optimised such as to minimise the variational energy $E_V$, giving the method its name. The first application of VMC was to ground state ${}^4$He~\cite{mcmillan1965ground}, it was later extended for studying many-body fermionic systems~\cite{ceperley1977monte}. A way of obtaining excitation energies using VMC is to use a trial wave function that models an excited state of the system, if the trial wave function obeys a certain symmetry, the variational principle guarantees that this VMC energy calculation gives an upper bound on the lowest exact eigenstate of this symmetry. Furthermore, the method can be extended to study non-equilibrium properties of bosonic~\cite{carleo2012localization, carleo2014light}, and fermionic~\cite{ido2015time} systems. The main advantage of VMC is its simplicity while the main drawback is that the accuracy is limited by the flexibility and form of the trial wave function~\cite{austin2012quantum}. As such VMC is usually employed as a first step in more advanced QMC simulations. 
 		
 		%% Green function QMC and Diffusion QMC
-		Projector quantum Monte Carlo (PMC), is a class of QMC methods which are in essence nothing more than stochastic implementations of the power method to obtain the dominant eigenvector of a matrix or a kernel function~\cite{gubernatis_kawashima_werner_2016}. Their distinct advantage over VMC is that they are not constrained by our parametrization of the trial wave function, as they can describe arbitrary probability distributions. The projector $\hat P$ has to be chosen in such a way, that the ground state of the system becomes tGPU something somethinghe dominant eigenvector, i.e. $| \Psi_{0}\rangle = \lim_{n\rightarrow \infty} \hat{P}^n |\Psi_{T}\rangle$. Different ways of achieving this, the space (real or orbital space) in which the walk is done and choosing either first or second quantization description, give rise to different flavours of PMC methods. Using an exponential projector $\hat{P} = e^{\tau (E_T \mathbb{1} - \hat{H})}$ can be interpreted as propagation in imaginary time $\tau \rightarrow it$ in turn transforming the Schr\"odinger equation into a diffusion equation, which is a continuous limit of the random walk and lends itself to stochastic integration~\cite{reynolds1990diffusion}. 
-		Directly sampling from the exact Green function is known as Projector Green Function Monte Carlo (GFMC) method~\cite{kalos1962monte, kalos1966stochastic}. A convenient approximation to GFMC is its short-time approximation which leads to one of the most popular QMC methods, diffusion Monte Carlo (DMC)~\cite{foulkes2001quantum, reynolds1990diffusion}. In this regime one can exploit analytical solutions to diffusion and rate problems to write an explicit form of the Green's function. Additionally, by using the Trotter-Suzuki formula time-step bias can be expressed and accounted for~\cite{austin2012quantum}. DMC is statistically implemented by using an population of walkers which either branch or die, the average over all walkers is calculated. Reptation quantum Monte Carlo~\cite{reynolds1990diffusion} (RMC) is an alternative formulation which only uses a single walker, and instead of branching and dying the MC moves mutate the path of that single walker. The use of a guiding wave function for importance sampling greatly improves the statistical efficiency of PMC methods, the guiding wave function is usually obtained by means of VMC or some mean field calculation. 
+		Projector quantum Monte Carlo (PMC), is a class of QMC methods which are in essence nothing more than stochastic implementations of the power method to obtain the dominant eigenvector of a matrix or a kernel function~\cite{gubernatis_kawashima_werner_2016}. Their distinct advantage over VMC is that they are not constrained by our parametrisation of the trial wave function, as they can describe arbitrary probability distributions. The projector $\hat P$ has to be chosen in such a way, that the ground state of the system becomes the dominant eigenvector, i.e. $| \Psi_{0}\rangle = \lim_{n\rightarrow \infty} \hat{P}^n |\Psi_{T}\rangle$. Different ways of achieving this, the space (real or orbital space) in which the walk is done and choosing either first or second quantisation description, give rise to different flavours of PMC methods. Using an exponential projector $\hat{P} = e^{\tau (E_T \mathbb{1} - \hat{H})}$ can be interpreted as propagation in imaginary time $\tau \rightarrow it$ in turn transforming the Schr\"odinger equation into a diffusion equation, which is a continuous limit of the random walk and lends itself to stochastic integration~\cite{reynolds1990diffusion}. 
+		Directly sampling from the exact Green function is known as Projector Green Function Monte Carlo (GFMC) method~\cite{kalos1962monte, kalos1966stochastic}. A convenient approximation to GFMC is its short-time approximation which leads to one of the most popular QMC methods, diffusion Monte Carlo (DMC)~\cite{foulkes2001quantum, reynolds1990diffusion}. In this regime one can exploit analytical solutions to diffusion and rate problems to write an explicit form of the Green's function. Additionally, by using the Trotter-Suzuki formula time-step bias can be expressed and accounted for~\cite{austin2012quantum}. DMC is statistically implemented by using a population of walkers which either branch or die, the average over all walkers is calculated. Reptation quantum Monte Carlo~\cite{reynolds1990diffusion} (RMC) is an alternative formulation which only uses a single walker, and instead of branching and dying the MC moves mutate the path of that single walker. The use of a guiding wave function for importance sampling greatly improves the statistical efficiency of PMC methods, the guiding wave function is usually obtained by means of VMC or some mean field calculation. 
 		
-		PMC method suffer from the \emph{sign problem}, which is present in Markov chain simulation of distributions that are not strictly positive, this is the case in fermionic and frustrated systems~\cite{gubernatis_kawashima_werner_2016}. The problem refers to an exponential decrease in sampling efficiency with system size. The search for solutions of this problem is still an area of active research~\cite{foulkes2001quantum} but is in practice remedied by the \emph{fixed-node} approximation~\cite{anderson1975random}. In it a boundary condition is imposed into the projection, such that the projected state shares the same zero crossings (nodal surface) with a trial wave function, which is again usually obtained with VMC. The projected state is now only exact when the nodal surface is exact, nevertheless this approximation is quite accurate~\cite{foulkes2001quantum}. Fixed node is widely used, one of its first applications was to the electron gas~\cite{ceperley1980ground}, which is used in parameterizations of the  exchange correlation functional in LSDA~\cite{vosko1980accurate}.
+		PMC method suffer from the \emph{sign problem}, which is present in Markov chain simulation of distributions that are not strictly positive, this is the case in fermionic and frustrated systems~\cite{gubernatis_kawashima_werner_2016}. The problem refers to an exponential decrease in sampling efficiency with system size. The search for solutions of this problem is still an area of active research~\cite{foulkes2001quantum} but is in practice remedied by the \emph{fixed-node} approximation~\cite{anderson1975random}. In it a boundary condition is imposed into the projection, such that the projected state shares the same zero crossings (nodal surface) with a trial wave function, which is again usually obtained with VMC. The projected state is now only exact when the nodal surface is exact, nevertheless this approximation is quite accurate~\cite{foulkes2001quantum}. Fixed node is widely used, one of its first applications was to the electron gas~\cite{ceperley1980ground}, which is used in parameterisations of the  exchange correlation functional in LSDA~\cite{vosko1980accurate}.
 	
 	%% Finite temperature methods
 		Quantum Monte Carlo methods have had a lot of success at finite temperatures. Auxiliary-field Monte Carlo, or Path Integral Monte Carlo~\cite{ceperley1995path}, which leads to ring-polymer molecular dynamics, may be used for this purpose. Additionally QMC is not limited to continuum space applications and has been extensively used to study lattice models, notable examples being the cluster/loop algorithm and the worm algorithm~\cite{gubernatis_kawashima_werner_2016, prokof1998exact}.
@@ -194,34 +192,34 @@
 		\label{fig:cuda-gpu}
 	\end{figure}
 	% how do they work?
-	GPUs were designed to work with small fragments of data (pixels) and perform the same operation many times simultaneously on all of the fragments. In the CUDA parallel programming model the problem at hand is required to be decomposed into tasks that can be independently executed in parallel by \emph{blocks} of \emph{threads}. The tasks must be such that they can be executed in parallel by the threads within a block. Each thread executes functions called \emph{kernels}. A substantial speedup of a calculation can be achieved \emph{if} it can be made to comply with the data and thread parallelism required for the above described procedure. 
+	GPUs were designed to work with small fragments of data (pixels) and perform the same operation many times simultaneously on all of the fragments. In the CUDA parallel programming model the problem at hand is required to be decomposable into tasks that can be independently executed in parallel by \emph{blocks} of \emph{threads}. The tasks must be such that they can be executed in parallel by the threads within a block. Each thread executes functions called \emph{kernels}. A substantial speedup of a calculation can be achieved \emph{if} it can be made to comply with the data and thread parallelism required for the above described procedure. 
 	
-	QMC methods can be made to fit this mold and there has been extensive work done in this direction~\cite{anderson2007quantum, meredith2009accuracy, esler2010accelerating}. GPUs can be exploited by initializing multiple walkers and running them in parallel thread blocks before averaging the results over all of them. Additionally GPUs can be used to accelerate the evaluation of basis function expansions, the linear algebra associated with computing the Slater determinant and evaluation of complicated forms of the Jastrow factor in Variational Monte Carlo. Since most GPUs only support single precision arithmetic, accuracy was of concern in first applications to QMC, benchmarks have shown that chemical accuracy is still achievable on GPUs~\cite{anderson1975random, meredith2009accuracy}. 
+	QMC methods can be made to fit this mold and there has been extensive work done in this direction~\cite{anderson2007quantum, meredith2009accuracy, esler2010accelerating}. GPUs can be exploited by initializing multiple walkers and running them in parallel thread blocks before averaging the results over all of them. Additionally GPUs can be used to accelerate the evaluation of basis function expansions, the linear algebra associated with computing the Slater determinant and evaluation of complicated forms of the Jastrow factor in Variational Monte Carlo. Since most GPUs only support single precision arithmetic, accuracy was of concern in first applications to QMC, benchmarks have shown that chemical accuracy is still achievable on GPUs~\cite{anderson2007quantum, meredith2009accuracy}. 
 	
 	
 	\subsection{Hookium}
 	%% Very quick introduction to Hookium
-	We can construct a toy model of two electrons, that resembles the helium atom, where the electrons are bound to the nucleus with a harmonic instead of a Coulomb potential. 
+	We can construct a toy model of two electrons that resembles the helium atom, where the electrons are bound to the nucleus with a harmonic instead of a Coulomb potential. 
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=0.35\linewidth]{../diagrams/Hookium/hookium_diagram}
+		\includegraphics[width=0.35\linewidth]{../diagrams/Hookium/Hookium_diagram}
 		\caption{Hookium atom, two electrons that are bound to the nucleus with springs of coefficient $k$ and interact via the Coulomb force.}
-		\label{fig:hookiumdiagram}
+		\label{fig:Hookiumdiagram}
 	\end{figure}
 	The Hamiltonian of the model is then defined as 
 	\begin{equation}
 		\hat{H}=-\frac{1}{2} \nabla_{1}^{2}-\frac{1}{2} \nabla_{2}^{2}+\frac{1}{2} k r_{1}^{2}+\frac{1}{2} k r_{2}^{2}+\frac{1}{r_{12}}.
 	\end{equation}
-	This model is referred to as \emph{hookium} (sometimes harmonium). Although it is quantitatively different from helium some meaningful qualitative comparisons can be made~\cite{ONeill2003wave}. Most notably hookium has an analytical solution for the case $k=\frac{1}{4}$, making it an ideal candidate to benchmark computational methods, which is the topic of this written assignment. The normalized closed form wave function solution of the ground state in position space is
+	This model is referred to as \emph{Hookium} (sometimes Harmonium). Although it is quantitatively different from helium some meaningful qualitative comparisons can be made~\cite{ONeill2003wave}. Most notably Hookium has an analytical solution for the case $k=\frac{1}{4}$, making it an ideal candidate to benchmark computational methods, which is the topic of this written assignment. The normalized closed form wave function solution of the ground state in position space is
 	\begin{equation}
 		\Psi\left(\mathbf{r}_{1}, \mathbf{r}_{2}\right)=\frac{1}{2 \sqrt{8 \pi^{5 / 2}+5 \pi^{3}}}\left(1+\frac{r_{12}}{2}\right) \exp \left(-\frac{r_{1}^{2}+r_{2}^{2}}{4}\right), 
 	\end{equation}
 	the energy of the state is $E=2$. 
-	The probability of finding two electrons distance $u$ apart is the position intractule $P(u)$, is also useful. It is defined as
+	The probability of finding two electrons distance $u$ apart; the position intractule $P(u)$, is also useful. It is defined as
 	\begin{equation}
 		P(u)=\iiint\left|\Psi\left(\mathbf{r}_{1}, \mathbf{r}_{2}\right)\right|^{2} \delta\left(\mathbf{r}_{12}-\mathbf{u}\right) d \mathbf{r}_{1} d \mathbf{r}_{2} d \Omega_{\mathbf{u}},
 	\end{equation}
-	for hookium it too has a closed form
+	for Hookium it too has a closed form
 	\begin{equation}
 		P(u)=\frac{1}{8+5 \pi^{1 / 2}} u^{2}\left(1+\frac{u}{2}\right)^{2} \exp \left(-\frac{u^{2}}{4}\right).
 	\end{equation}
@@ -255,12 +253,12 @@
 	\begin{equation}
 		\frac{\sigma_{f}^{2}}{M} \approx \frac{1}{M(M-1)} \sum_{m=1}^{M}\left[f\left(\mathbf{R}_{m}\right)-\frac{1}{M} \sum_{n=1}^{M} f\left(\mathbf{R}_{n}\right)\right]^{2}.
 	\end{equation}
-	In the case of hookium the configurations $\mathbf{R}$ are the positions of the electrons.
+	In the case of Hookium the configurations $\mathbf{R}$ are the positions of the electrons.
 	
 	\subsection{Metropolis-Hastings algorithm}
 		\label{subsec:Impl-MCMC}
-	The integration technique from the previous section relies on our ability to obtain samples from a probability distribution $\mathrm{P}(\mathbf{R})$. In the case of QMC these distributions are high-dimensional and cannot be directly sampled from, moreover their normalizations are usually not known. 
-	The Metropolis-Hastings algorithm~\cite{hastings1970monte}, see Algorithm~1, avoids direct sampling from the distribution $\mathrm{P}(\mathbf{R})$ and is insensitive to its normalization. It uses a Markov process whose stationary distribution $\pi(\mathbf{R})$ is $\pi(\mathbf{R}) = \mathrm{P}(\mathbf{R})$	
+	The integration technique from the previous section relies on our ability to obtain samples from a probability distribution $\mathrm{P}(\mathbf{R})$. In the case of QMC these distributions are high-dimensional and cannot be directly sampled from, moreover their normalisations are usually not known. 
+	The Metropolis-Hastings algorithm~\cite{hastings1970monte}, see Algorithm~1, avoids direct sampling from the distribution $\mathrm{P}(\mathbf{R})$ and is insensitive to its normalisation. It uses a Markov process whose stationary distribution $\pi(\mathbf{R})$ is the same as $\mathrm{P}(\mathbf{R})$	
 	to generate a sequence of configurations $\left\{\mathbf{R}_n\right\}_\mathrm{P}$ 
 	that are drawn from $\mathrm{P}(\mathbf{R})$. A Markov process is completely defined with its transition probability $\mathrm{P}(\mathbf{R} \rightarrow \mathbf{R}^\prime)$, which is the probability of transitioning from state $\mathbf{R}$ to state $\mathbf{R}^\prime$. For the process to have a unique stationary distribution two conditions must be met, the process must be \emph{ergodic} and it must obey \emph{detailed balance}
 	\begin{equation}
@@ -271,7 +269,7 @@
 		\label{eq:detailed_balance}
 		\frac{\mathrm P ({\mathbf{R}})}{\mathrm P ({\mathbf{R}^\prime})} = \frac{\mathrm P(\mathbf{R}^\prime \rightarrow \mathbf{R})}{\mathrm P(\mathbf{R} \rightarrow \mathbf{R}^\prime)}.
 	\end{equation}
-	The right transition probability $\mathrm P(\mathbf{R} \rightarrow \mathbf{R}^\prime)$ is not known, but we can express it with a trial move transition probability $\mathrm{T}(\mathbf{R} \rightarrow \mathbf{R}^\prime)$ which we can sample and acceptance probability $\mathrm{A}(\mathbf{R} \rightarrow \mathbf{R}^\prime)$ as
+	The right transition probability $\mathrm P(\mathbf{R} \rightarrow \mathbf{R}^\prime)$ is not known, but we can express it with a trial move transition probability $\mathrm{T}(\mathbf{R} \rightarrow \mathbf{R}^\prime)$ which we sample and acceptance probability $\mathrm{A}(\mathbf{R} \rightarrow \mathbf{R}^\prime)$ as
 	\begin{equation}
 		\mathrm P(\mathbf{R} \rightarrow \mathbf{R}^\prime) = \mathrm T(\mathbf{R} \rightarrow \mathbf{R}^\prime) \mathrm A(\mathbf{R} \rightarrow \mathbf{R}^\prime).
 	\end{equation}
@@ -297,7 +295,7 @@
 	\end{algorithm}
 	
 	\subsection{Variational Quantum Monte Carlo}
-	Variational quantum Monte Carlo uses a trial wave function $\Psi_{T}$, which is an approximation to the true ground state wave function, to directly evaluate the expectation value of $\hat H$, which provides an upper bound on the ground state energy
+	Variational quantum Monte Carlo uses a trial wave function $\Psi_{T}$ which is an approximation to the true ground state wave function to directly evaluate the expectation value of $\hat H$ which provides an upper bound on the ground state energy
 	\begin{equation}
 		\label{eq:variational_princ}
 		E_{V}=\frac{\langle \Psi_{T} | H | \Psi_{T} \rangle}{\langle \Psi_{T} | \Psi_{T} \rangle}
@@ -316,13 +314,13 @@
 	\begin{equation}
 		E_{L}(\mathbf{R})=\Psi_{T}(\mathbf{R})^{-1} \hat{H} \Psi_{T}(\mathbf{R}).
 	\end{equation}
-	The procedure is analogous for any other calculation of expectation value. Trial moves may be chosen in a variety of ways depending on the system studied, in the case of hookium we will use a Gaussian distribution centered at the current position of the walker.
+	The procedure is analogous for any other calculation of expectation value. Trial moves may be chosen in a variety of ways depending on the system studied, in the case of Hookium we will use a Gaussian distribution centered at the current position of the walker.
 	
-	Estimation of the variational energy $E_V$ is only one part of a variational Monte Carlo simulation. The second part is the variational optimization of the trial wave function. The trial wave function $\Psi_T$ is parameterized with a set of variational parameters $\left\{\alpha_k\right\}$, historically the number of parameters was low due to high computational cost~\cite{foulkes2001quantum}. The optimal parameters for the system are found by minimizing the \emph{cost function}. A straightforward choice of cost function is the variational energy $E_V$ in eq.~\eqref{eq:E_V}. Given that its value is bounded below due to the variational principle, eq~\eqref{eq:variational_princ}, its minimization gives parameters $\left\{\alpha_k\right\}$ that give the best energy estimate for given parameterization. An alternative is to minimize the variance of energy
+	Estimation of the variational energy $E_V$ is only one part of a variational Monte Carlo simulation. The second part is the variational optimisation of the trial wave function. The trial wave function $\Psi_T$ is parameterized with a set of variational parameters $\left\{\alpha_k\right\}$, historically the number of parameters has been low due to high computational cost~\cite{foulkes2001quantum}. The optimal parameters for the system are found by minimizing the \emph{cost function}. A straightforward choice of cost function is the variational energy $E_V$ in eq.~\eqref{eq:E_V}. Given that its value is bounded below due to the variational principle, eq~\eqref{eq:variational_princ}, its minimisation gives parameters $\left\{\alpha_k\right\}$ that give the best energy estimate for given parameterisation. An alternative is to minimize the variance of energy
 	\begin{equation}
 		\sigma_{E}^{2}(\left\{\alpha_k\right\})=\frac{\int \Psi_{T}^{2}(\left\{\alpha_k\right\})\left[E_{L}(\left\{\alpha_k\right\})-E_{V}(\left\{\alpha_k\right\})\right]^{2} d \mathbf{R}}{\int \Psi_{T}^{2}(\left\{\alpha_k\right\}) d \mathbf{R}},
 	\end{equation}	
-	this minimizes the statistical error of VMC estimation of energy. Most practical calculations are done by minimizing energy variance~\cite{foulkes2001quantum}. Minimization of energy variance works because of the \emph{zero-variance} property, which is exclusive for quantum expectation values. If the trial wave function $\Psi_{T}$ is an exact eigenfunction of the Hamiltonian
+	this minimizes the statistical error of VMC estimation of energy. Most practical calculations are done by minimizing energy variance~\cite{foulkes2001quantum}. Minimisation of energy variance works because of the \emph{zero-variance} property, which is exclusive for quantum expectation values. If the trial wave function $\Psi_{T}$ is an exact eigenfunction of the Hamiltonian
 	\begin{equation}
 		\hat H |\Psi_{T}\rangle = E_V |\Psi_{T}\rangle,
 	\end{equation}
@@ -330,9 +328,9 @@
 	\begin{equation}				
 		E_{L}(\mathbf{R})=\Psi_{T}(\mathbf{R})^{-1} \hat{H} \Psi_{T}(\mathbf{R}) = \Psi_{T}(\mathbf{R})^{-1} E_V \Psi_{T}(\mathbf{R}) = E_V,
 	\end{equation}
-	is constant and hence has zero variance. This equality holds only when $\Psi_{T}$ is an exact eigenfunction of the Hamiltonian. However, zero-variance property has important consequences for numerical stability of optimization, it means that energy variance minima are robust to finite sampling. Minimizing the variance of energy drives the trial wave function towards eigenstates of the Hamiltonian. Moreover, the statistical error associated with estimation of any expectation value $\langle \hat O \rangle$ is proportional to the variance of $\hat O$, one can use the zero-variance condition to define a renormalized observable $\tilde O$ with the same average and smaller variance~\cite{assaraf1999zero} for more efficient sampling. 
+	is constant and hence has zero variance. This equality holds only when $\Psi_{T}$ is an exact eigenfunction of the Hamiltonian. However, zero-variance property has important consequences for numerical stability of optimisation, it means that energy variance minima are robust to finite sampling. Minimizing the variance of energy drives the trial wave function towards eigenstates of the Hamiltonian. Moreover, the statistical error associated with estimation of any expectation value $\langle \hat O \rangle$ is proportional to the variance of $\hat O$, one can use the zero-variance condition to define a renormalized observable $\tilde O$ with the same average and smaller variance~\cite{assaraf1999zero} for more efficient sampling. 
 
-	Various approaches to minimize the cost function can be taken, the simplest is trial and error using simple fitting procedures, this only works for small numbers of parameters. Alternatively a reweighting technique can be used to evaluate the energy or energy variance of a wave function with slightly different parameters $\Psi_{T}(\left\{\alpha + \delta \alpha\right\})$ to the one already evaluated $\Psi_{T}(\left\{\alpha\right\})$~\cite{umrigar1988optimized}, this increases the number of variational parameters that can be treated in small systems. Another option is to evaluate energy derivatives and use some sort of stochastic optimization technique, \emph{stochastic gradient descent} being the simplest and \emph{stochastic recofiguration}~\cite{sorella1998green} being a more elaborate alternative. 
+	Various approaches to minimize the cost function can be taken, the simplest is trial and error using simple fitting procedures, this only works for small numbers of parameters. Alternatively a reweighting technique can be used to evaluate the energy or energy variance of a wave function with slightly different parameters $\Psi_{T}(\left\{\alpha + \delta \alpha\right\})$ to the one already evaluated $\Psi_{T}(\left\{\alpha\right\})$~\cite{umrigar1988optimized}, this increases the number of variational parameters that can be treated in small systems. Another option is to evaluate energy derivatives and use some sort of stochastic optimisation technique, \emph{stochastic gradient descent} being the simplest and \emph{stochastic recofiguration}~\cite{sorella1998green} being a more elaborate alternative. 
 		
 	\subsubsection{Trial wave functions $\Psi_{T}$}
 	The choice of trial wave function $\Psi_{T}$ is the limiting factor for the performance of VMC, it determines its statistical efficiency and its final accuracy. The choice of trial wave function flexible but must satisfy the following conditions~\cite{foulkes2001quantum}; both the wave function and its gradient must be finite where the potential is finite, the wave function must have the appropriate symmetry and integrals 
@@ -362,18 +360,18 @@
 	The first term describes the nuclear-electronic correlation and the second electron-electron correlation, in this project we will focus only on the second term. 
 	Various forms of $u(\mathbf{r}_{i}, \mathbf{r}_{j})$ exist depending on application area, a common form for atomic and molecular calculations is
 	\begin{equation}
-		u(r_{ij})=\frac{a_{ij} r_{ij}}{1+b_{ij} r_{ij}}. TODO ADVANCED JASTROW
+		u(r_{ij})=\frac{a_{ij} r_{ij}}{1+\sum_{\kappa=1} b^{(\kappa)}_{ij} r^\kappa_{ij}}
 	\end{equation}
 	The parameters $a_{ij}$ are chosen to satisfy the \emph{cusp conditions},  
 	\begin{equation}
-		\left.\frac{d u}{d r}\right|_{r=0}=\left\{\begin{array}{cl}\frac{1}{2}, & \text { for opposite spins, } \\ \frac{1}{4}, & \text { for parallel spins. }\end{array}\right.
+		\left.\frac{d u}{d r}\right|_{r=0}=\left\{\begin{array}{cl}-\frac{1}{2}, & \text { for opposite spins, } \\ -\frac{1}{4}, & \text { for parallel spins. }\end{array}\right.
 	\end{equation}
-	and the $b$ parameters remain to be optimized variationally. 
-%	As we will se, the cusp condition at Hookium centers $\frac{d u}{d r} = 0.0$ is automatically fulfilled by both our basis sets.
+	and the $b^{(\kappa)}_{ij}$ parameters remain to be optimised variationally. 
 	
 	\subsubsection{Basis sets}
 	There are various choices of single particle states $\left\{\psi_k(\mathbf{r})\right\}$ that compose the Slater determinant. They can be obtained from less expensive electronic structure methods, popular choices being LDA or HF, they can be from a standard basis set, such as atomic orbitals, Gaussian or plane wave sets, or they can be designed for the particular case at hand. In this work, we will compare performance of HF orbitals obtained from Cartesian Gaussian-type orbitals (GTOs)
 	\begin{equation}
+	\label{eq:cartG}
 	G_{i j k}(\mathbf{r}, \alpha, \mathbf{A})=(x-x_{A})^{i} (y-y_{A})^{j} (z-z_{A})^{k} e^{-\alpha r_{A}^{2}},
 	\end{equation}
 	and HF orbitals obtained from the harmonic oscillator basis set
@@ -387,7 +385,8 @@
 		\makebox[\linewidth]{
 			\includegraphics[width=1.3\textwidth]{../diagrams/Software/software_diagram.pdf}
 		}
-		\caption{Diagram of the general software framework developed to solve the Hookium atom with VMC. It is comprised of two modules, that need not be used together. Both the $a)$ Hartree-Fock and $b)$ the VMC module are fully variational and allow for rich variational approaches to a particular problem.}
+		\caption{Diagram of the general software framework developed to solve the Hookium atom with VMC. It is comprised of two modules, that need not be used together. Both the $a)$ Hartree-Fock and $b)$ the VMC module are variational and allow for rich variational approaches to a particular problem.}
+		\label{fig:software}
 	\end{figure*}
 	
 	\subsubsection{Generating trial moves}
@@ -402,84 +401,84 @@
 	where $\tau$ is the time step and $\mathbf{v}(\mathbf{R})=\boldsymbol{\nabla} \Psi(\mathbf{R}) / \Psi(\mathbf{R})$ is the drift velocity, that drives the Markov random walk in the direction of increasing $|\Psi(\mathrm{R})|$~\cite{gubernatis_kawashima_werner_2016}.
 	
 	\subsection{Technical Considerations}
-	You write this after the software is complete
+	Before implementing the variational Monte Carlo method in computer code, we must first consider what we want our software to achieve. The main developing principle during this written assignment was to implement VMC in a way that would facilitate the use of rich variational \emph{ansatzes} without much hassle, all while maintaining enough speed to perform optimisation in a reasonable time. Moreover we would like the code to be applicable to systems beyond just the Harmonium atom, be modular so as to quickly add new features if needed and we want the most computationally demanding parts of the code to run on the GPU. This leaves us with seemingly opposing design goals. On one hand, the flexibility of the trial wave function should mean that the user only needs to supply the functional form of the wave function and parameters to be optimised, and not gradients and Laplacians of the trial wave function, they should be estimated automatically. On the other hand however, the code needs to be quick and run on a GPU, therefore compiled. While possible, perhaps with some sort of generic programming in C\texttt{++} extended with CUDA, this sort of design would be painful to implement to say the least. This dichotomy is aided by use of modern frameworks that have been designed for use in Machine Learning where there is similar tension between speed and flexibility. The best choice for this particular case is \emph{JAX}, which is a Python library that extends \emph{numpy} with \emph{function transformations}, which enables use of \emph{automatic differentiation}~\cite{baydin2018automatic} for gradient and Hessian estimation and use of the \emph{Accelerated Linear Algebra} (XLA) compiler, all while maintaining the expressive nature of Python. 
 	
 	\subsubsection{Software structure}
-	\subsubsection{Automatic differentiation}
-	\subsubsection{Gradient estimators}
-	\subsubsection{Parallelization}
-	\subsubsection{GPU Acceleration}
-	\newpage
-		a
-	\newpage
-		b
-	\newpage
+	The design of the VMC software is displayed on Figure~\ref{fig:software}, It is divided into two modules that can but need not be, used together. The first module is meant either for standalone Hartree-Fock calculations or for the construction of the HF basis that is to be used in the Slater determinant part of the trial wave function in VMC. The HF procedure is given two inputs. One is the System which specifies the nuclear positions and types of nucleus (i.e. Hooke or Coulomb potential) along with parameters $\{\alpha_{j}\}_{j=0}^{j=k-1}$ which parameterize the geometry of the problem and are to be optimised. The second input is the Basis, i.e. an expansion of Cartesian Gaussians in eq.~\eqref{eq:cartG}, parameterized by $\{\alpha_{j}\}_{j=k}^{j=N}$ which are optimised, the Basis also provides HF the means of evaluating integrals $V_{p q}, T_{p q}, S_{p q}$ and $V_{pqrs}$. The HF procedure itself is described in~\ref{app:HF}, vanilla \emph{JAX} has no problem differentiating through any part of the process, except through solving  generalized eigenvalue problem $(F^{(i+1)} \rightarrow D^{(i+1)})$ which occurs once each iteration of the self-consistent loop. For this purpose we used \emph{jax.custom\_jvp} and \emph{jax.custom\_vjp} implemented in~\cite{dj2021gep} which use derivation from~\cite{boeddeker2017computation}. The forward mode computed derivatives w.r.t $\{\alpha_{j}\}_{j=0}^{j=K}$ are then used to perform gradient based optimisation of the Hartree-Fock energy.
+		
+	The second module performs the Monte Carlo estimation of the variational energy and its gradients. As input it receives the trial wave function (TWF) with variational parameters $\{\beta_{j}\}_{j=0}^{j=K}$ which include both parameters in the Slater determinant and those in the Jastrow factor. The Laplacian of the TWF as well as its gradient, which is used for more efficient sampling, are calculated using automatic differentiation. No Monte Carlo estimators of the gradients were implemented in the main procedure, it was found that gradients of the variational energy $E_V$ and its variance $\sigma_{E}$ estimated via automatic differentiation by unrolling the loop over samples were sufficient for the purposes of this article. Moreover, their evaluation is very quick in XLA compiled code. The optimisation procedure can in essence be any gradient based optimisation method. Furthermore, with minor extensions to the code the procedure could output the Hessian alongside the gradients to access more powerful optimisation techniques, in this report most results are produced with plain gradient descent. The most computationally demanding part of the VMC calculation is the sampling loop, as very large numbers of samples are needed due to the stochastic nature of the process. Fortunately the loop can be sped up massively, firstly by compiling the automatic differentiation to run on a hardware accelerator (XLA allows to compile for TPUs as well), and secondly the loop can be broken down into multiple walkers propagating independently before their energies are accumulated.
+	
 	\section{Results and analysis}
 	\label{sec:results}
 	
-	\begin{figure*}[h]
-		\subfloat[$\rho(\mathbf{r})$, $N=10^3$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/wf-8g-1j-1e3.png}}
-		\subfloat[$\rho(\mathbf{r})$, $N=10^4$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/wf-8g-1j-1e4.png}}
-		\subfloat[$\rho(\mathbf{r})$, $N=10^5$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/wf-8g-1j-1e5.png}} \\
-		\subfloat[$P(u)$, $N=10^3$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/pint1e3-8g1j.png}} 
-		\subfloat[$P(u)$, $N=10^4$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/pint1e4-8g1j.png}}
-		\subfloat[$P(u)$, $N=10^5$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/pint1e5-8g1j.png}}
-		\caption{Blah blah results}
-		\label{fig:wfsandpints}
-	\end{figure*}
-
-	
-
-
 	\subsection{Hookium}
 	\subsubsection{HF energy}
+	
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=\linewidth]{../plots/HF_optimization}
-		\caption{}
+		\caption{Optimisation of bases with different number of Gaussian basis functions for the Hartree-Fock calculation of Hookium. The exponents $\alpha_{j}$ of the Gaussians were initially set to STO-ng optimised values for the $s$-orbital of Hellium. HF energies calculated using different number of Harmonic Oscillator basis functions $n_{HO}$ are given as reference, values from~\cite{ONeill2003wave}.}
 		\label{fig:hfoptimization}
 	\end{figure}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=\linewidth]{../plots/blocking.png}
-		\caption{}
-		\label{fig:blocking+jast}
-	\end{figure}
+	
 	\subsubsection{Variational Monte Carlo}
+%	As we will se, the cusp condition at Hookium centers $\frac{d u}{d r} = 0.0$ is automatically fulfilled by both our basis sets.
 	\begin{figure}[h]
-		\centering
-		\includegraphics[width=\linewidth]{../plots/vmc-opt-1g.png}
-		\caption{}
-		\label{fig:basic-optim}
+	\centering
+	\includegraphics[width=\linewidth]{../plots/blocking.png}
+	\caption{Comparison of Monte Carlo local energies $E_L$ from a trial run with (top) Slater trial wave function and (bottom) unoptimised Slater-Jastrow trial wave function. The difference in variance and hence sampling efficiency is evident from the reblocked average energy $\langle E_b \rangle$ and reblocked variance $\sigma_b$.}
+	\label{fig:blocking+jast}
 	\end{figure}
-	\subsubsection{Variational Monte Carlo}
+
+	\begin{figure*}[h]
+	\subfloat[$\rho(\mathbf{r})$, $N=10^3$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/wf-8g-1j-1e3.png}}
+	\subfloat[$\rho(\mathbf{r})$, $N=10^4$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/wf-8g-1j-1e4.png}}
+	\subfloat[$\rho(\mathbf{r})$, $N=10^5$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/wf-8g-1j-1e5.png}} \\
+	\subfloat[$P(u)$, $N=10^3$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/pint1e3-8g1j.png}} 
+	\subfloat[$P(u)$, $N=10^4$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/pint1e4-8g1j.png}}
+	\subfloat[$P(u)$, $N=10^5$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/pint1e5-8g1j.png}}
+	\caption{Top row: Electron density of the Hookium atom, sampled from a single Gaussian trial function, with optimised exponent and two term Jastrow factor. Bottom row: The position intracule of the samples in top row, compared with the known analytical form.}
+	\label{fig:wfsandpints}
+	\end{figure*}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=\linewidth]{../plots/vmc-opt-1g.png}
+			\caption{Comparison of energy (red) and variance (blue) optimisation of a 1g+J1 trial wave function over 600 epochs with $10^5$ samples. Variance optimisation is much more robust and finds optimal parameters ($\alpha = 0.25, b_{12} = 0.202$) from a very bad initialisation.}
+			\label{fig:basic-optim}
+		\end{figure}
+	\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{../plots/corrPlot.png}
+	\caption{Correlation energy for different Hooke coefficients $k \in [0.5, 2.0]$. The Hartree-Fock energy was computed with sto-6g basis optimised over $15$ epochs with learning rate $\alpha_{HF} = 0.05$ and the true ground state with 1g+J1 basis optimised over $10^3$ epochs with learning rate $\alpha=0.005$ and $10^5$ samples.}
+	\label{fig:correng}
+	\end{figure}
 
 	\begin{table*}
 		\centering
 		\begin{tabular}{@{}lcccr@{}} 
 			\toprule
-			Basis & Optim. & $J_1$ & $J_2$ & $E_V \pm \sigma_E$\\ \midrule
+			Basis & Optim. & $b^{(1)}_{ij}$ & $b^{(2)}_{ij}$ & $E_V \pm \sigma_E$\\ \midrule
 			STO-2g + J1 & \xmark & \textbackslash & \textbackslash & 2.375010 $\pm$ 0.783208 \\ 
-			STO-4g + J1 & \xmark & \textbackslash & \textbackslash & 2.024604 $\pm$ 0.237808 \\ 
 			STO-2g + J1 & \cmark & -0.06367405 & \textbackslash & 2.144614 $\pm$ 0.508516\\ 
+			STO-4g + J1 & \xmark & \textbackslash & \textbackslash & 2.024604 $\pm$ 0.237808 \\ 
 			STO-4g + J1 & \cmark & 0.32431903 & \textbackslash & 2.009259 $\pm$ 0.169574\\ 
 			1g + J1 	& \cmark & 0.20198098 & \textbackslash & 2.000155 $\pm$ 0.012942\\ 
 			1g + J2 	& \cmark & 0.22442447 & -0.00406822 & 2.000112 $\pm$ 0.006640\\ 
 			\bottomrule
 		\end{tabular}
+		\caption{Ground state energies for different trial wave functions, calculated with $10^6$ samples. The second column indicates if the Jastrow factor was optimised.}
 	\end{table*}
 
 	\subsubsection{CPU vs. GPU speedup}
-	
-	\subsection{Hookium molecule}
-	
 	
 	\newpage
 	\section{Conclusion}
 	\label{sec:conclusion}
 	
 	\subsection{Code expandability and complexity}
-		
+	Remember that HF is slow as hell!
+	
+	
 	
 	\bibliographystyle{elsarticle-num}
 	\bibliography{WA2-references.bib}
@@ -487,7 +486,7 @@
 	\appendix
 	\section{Hartree-Fock}
 	\label{app:HF}
-	Restricted Hartree-Fock is applicable to \emph{closed-shell} systems, where there is an even number of electrons that form spin-up and spin-down pairs. The unrestricted Hartree-Fock calculation, where spin is explicitly considered, is only slightly more complicated. Both make use of a Slater determinant state and are solved using self-consistent field iteration. By far the most common approach is to expand single electron states in terms of a basis set, see~\ref{app:basissets}, as
+	Restricted Hartree-Fock is applicable to \emph{closed-shell} systems where there is an even number of electrons that form spin-up and spin-down pairs. The unrestricted Hartree-Fock calculation, where spin is explicitly considered, is only slightly more complicated. Both make use of a Slater determinant state and are solved using self-consistent field iteration. By far the most common approach is to expand single electron states in terms of a basis set, see~\ref{app:basissets}, 
 	\begin{equation}
 		\psi_{i}(\mathbf{r})=\sum_{j=1}^{n} c_{i j} \phi_{i}(\mathbf{r}).
 	\end{equation}
@@ -551,7 +550,7 @@
 	\end{equation}
 	where $i,j,k$ combine into the total angular-momentum quantum number as $l = i+j+k \geq 0$ and $\alpha$ is a variational parameter, usually determined with some least-square fit to relevant Slater orbitals. Gaussians of a given total angular-momentum $l$ form a shell, the \emph{s}-shell is $G_{000}$, \emph{p}-shell are $G_{100}$, $G_{010}$ and $G_{001}$, and so on for \emph{d}, \emph{f}, etc. shells. 
 	
-	A large body of scientific work exists with regards to efficient evaluation of Gaussian-type orbital integrals arising from Hartree-Fock. Most approaches~\cite{mcmurchie1978one, obara1986efficient} boil down to recursive relations that simplify the kinetic energy $T_{pq}$ and two-electron $(p q \mid r s)$ integrals into overlap integrals $S_{pq}$. The most problematic integral is the nuclear-electron contribution which is not separable in Cartesian directions and requires special treatment. Even though the implementation of the general GTOs basis set is straightforward it proved to be too much work within the time constraints of this written assignment, it is thus a clear direction for expansion of the code in this work. 
+	A large body of scientific work exists with regards to efficient evaluation of Gaussian-type orbital integrals arising from Hartree-Fock. Most approaches~\cite{mcmurchie1978one, obara1986efficient} boil down to recursive relations that simplify the kinetic energy $T_{pq}$ and two-electron $(p q \mid r s)$ integrals into overlap integrals $S_{pq}$. The most problematic is the nuclear-electron contribution which is not separable in Cartesian directions and requires special treatment. Even though the implementation of the general GTOs basis set is straightforward it proved to be too much work within the time constraints of this written assignment, it is thus a clear direction for expansion of the code in this work. 
 
 	The integrals simplify considerably if we only consider a single site at $\mathbf{r}_0 = (0, 0, 0)$, which is enough to treat Hookium. The overlap integral $S^{\alpha \beta}_{ijk lmn}\coloneq S[G_{ijk}(\mathbf{r}, \alpha, \mathbf{0}), G_{lmn}(\mathbf{r}, \beta, \mathbf{0})]$ decomposes into separate components along Cartesian axes $S^{\alpha \beta}_{ijk lmn}=S_{il}^{\alpha \beta}S^{\alpha \beta}_{jm}S^{\alpha \beta}_{kn}$ each with closed form solution
 	\begin{equation}

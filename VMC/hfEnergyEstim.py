@@ -18,8 +18,6 @@ def update(bparam, cpos, centers, ccoefs, ncs, M, nel, maxiter, alpha):
 if __name__ == '__main__':
 	
 	
-
-
 	# Setup of initial parameters
 	nel = 2
 	bparam = orbitals.sto3g_exponents.get('He-s')

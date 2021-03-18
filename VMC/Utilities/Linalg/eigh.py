@@ -4,8 +4,6 @@ Dominic Jack, who posted it on his blog, https://jackd.github.io/posts/generaliz
 
 """
 
-
-
 """Versions based on 4.60 and 4.63 of https://arxiv.org/pdf/1701.00392.pdf ."""
 import jax
 import jax.numpy as jnp
@@ -14,7 +12,6 @@ import numpy as np
 
 def _T(x):
     return jnp.swapaxes(x, -1, -2)
-
 
 def _H(x):
     return jnp.conj(_T(x))

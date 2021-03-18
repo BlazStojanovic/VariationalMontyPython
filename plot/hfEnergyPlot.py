@@ -34,7 +34,6 @@ fig, ax = plt.subplots(figsize=[12, 7])
 
 # plt.yscale('log')
 # plot analytical results
-ax.plot([0, len(e6g[0])], [ho1, ho1], 'k*--', label='$n_{HO} = 1$')
 ax.plot([0, len(e6g[0])], [ho3, ho3], 'ks--', label='$n_{HO} = 3$')
 ax.plot([0, len(e6g[0])], [ho5, ho5], 'k<--', label='$n_{HO} = 5$')
 ax.plot([0, len(e6g[0])], [ho7, ho7], 'ko--', label='$n_{HO} = 7$')
@@ -50,7 +49,6 @@ ax.plot(e8g, 'o--', label='sto-8g')
 axins = ax.inset_axes([0.25,0.35,0.5,0.55])
 x1, x2, y1, y2 = 10, 22, 2.038433, 2.03847
 
-# axins.plot([0, len(e6g[0])], [ho1, ho1], 'k*--', label='$n_{HO} = 1$')
 axins.plot([0, len(e6g[0])], [ho3, ho3], 'ks--', label='$n_{HO} = 3$')
 axins.plot([0, len(e6g[0])], [ho5, ho5], 'k<--', label='$n_{HO} = 5$')
 axins.plot([0, len(e6g[0])], [ho7, ho7], 'ko--', label='$n_{HO} = 7$')

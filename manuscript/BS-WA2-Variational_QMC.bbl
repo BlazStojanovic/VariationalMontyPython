@@ -5,17 +5,6 @@
 \expandafter\ifx\csname href\endcsname\relax
   \def\href#1#2{#2} \def\path#1{#1}\fi
 
-\bibitem{hartree1928auxil}
-D.~R. Hartree, The wave mechanics of an atom with a non-coulomb central field.
-  part i. theory and methods, Mathematical Proceedings of the Cambridge
-  Philosophical Society 24~(1) (1928) 89–110.
-\newblock \href {https://doi.org/10.1017/S0305004100011919}
-  {\path{doi:10.1017/S0305004100011919}}.
-
-\bibitem{fock1930naherungsmethode}
-V.~Fock, N{\"a}herungsmethode zur l{\"o}sung des quantenmechanischen
-  mehrk{\"o}rperproblems, Zeitschrift f{\"u}r Physik 61~(1-2) (1930) 126--148.
-
 \bibitem{hohenberg1964inhomogeneous}
 P.~Hohenberg, W.~Kohn, Inhomogeneous electron gas, Physical review 136~(3B)
   (1964) B864.
@@ -144,6 +133,20 @@ C.~Umrigar, K.~Wilson, J.~Wilkins, Optimized trial wave functions for quantum
 \bibitem{sorella1998green}
 S.~Sorella, Green function monte carlo with stochastic reconfiguration,
   Physical review letters 80~(20) (1998) 4558.
+
+\bibitem{baydin2018automatic}
+A.~G. Baydin, B.~A. Pearlmutter, A.~A. Radul, J.~M. Siskind, Automatic
+  differentiation in machine learning: a survey, Journal of machine learning
+  research 18 (2018).
+
+\bibitem{dj2021gep}
+J.~Dominic, Generalized eigenvalue problem derivatives,\\
+  https://jackd.github.io/posts/generalized-eig-jvp/.
+
+\bibitem{boeddeker2017computation}
+C.~Boeddeker, P.~Hanebrink, L.~Drude, J.~Heymann, R.~Haeb-Umbach, On the
+  computation of complex-valued gradients with application to statistically
+  optimum beamforming, arXiv preprint arXiv:1701.00392 (2017).
 
 \bibitem{mcmurchie1978one}
 L.~E. McMurchie, E.~R. Davidson, One-and two-electron integrals over cartesian

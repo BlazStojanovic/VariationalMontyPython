@@ -138,16 +138,17 @@ if __name__ == '__main__':
 
 	# Optimization parameters
 	hfalpha = 0.05
-	hfepochs = 12
+	hfepochs = 15
 	maxiter = 15
 	mintol  = 1e-5
 
 	# VMC optimization
-	epochs = 350
+	epochs = 1000
 	alpha = 0.005
 
 	# MC params
 	it = 10000
+	beta = 5/epochs
 
 	for i, k in enumerate(ks):
 
