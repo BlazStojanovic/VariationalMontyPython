@@ -133,38 +133,38 @@ update_sig = jit(update_sig, static_argnums=[0])
 update_E = jit(update_E, static_argnums=[0])
 
 if __name__ == '__main__':
-	# Optim param
-	# epochs = 1000
-	# alpha = 0.01
+	# Optimise variance
+	epochs = 1000
+	alpha = 0.01
 
-	# Evs = np.zeros(epochs)
-	# sigs = np.zeros(epochs)
+	Evs = np.zeros(epochs)
+	sigs = np.zeros(epochs)
 
-	# # MC params
-	# it = 10000
-	# beta = 10**(-3)
+	# MC params
+	it = 10000
+	beta = 10**(-3)
 
-	# # Wave function parameters
-	# bparam = jnp.array([[1.0]])
-	# jastParam = jnp.array([1.0])
+	# Wave function parameters
+	bparam = jnp.array([[1.0]])
+	jastParam = jnp.array([1.0])
 	
-	# ci = jnp.array([1.0])
+	ci = jnp.array([1.0])
 
-	# for i in range(epochs):
-	# 	# Ev, stdev = VMC(it, jastParam, bparam, ci, thprop=0.2, nw=1, tau=0.2, seed=4202)
-	# 	# print("Variational energy: E_V = {}".format(Ev))
-	# 	# print("Variance: sigma_e = {}".format(stdev))
+	for i in range(epochs):
+		Ev, stdev = VMC(it, jastParam, bparam, ci, thprop=0.2, nw=1, tau=0.2, seed=4202)
+		print("Variational energy: E_V = {}".format(Ev))
+		print("Variance: sigma_e = {}".format(stdev))
 
-	# 	Evs[i], sigs[i] = VMC(it, jastParam, bparam, ci)
+		Evs[i], sigs[i] = VMC(it, jastParam, bparam, ci)
 
-	# 	alpex = alpha*jnp.exp(-beta*i)
-	# 	jastParam, bparam = update_sig(it, jastParam, bparam, ci, alpex)
-	# 	print(i, jastParam, bparam)
+		alpex = alpha*jnp.exp(-beta*i)
+		jastParam, bparam = update_sig(it, jastParam, bparam, ci, alpex)
+		print(i, jastParam, bparam)
 
-	# np.save("../data/vmcEnergies/vmc-opt-1g-1j-ss.npy", sigs)
-	# np.save("../data/vmcEnergies/vmc-opt-1g-1j-sE.npy", Evs)
+	np.save("../data/vmcEnergies/vmc-opt-1g-1j-ss.npy", sigs)
+	np.save("../data/vmcEnergies/vmc-opt-1g-1j-sE.npy", Evs)
 	
-	############################################################## Eoptim
+	# Optimise Variational energy
 	epochs = 1000
 	alpha = 0.05
 
@@ -182,9 +182,9 @@ if __name__ == '__main__':
 	ci = jnp.array([1.0])
 
 	for i in range(epochs):
-		# Ev, stdev = VMC(it, jastParam, bparam, ci, thprop=0.2, nw=1, tau=0.2, seed=4202)
-		# print("Variational energy: E_V = {}".format(Ev))
-		# print("Variance: sigma_e = {}".format(stdev))
+		Ev, stdev = VMC(it, jastParam, bparam, ci, thprop=0.2, nw=1, tau=0.2, seed=4202)
+		print("Variational energy: E_V = {}".format(Ev))
+		print("Variance: sigma_e = {}".format(stdev))
 
 		Evs[i], sigs[i] = VMC(it, jastParam, bparam, ci)
 

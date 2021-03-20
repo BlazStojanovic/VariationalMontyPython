@@ -54,7 +54,7 @@
 \citation{foulkes2001quantum}
 \citation{foulkes2001quantum}
 \newlabel{eq:detailed_balance}{{11}{5}}
-\newlabel{alg:MCMC}{{\caption@xref {alg:MCMC}{ on input line 282}}{5}}
+\newlabel{alg:MCMC}{{\caption@xref {alg:MCMC}{ on input line 284}}{5}}
 \@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Metropolis-Hastings\relax }}{5}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Variational Quantum Monte Carlo}{5}{}\protected@file@percent }
 \newlabel{eq:variational_princ}{{14}{5}}
@@ -65,6 +65,8 @@
 \citation{foulkes2001quantum}
 \citation{foulkes2001quantum}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}Trial wave functions $\Psi _{T}$}{6}{}\protected@file@percent }
+\newlabel{eq:jast}{{25}{6}}
+\newlabel{eq:u}{{26}{6}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}Basis sets}{6}{}\protected@file@percent }
 \citation{gubernatis_kawashima_werner_2016}
 \citation{baydin2018automatic}
@@ -72,15 +74,60 @@
 \citation{boeddeker2017computation}
 \newlabel{eq:cartG}{{28}{7}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.3}Generating trial moves}{7}{}\protected@file@percent }
+\newlabel{eq:trialmove}{{31}{7}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Technical Considerations}{7}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.1}Software structure}{7}{}\protected@file@percent }
-\citation{ONeill2003wave}
-\citation{ONeill2003wave}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Diagram of the general software framework developed to solve the Hookium atom with VMC. It is comprised of two modules, that need not be used together. Both the $a)$ Hartree-Fock and $b)$ the VMC module are variational and allow for rich variational approaches to a particular problem.\relax }}{8}{}\protected@file@percent }
 \newlabel{fig:software}{{3}{8}}
+\citation{ONeill2003wave}
+\citation{ONeill2003wave}
+\citation{ONeill2003wave}
+\citation{ONeill2003wave,amovilli2003exact}
+\citation{amovilli2003exact}
+\citation{ONeill2003wave}
+\citation{ONeill2003wave}
+\citation{ONeill2003wave}
+\citation{ONeill2003wave}
+\citation{kais1993density}
+\citation{kais1993density}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Results and analysis}{9}{}\protected@file@percent }
+\newlabel{sec:results}{{3}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Hartree-Fock and correlation energy}{9}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Optimisation of bases with different number of Gaussian basis functions for the Hartree-Fock calculation of Hookium. The exponents $\alpha _{j}$ of the Gaussians were initially set to STO-ng optimised values for the $s$-orbital of Hellium. HF energies calculated using different number of Harmonic Oscillator basis functions $n_{HO}$ are given as reference, values from\nobreakspace  {}\cite  {ONeill2003wave}. Learning rate $\alpha =0.1$\relax }}{9}{}\protected@file@percent }
+\newlabel{fig:hfoptimization}{{4}{9}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Hartree-Fock energies with different bases. STO-ng are exponents from optimized Slater orbitals for helium-1s orbital, HO is harmonic oscillator basis and C-ng is $n$ Gaussians with exponents given by $8 / 2^{n-1}$. We see that small numbers of optimised Gaussians outperforms large numbers of unoptimised Gaussians and that HO basis outperforms both.\relax }}{9}{}\protected@file@percent }
+\newlabel{tab:HFenergies}{{1}{9}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces  Correlation energies for different species\nobreakspace  {}\cite  {kais1993density}.\relax }}{9}{}\protected@file@percent }
+\newlabel{tab:corrs}{{2}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Correlation energy for different Hooke coefficients $k$. The Hartree-Fock energy was computed with STO-6g basis optimised over $15$ epochs with $\alpha _{HF} = 0.05$ and the true ground state with 1g+J1 basis optimised over $10^3$ epochs with $\alpha =0.005$ and $10^6$ samples.\relax }}{10}{}\protected@file@percent }
+\newlabel{fig:correng}{{5}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Variational Monte Carlo}{10}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Comparison of Monte Carlo local energies $E_L$ from a trial run with (top) Slater trial wave function and (bottom) unoptimised Slater-Jastrow trial wave function. The difference in variance and hence sampling efficiency is evident from the reblocked average energy $\langle E_b \rangle $ and reblocked variance $\sigma _b$.\relax }}{10}{}\protected@file@percent }
+\newlabel{fig:blocking+jast}{{6}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Top row: Electron density of the Hookium atom, sampled from a single Gaussian trial function, with optimised exponent and two term Jastrow factor. Middle row: Radial electron density for a single electron. Bottom row: The position intracule of the samples in top row, compared with the known analytical form.\relax }}{11}{}\protected@file@percent }
+\newlabel{fig:wfsandpints}{{7}{11}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {$\rho (\mathbf {r})$, $N=10^3$ samples}}}{11}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {$\rho (\mathbf {r})$, $N=10^4$ samples}}}{11}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {$\rho (\mathbf {r})$, $N=10^5$ samples}}}{11}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(d)}{\ignorespaces {$2\pi r^2 \rho (r)$, $N=10^3$ samples}}}{11}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(e)}{\ignorespaces {$2\pi r^2 \rho (r)$, $N=10^4$ samples}}}{11}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(f)}{\ignorespaces {$2\pi r^2 \rho (r)$, $N=10^5$ samples}}}{11}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(g)}{\ignorespaces {$P(u)$, $N=10^3$ samples}}}{11}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(h)}{\ignorespaces {$P(u)$, $N=10^4$ samples}}}{11}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(i)}{\ignorespaces {$P(u)$, $N=10^5$ samples}}}{11}{}\protected@file@percent }
+\citation{kais1993density}
+\citation{kais1993density}
 \bibstyle{elsarticle-num}
 \bibdata{WA2-references.bib}
 \bibcite{hohenberg1964inhomogeneous}{{1}{}{{}}{{}}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}CPU vs. GPU speedup}{12}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Conclusion}{12}{}\protected@file@percent }
+\newlabel{sec:conclusion}{{4}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Comparison of energy (red) and variance (blue) optimisation of a 1g+J1 trial wave function over 600 epochs with $10^5$ samples. Variance optimisation is much more robust and finds optimal parameters ($\alpha = 0.25, b_{12} = 0.202$) from a very bad initialisation.\relax }}{12}{}\protected@file@percent }
+\newlabel{fig:basic-optim}{{8}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Optimised Jastrow factors for a single Gaussian trial wave function. $J_1$: one $b_{1} = 0.20198$ expansion term and $J_2:$ two $b_1 = 0.22442$, $b_2=-0.00407$ terms.\relax }}{12}{}\protected@file@percent }
+\newlabel{fig:jast-optim}{{9}{12}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Future work}{12}{}\protected@file@percent }
 \bibcite{kohn1999nobel}{{2}{}{{}}{{}}}
 \bibcite{skylaris2005introducing}{{3}{}{{}}{{}}}
 \bibcite{foulkes2001quantum}{{4}{}{{}}{{}}}
@@ -90,20 +137,6 @@
 \bibcite{carleo2012localization}{{8}{}{{}}{{}}}
 \bibcite{carleo2014light}{{9}{}{{}}{{}}}
 \bibcite{ido2015time}{{10}{}{{}}{{}}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Results and analysis}{9}{}\protected@file@percent }
-\newlabel{sec:results}{{3}{9}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Hookium}{9}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}HF energy}{9}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Optimisation of bases with different number of Gaussian basis functions for the Hartree-Fock calculation of Hookium. The exponents $\alpha _{j}$ of the Gaussians were initially set to STO-ng optimised values for the $s$-orbital of Hellium. HF energies calculated using different number of Harmonic Oscillator basis functions $n_{HO}$ are given as reference, values from\nobreakspace  {}\cite  {ONeill2003wave}.\relax }}{9}{}\protected@file@percent }
-\newlabel{fig:hfoptimization}{{4}{9}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Variational Monte Carlo}{9}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}CPU vs. GPU speedup}{9}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Comparison of Monte Carlo local energies $E_L$ from a trial run with (top) Slater trial wave function and (bottom) unoptimised Slater-Jastrow trial wave function. The difference in variance and hence sampling efficiency is evident from the reblocked average energy $\langle E_b \rangle $ and reblocked variance $\sigma _b$.\relax }}{9}{}\protected@file@percent }
-\newlabel{fig:blocking+jast}{{5}{9}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Conclusion}{9}{}\protected@file@percent }
-\newlabel{sec:conclusion}{{4}{9}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Code expandability and complexity}{9}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{Bibliography}{9}{}\protected@file@percent }
 \bibcite{gubernatis_kawashima_werner_2016}{{11}{}{{}}{{}}}
 \bibcite{reynolds1990diffusion}{{12}{}{{}}{{}}}
 \bibcite{kalos1962monte}{{13}{}{{}}{{}}}
@@ -120,40 +153,32 @@
 \bibcite{esler2010accelerating}{{24}{}{{}}{{}}}
 \bibcite{ONeill2003wave}{{25}{}{{}}{{}}}
 \bibcite{hastings1970monte}{{26}{}{{}}{{}}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Top row: Electron density of the Hookium atom, sampled from a single Gaussian trial function, with optimised exponent and two term Jastrow factor. Bottom row: The position intracule of the samples in top row, compared with the known analytical form.\relax }}{10}{}\protected@file@percent }
-\newlabel{fig:wfsandpints}{{6}{10}}
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {$\rho (\mathbf {r})$, $N=10^3$ samples}}}{10}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {$\rho (\mathbf {r})$, $N=10^4$ samples}}}{10}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {$\rho (\mathbf {r})$, $N=10^5$ samples}}}{10}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(d)}{\ignorespaces {$P(u)$, $N=10^3$ samples}}}{10}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(e)}{\ignorespaces {$P(u)$, $N=10^4$ samples}}}{10}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(f)}{\ignorespaces {$P(u)$, $N=10^5$ samples}}}{10}{}\protected@file@percent }
 \bibcite{assaraf1999zero}{{27}{}{{}}{{}}}
 \bibcite{umrigar1988optimized}{{28}{}{{}}{{}}}
 \bibcite{sorella1998green}{{29}{}{{}}{{}}}
 \bibcite{baydin2018automatic}{{30}{}{{}}{{}}}
 \bibcite{dj2021gep}{{31}{}{{}}{{}}}
 \bibcite{boeddeker2017computation}{{32}{}{{}}{{}}}
-\bibcite{mcmurchie1978one}{{33}{}{{}}{{}}}
-\bibcite{obara1986efficient}{{34}{}{{}}{{}}}
-\bibcite{fermann2020fundamentals}{{35}{}{{}}{{}}}
-\bibcite{helgaker1995gaussian}{{36}{}{{}}{{}}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Ground state energies for different trial wave functions, calculated with $10^6$ samples. The second column indicates if the Jastrow factor was optimised.\relax }}{11}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Comparison of energy (red) and variance (blue) optimisation of a 1g+J1 trial wave function over 600 epochs with $10^5$ samples. Variance optimisation is much more robust and finds optimal parameters ($\alpha = 0.25, b_{12} = 0.202$) from a very bad initialisation.\relax }}{11}{}\protected@file@percent }
-\newlabel{fig:basic-optim}{{7}{11}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Correlation energy for different Hooke coefficients $k \in [0.5, 2.0]$. The Hartree-Fock energy was computed with sto-6g basis optimised over $15$ epochs with learning rate $\alpha _{HF} = 0.05$ and the true ground state with 1g+J1 basis optimised over $10^3$ epochs with learning rate $\alpha =0.005$ and $10^5$ samples.\relax }}{11}{}\protected@file@percent }
-\newlabel{fig:correng}{{8}{11}}
+\bibcite{amovilli2003exact}{{33}{}{{}}{{}}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Ground state energies for different trial wave functions, calculated with $10^6$ samples. The second column indicates if the Jastrow factor was optimised, otherwise it was fixed with $a=-\frac  {1}{2}$ and $b=1.0$.\relax }}{13}{}\protected@file@percent }
+\newlabel{tab:VMCenergies}{{3}{13}}
+\@writefile{toc}{\contentsline {section}{Bibliography}{13}{}\protected@file@percent }
+\bibcite{kais1993density}{{34}{}{{}}{{}}}
+\bibcite{mcmurchie1978one}{{35}{}{{}}{{}}}
+\bibcite{obara1986efficient}{{36}{}{{}}{{}}}
+\bibcite{fermann2020fundamentals}{{37}{}{{}}{{}}}
+\bibcite{helgaker1995gaussian}{{38}{}{{}}{{}}}
 \@writefile{toc}{\let\numberline\tmptocnumberline}
-\@writefile{toc}{\contentsline {section}{\numberline {Appendix \nobreakspace  {}A}Hartree-Fock}{11}{}\protected@file@percent }
-\newlabel{app:HF}{{Appendix \nobreakspace  {}A}{11}}
+\@writefile{toc}{\contentsline {section}{\numberline {Appendix \nobreakspace  {}A}Hartree-Fock}{14}{}\protected@file@percent }
+\newlabel{app:HF}{{Appendix \nobreakspace  {}A}{14}}
+\@writefile{toc}{\contentsline {section}{\numberline {Appendix \nobreakspace  {}B}Basis sets}{14}{}\protected@file@percent }
+\newlabel{app:basissets}{{Appendix \nobreakspace  {}B}{14}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {Appendix \nobreakspace  {}B.1}Gaussian basis set}{14}{}\protected@file@percent }
 \citation{mcmurchie1978one,obara1986efficient}
-\@writefile{toc}{\contentsline {section}{\numberline {Appendix \nobreakspace  {}B}Basis sets}{12}{}\protected@file@percent }
-\newlabel{app:basissets}{{Appendix \nobreakspace  {}B}{12}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {Appendix \nobreakspace  {}B.1}Gaussian basis set}{12}{}\protected@file@percent }
 \citation{fermann2020fundamentals}
 \citation{helgaker1995gaussian}
+\newlabel{eq:recHermitGauss}{{B.8}{15}}
 \citation{helgaker1995gaussian}
-\newlabel{eq:recHermitGauss}{{B.8}{13}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {Appendix \nobreakspace  {}B.2}Harmonic Oscillator basis set}{13}{}\protected@file@percent }
 \providecommand\NAT@force@numbers{}\NAT@force@numbers
-\gdef \@abspage@last{14}
+\@writefile{toc}{\contentsline {subsection}{\numberline {Appendix \nobreakspace  {}B.2}Harmonic Oscillator basis set}{16}{}\protected@file@percent }
+\gdef \@abspage@last{16}

@@ -179,6 +179,6 @@ if __name__ == '__main__':
 		Evs[i], sigvs[i] = VMC(it, jastParam, vbparam, ci, k)
 		print("VMC energy: ", Evs[i], " +-", sigvs[i])
 
-		np.save("../data/vmcEnergies/corr-Ehf.npy", Ehfs)
-		np.save("../data/vmcEnergies/corr-Ev.npy", Evs)
-		np.save("../data/vmcEnergies/corr-sigma.npy", sigvs)
+	np.save("../data/vmcEnergies/corr-Ehf.npy", Ehfs)
+	np.save("../data/vmcEnergies/corr-Ev.npy", Evs)
+	np.save("../data/vmcEnergies/corr-sigma.npy", sigvs)

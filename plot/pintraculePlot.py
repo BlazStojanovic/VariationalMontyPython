@@ -16,48 +16,17 @@ u = np.load("../data/vmcIntracules/vmc-hf-8g_1e4-pi.npy")
 r = np.linspace(0, 7, 1000)
 uan = intracule_r(r)
 
-# 1e3 samples
-fig, ax = plt.subplots(figsize=[7, 7])
-u = np.load("../data/vmcIntracules/vmc-hf-8g_1e3-pi.npy")
+for i in [3, 4, 5]:
+	fig, ax = plt.subplots(figsize=[7, 7])
+	u = np.load("../data/vmcIntracules/vmc-1g-1e{}.npy".format(i))
 
-ax.plot(r, uan, '--', color='red', linewidth=3, label='Analytical')
-# ax.hist(u[int(len(u)*0.8):], bins=100, histtype='bar', color='darkorchid', alpha=0.6, density=True, label='VMC, $N={}$'.format(len(u)))
-ax.hist(u, bins=50, histtype='bar', color='darkorchid', alpha=0.6, density=True, align='left', label='VMC')
+	ax.plot(r, uan, '--', color='red', linewidth=3, label='Analytical')
+	# ax.hist(u[int(len(u)*0.8):], bins=100, histtype='bar', color='darkorchid', alpha=0.6, density=True, label='VMC, $N={}$'.format(len(u)))
+	ax.hist(u, bins=20*i, histtype='bar', color='darkorchid', alpha=0.6, density=True, align='left', label='VMC')
 
-plt.legend()
-# ax.hist(u[int(len(u)*0.8):], bins=100, histtype='step', color='black', density=True, label='VMC, $N={}$'.format(len(u)))
-ax.hist(u, bins=50, histtype='step', color='black', density=True, align='left', label='VMC, $N={}$'.format(len(u)))
-ax.set_xlabel('$u = |r_1-r_2|$')
-ax.set_ylabel('$P(u)$')
-plt.savefig("../plots/pint1e3-8g1j.png", bbox_inches='tight')
-
-
-# 1e4 samples
-fig, ax = plt.subplots(figsize=[7, 7])
-u = np.load("../data/vmcIntracules/vmc-hf-8g_1e4-pi.npy")
-
-ax.plot(r, uan, '--', color='red', linewidth=3, label='Analytical')
-# ax.hist(u[int(len(u)*0.8):], bins=100, histtype='bar', color='darkorchid', alpha=0.6, density=True, label='VMC, $N={}$'.format(len(u)))
-ax.hist(u, bins=100, histtype='bar', color='darkorchid', alpha=0.6, density=True, align='left', label='VMC')
-
-plt.legend()
-# ax.hist(u[int(len(u)*0.8):], bins=100, histtype='step', color='black', density=True, label='VMC, $N={}$'.format(len(u)))
-ax.hist(u, bins=100, histtype='step', color='black', density=True, align='left', label='VMC, $N={}$'.format(len(u)))
-ax.set_xlabel('$u = |r_1-r_2|$')
-ax.set_ylabel('$P(u)$')
-plt.savefig("../plots/pint1e4-8g1j.png", bbox_inches='tight')
-
-# 1e5 samples
-fig, ax = plt.subplots(figsize=[7, 7])
-u = np.load("../data/vmcIntracules/vmc-hf-8g_1e5-pi.npy")
-
-ax.plot(r, uan, '--', color='red', linewidth=3, label='Analytical')
-# ax.hist(u[int(len(u)*0.8):], bins=100, histtype='bar', color='darkorchid', alpha=0.6, density=True, label='VMC, $N={}$'.format(len(u)))
-ax.hist(u, bins=150, histtype='bar', color='darkorchid', alpha=0.6, density=True, align='left', label='VMC')
-
-plt.legend()
-# ax.hist(u[int(len(u)*0.8):], bins=100, histtype='step', color='black', density=True, label='VMC, $N={}$'.format(len(u)))
-ax.hist(u, bins=150, histtype='step', color='black', density=True, align='left', label='VMC, $N={}$'.format(len(u)))
-ax.set_xlabel('$u = |r_1-r_2|$')
-ax.set_ylabel('$P(u)$')
-plt.savefig("../plots/pint1e5-8g1j.png", bbox_inches='tight')
+	plt.legend()
+	# ax.hist(u[int(len(u)*0.8):], bins=100, histtype='step', color='black', density=True, label='VMC, $N={}$'.format(len(u)))
+	ax.hist(u, bins=20*i, histtype='step', color='black', density=True, align='left', label='VMC, $N={}$'.format(len(u)))
+	ax.set_xlabel('$u = |r_1-r_2|$')
+	ax.set_ylabel('$P(u)$')
+	plt.savefig("../plots/pint1e{}.png".format(i), bbox_inches='tight')

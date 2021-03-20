@@ -36,7 +36,7 @@ def VMC(it, jastParam, bparam, c, thprop=0.2, nw=1, tau=1.0, seed=4202):
 	acc = 0
 
 	@jit 
-	def true_twf(r1, r2, jastParam, bparam, c):
+	def test_analytical_twf(r1, r2, jastParam, bparam, c):
 		d = r1-r2
 		# is_zero = jnp.allclose(d, 0.)
 		# d = jnp.where(is_zero, jnp.ones_like(d), d)  # replace d with ones if is_zero
@@ -62,7 +62,6 @@ def VMC(it, jastParam, bparam, c, thprop=0.2, nw=1, tau=1.0, seed=4202):
 		jast = js.Jastrow(r12, a, b)
 
 		return b1*b2*jast
-		# return b1*b2*(1+0.5*r12)
 
 	dfdr1 = grad(twf, argnums=0)
 	hes1 = jacfwd(dfdr1, argnums=0)
@@ -111,8 +110,8 @@ def VMC(it, jastParam, bparam, c, thprop=0.2, nw=1, tau=1.0, seed=4202):
 		C = jnp.reciprocal(jnp.linalg.norm(r1-r2))
 		Hl = T + V + C
 
-		# configurations = jax.ops.index_update(configurations, i, config[0])
-		# configurations = jax.ops.index_update(configurations, it+i, config[1])
+		configurations = jax.ops.index_update(configurations, i, config[0])
+		configurations = jax.ops.index_update(configurations, it+i, config[1])
 
 		Els = jax.ops.index_update(Els, i, Hl)
 		Ts = jax.ops.index_update(Ts, i, T)
@@ -126,69 +125,27 @@ def VMC(it, jastParam, bparam, c, thprop=0.2, nw=1, tau=1.0, seed=4202):
 	return Els, Ts, Vs, configurations, acc/it, psi
 
 if __name__ == '__main__':
-	# Define the system and Construct the basis for the trial wave funciton
-
-	# Solve HF problem to get density matrix and C
-	nel = 2
-	bparam = orbitals.paper_exponents.get('He-s')
-	ci = orbitals.paper_coefficients.get('He-s')
+	
+	# basis exponent
 	bparam = jnp.array([[0.25]])
+	
+	# coefficients of expansion
 	ci = jnp.array([[1.0]])
 
-	print("Variational Monte Carlo")
-	print("-"*50)
-
-	thprop = 0.0
-
-	jastParam = [0.5]
-	# it = 1000
-	# Els, Ts, Vs, configurations, acc, psi = VMC(it, jastParam, bparam, ci, thprop=0.0, nw=1, tau=0.2, seed=4202)
-
-	# jnp.save("../data/vmcConfigurations/vmc-hf-8g-j1_1e3.npy", configurations)
-
-	# print("Acceptance probability: {}".format(acc))
-
-	# print("Variational energy: E_V = {}".format(jnp.average(Els)))
-
-	# print("Variance: sigma_e = {}".format(jnp.std(Els)))
-
-	# it = 10000
-	# Els, Ts, Vs, configurations, acc, psi = VMC(it, jastParam, bparam, ci, thprop=0.0, nw=1, tau=0.2, seed=4202)
-
-	# # vmc_g = jacfwd(VMC, argnums=1)
-	# # print("Gradient of the function: {}".format(vmc_g(it, jastParam, bparam, ci, thprop=thprop, tau=0.7)))
-
-	# jnp.save("../data/vmcConfigurations/vmc-hf-8g-j1_1e4.npy", configurations)
-
-	# print("Acceptance probability: {}".format(acc))
-
-	# print("Variational energy: E_V = {}".format(jnp.average(Els)))
-
-	# print("Variance: sigma_e = {}".format(jnp.std(Els)))
-
-	it = 1000
-	Els, Ts, Vs, configurations, acc, psi = VMC(it, jastParam, bparam, ci, thprop=0.0, nw=1, tau=0.2, seed=4202)
-
-	# vmc_g = jacfwd(VMC, argnums=1)
-	# print("Gradient of the function: {}".format(vmc_g(it, jastParam, bparam, ci, thprop=thprop, tau=0.7)))
-
-	# jnp.save("../data/vmcConfigurations/vmc-hf-8g-j1_1e5.npy", configurations)
-
-	print("Acceptance probability: {}".format(acc))
-
-	print("Variational energy: E_V = {}".format(jnp.average(Els)))
-
-	print("Variance: sigma_e = {}".format(jnp.std(Els)))
+	# jastrow parameters
+	jastParam = [0.22442447, -0.00406822]
 	
-	import matplotlib.pyplot as plt
-	
-	plt.plot(Els, 'g-', alpha=0.6)
+	for i in [3, 4, 5]:
 
-	jnp.save("../data/vmcEnergies/vmc-hf-1g-j1-E2.npy", Els)
+		it = 10**i
 
+		Els, Ts, Vs, configurations, acc, psi = VMC(it, jastParam, bparam, ci, thprop=0.0, nw=1, tau=0.2, seed=4202)
 
-	# plt.plot(blocking_transform(Els, 20), 'k-')
-	# plt.plot(psi, '-r')
-	# plt.plot(Ts, 'b-')
-	# plt.plot(Vs, 'm-')
-	plt.show()
+		print("Acceptance probability: {}".format(acc))
+
+		print("Variational energy: E_V = {}".format(jnp.average(Els)))
+
+		print("Variance: sigma_e = {}".format(jnp.std(Els)))
+
+		jnp.save("../data/vmcConfigurations/vmc-1g-1e{}.npy".format(i), configurations)
+

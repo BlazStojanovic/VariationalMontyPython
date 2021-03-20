@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
 	# Optimization parameters
 	alpha = 0.1
-	epochs = 1
+	epochs = 20
 
 	HF_energy = np.zeros((len(exponents), epochs + 1))
 
@@ -96,4 +96,4 @@ if __name__ == '__main__':
 		i+=1
 
 	print(HF_energy)
-	np.save("../data/hfEnergy/hf8g.npy", HF_energy)
+	np.save("../data/hfEnergy/hf3g.npy", HF_energy)

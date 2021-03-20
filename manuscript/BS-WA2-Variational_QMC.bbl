@@ -148,6 +148,16 @@ C.~Boeddeker, P.~Hanebrink, L.~Drude, J.~Heymann, R.~Haeb-Umbach, On the
   computation of complex-valued gradients with application to statistically
   optimum beamforming, arXiv preprint arXiv:1701.00392 (2017).
 
+\bibitem{amovilli2003exact}
+C.~Amovilli, N.~March, Exact density matrix for a two-electron model atom and
+  approximate proposals for realistic two-electron systems, Physical Review A
+  67~(2) (2003) 022509.
+
+\bibitem{kais1993density}
+S.~Kais, D.~Herschbach, N.~Handy, C.~Murray, G.~Laming, Density functionals and
+  dimensional renormalization for an exactly solvable model, The Journal of
+  chemical physics 99~(1) (1993) 417--425.
+
 \bibitem{mcmurchie1978one}
 L.~E. McMurchie, E.~R. Davidson, One-and two-electron integrals over cartesian
   gaussian functions, Journal of Computational Physics 26~(2) (1978) 218--231.

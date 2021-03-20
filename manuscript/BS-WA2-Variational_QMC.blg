@@ -7,45 +7,45 @@ Warning--empty year in cuda
 Warning--empty journal in hastings1970monte
 Warning--empty year in dj2021gep
 Warning--empty publisher in helgaker1995gaussian
-You've used 36 entries,
+You've used 38 entries,
             2952 wiz_defined-function locations,
-            905 strings with 11163 characters,
-and the built_in function-call counts, 9801 in all, are:
-= -- 909
-> -- 312
+            915 strings with 11508 characters,
+and the built_in function-call counts, 10408 in all, are:
+= -- 966
+> -- 335
 < -- 1
-+ -- 128
-- -- 92
-* -- 700
-:= -- 1363
-add.period$ -- 37
-call.type$ -- 36
-change.case$ -- 35
++ -- 137
+- -- 99
+* -- 750
+:= -- 1448
+add.period$ -- 39
+call.type$ -- 38
+change.case$ -- 37
 chr.to.int$ -- 0
-cite$ -- 40
-duplicate$ -- 289
-empty$ -- 1128
-format.name$ -- 118
-if$ -- 2531
+cite$ -- 42
+duplicate$ -- 305
+empty$ -- 1193
+format.name$ -- 127
+if$ -- 2683
 int.to.chr$ -- 0
-int.to.str$ -- 36
-missing$ -- 35
-newline$ -- 117
-num.names$ -- 35
-pop$ -- 196
+int.to.str$ -- 38
+missing$ -- 37
+newline$ -- 123
+num.names$ -- 37
+pop$ -- 206
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 664
+skip$ -- 700
 stack$ -- 0
-substring$ -- 542
-swap$ -- 43
+substring$ -- 585
+swap$ -- 45
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 4
-while$ -- 78
-width$ -- 38
-write$ -- 292
+while$ -- 83
+width$ -- 40
+write$ -- 308
 (There were 4 warnings)

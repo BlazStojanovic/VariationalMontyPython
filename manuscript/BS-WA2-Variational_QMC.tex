@@ -28,6 +28,8 @@
 \usepackage{pdfpages}
 \usepackage{booktabs} % Tables
 \usepackage{pifont}
+\usepackage{placeins}
+\usepackage{afterpage}
 
 %% Use the option review to obtain double line spacing
 %% \documentclass[preprint,review,12pt]{elsarticle}
@@ -288,7 +290,7 @@
 			
 			Accept the move ($\mathbf{R} \rightarrow \mathbf{R}^\prime$) with probability $A\left(\mathbf{R} \rightarrow \mathbf{R}^{\prime}\right)=\min \left(1, \frac{\mathrm{T}\left(\mathbf{R}^{\prime} \rightarrow \mathbf{R}\right) \mathrm{P}\left(\mathbf{R}^{\prime}\right)}{\mathrm{T}\left(\mathbf{R} \rightarrow \mathbf{R}^{\prime}\right) \mathrm{P}(\mathbf{R})}\right)$\;
 			
-			Append $\mathbf{R}$ to the set of confifigurations;
+			Append $\mathbf{R}$ to the set of configuration;
 			
 		}
 		\caption{Metropolis-Hastings}
@@ -352,6 +354,7 @@
 	this is computationally beneficial as it results in smaller determinants and no explicit sum over spin.
 	The Jastrow factor is heuristically constructed to incorporate electron correlation into the wave function. In most practical calculations it is limited to one- and two-body terms~\cite{foulkes2001quantum}
 	\begin{equation}
+		\label{eq:jast}
 		J(\mathbf{R})=
 		\underbrace{\sum_{i=1}^{N} \chi\left(\mathbf{r}_{i}\right)}_{\text{one-body}}
 		-
@@ -360,6 +363,7 @@
 	The first term describes the nuclear-electronic correlation and the second electron-electron correlation, in this project we will focus only on the second term. 
 	Various forms of $u(\mathbf{r}_{i}, \mathbf{r}_{j})$ exist depending on application area, a common form for atomic and molecular calculations is
 	\begin{equation}
+		\label{eq:u}
 		u(r_{ij})=\frac{a_{ij} r_{ij}}{1+\sum_{\kappa=1} b^{(\kappa)}_{ij} r^\kappa_{ij}}
 	\end{equation}
 	The parameters $a_{ij}$ are chosen to satisfy the \emph{cusp conditions},  
@@ -396,6 +400,7 @@
 	\end{equation}
 	However it is beneficial to use information from the probability distribution to aid sampling. A common choice of non-symmetric trial move probability and the one we will use is 
 	\begin{equation}
+		\label{eq:trialmove}
 		\mathrm{T}\left(\mathbf{R} \rightarrow \mathbf{R}^{\prime}\right) = \frac{1}{(2 \pi \tau)^{3 N / 2}}\exp\left({-} \frac{\left(\mathbf{R}^{\prime}-\mathbf{R}-\mathbf{v}\left(\mathbf{R}\right) \tau\right)^{2}}{2 \tau}\right),
 	\end{equation}
 	where $\tau$ is the time step and $\mathbf{v}(\mathbf{R})=\boldsymbol{\nabla} \Psi(\mathbf{R}) / \Psi(\mathbf{R})$ is the drift velocity, that drives the Markov random walk in the direction of increasing $|\Psi(\mathrm{R})|$~\cite{gubernatis_kawashima_werner_2016}.
@@ -410,75 +415,152 @@
 	
 	\section{Results and analysis}
 	\label{sec:results}
-	
-	\subsection{Hookium}
-	\subsubsection{HF energy}
-	
+	In this section the results produced with the code described in section~\ref{sec:impl} is presented and compared to analytical values for Hookium.
+
+	\subsection{Hartree-Fock and correlation energy}
+	Exact knowledge of the ground state energy allows for accurate determination of the contribution of electron correlation to the total energy. The correlation energy $E_c$ is by definition the difference between the \emph{exact} Hartree-Fock energy and the true ground state. Here exact refers to the most \emph{precise} energy obtainable within the HF approximation. Precision of the HF method depends on the number $n$ of basis functions used in the expansion of a single particle state
+	\begin{equation}
+		\psi_{i}(\mathbf{r})=\sum_{j=1}^{n} c_{i j} \phi_{i}(\mathbf{r}).
+	\end{equation}
+	In the case of Hookium the Harmonic Oscillator basis suggested in~\cite{ONeill2003wave} is superior to Cartesian Gaussians~\eqref{eq:cartG}, needing fewer basis functions to achieve a lower energy. With $n_\text{HO}=7$ the HF energy $E_{HF} = 2.03843887$ is obtained, which is regarded as the HF limit. 	
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=\linewidth]{../plots/HF_optimization}
-		\caption{Optimisation of bases with different number of Gaussian basis functions for the Hartree-Fock calculation of Hookium. The exponents $\alpha_{j}$ of the Gaussians were initially set to STO-ng optimised values for the $s$-orbital of Hellium. HF energies calculated using different number of Harmonic Oscillator basis functions $n_{HO}$ are given as reference, values from~\cite{ONeill2003wave}.}
+		\caption{Optimisation of bases with different number of Gaussian basis functions for the Hartree-Fock calculation of Hookium. The exponents $\alpha_{j}$ of the Gaussians were initially set to STO-ng optimised values for the $s$-orbital of Hellium. HF energies calculated using different number of Harmonic Oscillator basis functions $n_{HO}$ are given as reference, values from~\cite{ONeill2003wave}. Learning rate $\alpha=0.1$}
 		\label{fig:hfoptimization}
 	\end{figure}
-	
-	\subsubsection{Variational Monte Carlo}
-%	As we will se, the cusp condition at Hookium centers $\frac{d u}{d r} = 0.0$ is automatically fulfilled by both our basis sets.
+	Figure~\ref{fig:hfoptimization} displays the optimisation of bases with different number of Gaussians where the loss is the Hartree-Fock energy. The notation sto-$n$g refers to using the exponents of Slater type orbitals that use $n$ contracted Gaussians and are fit to the $s$-orbital of the helium atom. Figure clearly shows that the optimal exponents for Hookium are different than for helium. In order to achieve the HF limit eight optimized Gaussians were needed, in fact our implementation of variational Hartree-Fock improves on two previous estimates using eight and ten Gaussians~\cite{ONeill2003wave, amovilli2003exact}. A comparison of the results is fund in Table~\ref{tab:HFenergies}.
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{@{}lccl@{}} 
+			\toprule
+			Basis & Optimised & Source & $E_{HF}$[$Eh$]\\ \midrule
+			STO-2g & \cmark & o.w. & 2.039639 \\
+			STO-3g & \cmark & o.w. & 2.039077 \\
+			STO-4g & \cmark & o.w. & 2.038688 \\
+			C-10g & \xmark & \cite{amovilli2003exact} & 2.03851 \\
+			STO-5g & \cmark & o.w. & 2.038512 \\
+			STO-6g & \cmark & o.w. & 2.038454 \\
+			HO-3 & \xmark & \cite{ONeill2003wave} & 2.038453 \\ 
+			C-8g & \xmark & \cite{ONeill2003wave} & 2.038439 \\
+			C-8g & \cmark & o.w. & 2.038438 \\
+			HO-5 & \xmark & \cite{ONeill2003wave} & 2.038438 \\ 
+			\bottomrule
+		\end{tabular}
+		\caption{\label{tab:HFenergies}Hartree-Fock energies with different bases. STO-ng are exponents from optimized Slater orbitals for helium-1s orbital, HO is harmonic oscillator basis and C-ng is $n$ Gaussians with exponents given by $8 / 2^{n-1}$. We see that small numbers of optimised Gaussians outperforms large numbers of unoptimised Gaussians and that HO basis outperforms both.}
+	\end{table}
+	Thus the correlation energy of the Hookium species with $k=1/4$ is $E_c = -38.4388\cdot 10^{-3} E_h$, which is remarkably similar to other two electron species like He, Li$^+$ ion and Be$^{+2}$ ion. The correlation energy of Hookium supports the claim of Kestner and Sinanoglu that correlation energies of two electron systems are not much effected by the magnitude of the external field~\cite{ONeill2003wave}. A comparison of correlation energies is given in table~\ref{tab:corrs}.
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{@{}cc@{}} 
+			\toprule
+			Species &  $E_c $ [$E_h$] \\ \midrule
+			He			& -0.0420 \\
+			Li$^+$		& -0.0435 \\
+			Be$^{+2}$	& -0.0443 \\
+			Hookium	(k=$\frac{1}{4}$)	& -0.0384 \\
+			\bottomrule
+		\end{tabular}
+		\caption{\label{tab:corrs} Correlation energies for different species~\cite{kais1993density}.}
+	\end{table}
+	The Hookium model provides a perfect candidate to further explore this claim. We simply solve the the model with the HF method and with VMC at different values of $k$ to see how the correlation energy is influenced by the strength of the external field. By comparison to the ions in table~\ref{tab:corrs} we expect the magnitude of correlation energy to increase slightly with increasing $k$. This is exactly what we see on Figure~\ref{fig:correng}, both the HF $E_{HF}$ and variational $E_V$ energy increase in stronger harmonic confinements and they do so much more rapidly than the difference between the two.
 	\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{../plots/corrPlot.png}
+	\caption{Correlation energy for different Hooke coefficients $k$. The Hartree-Fock energy was computed with STO-6g basis optimised over $15$ epochs with $\alpha_{HF} = 0.05$ and the true ground state with 1g+J1 basis optimised over $10^3$ epochs with $\alpha=0.005$ and $10^6$ samples.}
+	\label{fig:correng}
+	\end{figure}
+
+
+
+	\subsection{Variational Monte Carlo}
+	%	As we will se, the cusp condition at Hookium centers $\frac{d u}{d r} = 0.0$ is automatically fulfilled by both our basis sets.
+	Hookium atom has two electrons, the Slater-Jastrow wave function is thus
+	\begin{equation}
+		\Psi_{T}(\mathbf{r}_1, \mathbf{r}_2) = J(r_{12},\{\beta_{j}\})\left|
+		\begin{array}{ll}\psi\left(\mathbf{r}_{1}\right)\left|\uparrow_{1}\right\rangle & \psi\left(\mathbf{r}_{2}\right)\left|\uparrow_{2}\right\rangle \\ \psi\left(\mathbf{r}_{1}\right)\left|\downarrow_{1}\right\rangle & \psi\left(\mathbf{r}_{2}\right)\left|\downarrow_{2}\right\rangle
+		\end{array}
+	\right|.
+	\end{equation}
+	We have to differentiate between spin up and down states because electrons with different spins are distinguishable. Since the Hamiltonian does not contain any spin dependent terms, the above Slater determinant simplifies/is equivalent to a simple product state
+	\begin{equation}
+		\Psi_{T}\left(\mathbf{r}_{1}, \mathbf{r}_{2}\right)=J(r_{12},\{\beta_{j}\})\psi(\mathbf{r}_{1})\psi(\mathbf{r}_{2}).
+	\end{equation}
+	The single particle states $\psi_i$ need not be complicated to achieve high accuracy for the Hookium system, in fact even a single Gaussian is sufficient, clearly Hookium is an exception rather than a rule and more complicated systems require more complex trial wave functions. Satisfying the cusp conditions on the other hand is crucial, as it massively decreases the variance in local energy, Figure~\ref{fig:blocking+jast} displays two Monte Carlo runs one with a Slater trial wave function and one including the Jastrow factor. The large spikes in local energy in the upper run are due to unresolved electron-electron cusp conditions, i.e. when electrons are very close together the $\propto 1/r_{ij}$ term exhibits the wrong limiting behaviour, limiting the applicability of the trial wave function. Were we studying ordinary matter, where the electrons interact with the nuclei via the Coulomb force, nuclear-electron cusp conditions would need to be met as well. In the case of Hookium there is no cusp when either $r_i = 0$ the gradient is zero however, making Gaussians a very appropriate basis. 
+	
+	The energy and variance are estimated using a \emph{reblocking} transform, this is done to mitigate the effect of correlation between sampled configurations which systematically underestimates the variance of local energy. Local energies are grouped into blocks and averaged over the block length $N_b$ to obtain the reblocked local energy $E_b$, the reblocked variance is simply the variance of $E_b$'s, the procedure is shown on Figure~\ref{fig:blocking+jast}. 
+	Monte Carlo trial moves were generated using a Gaussian perturbation of the current configuration driven by gradient of wavefunction, eq.~\eqref{eq:trialmove}. Timestep $\tau$ of $0.3$ leads to around~$\approx 60\%$ move acceptance rate and was used in all simulations.
+	\begin{figure}
 	\centering
 	\includegraphics[width=\linewidth]{../plots/blocking.png}
 	\caption{Comparison of Monte Carlo local energies $E_L$ from a trial run with (top) Slater trial wave function and (bottom) unoptimised Slater-Jastrow trial wave function. The difference in variance and hence sampling efficiency is evident from the reblocked average energy $\langle E_b \rangle$ and reblocked variance $\sigma_b$.}
 	\label{fig:blocking+jast}
 	\end{figure}
 
-	\begin{figure*}[h]
-	\subfloat[$\rho(\mathbf{r})$, $N=10^3$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/wf-8g-1j-1e3.png}}
-	\subfloat[$\rho(\mathbf{r})$, $N=10^4$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/wf-8g-1j-1e4.png}}
-	\subfloat[$\rho(\mathbf{r})$, $N=10^5$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/wf-8g-1j-1e5.png}} \\
-	\subfloat[$P(u)$, $N=10^3$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/pint1e3-8g1j.png}} 
-	\subfloat[$P(u)$, $N=10^4$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/pint1e4-8g1j.png}}
-	\subfloat[$P(u)$, $N=10^5$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/pint1e5-8g1j.png}}
-	\caption{Top row: Electron density of the Hookium atom, sampled from a single Gaussian trial function, with optimised exponent and two term Jastrow factor. Bottom row: The position intracule of the samples in top row, compared with the known analytical form.}
-	\label{fig:wfsandpints}
+	Optimisation of the Jastrow factor $J(r_{12}, \{b_j\})$ and the Slater determinant lead to further reduction in variance and energy, but only in the case of variance minimisation. Directly optimising the variational energy proved to be very unstable, this problem was more pronounced when many variational parameters were used, but even for just two optimisable parameters this approach has trouble converging, Figure~\ref{fig:basic-optim}. On the other hand optimizing variance was much more robust, would converge with larger learning rates and needed less samples per epoch for reliable gradients. An optimisation scheme where parameters of the basis (expansion coefficients and exponents) and the Jastrow factor were optimized separately in turns, was tested but it
+	\begin{figure*}
+		\subfloat[$\rho(\mathbf{r})$, $N=10^3$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/wf-8g-1j-1e3.png}}
+		\subfloat[$\rho(\mathbf{r})$, $N=10^4$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/wf-8g-1j-1e4.png}}
+		\subfloat[$\rho(\mathbf{r})$, $N=10^5$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/wf-8g-1j-1e5.png}} \\
+		\subfloat[$2\pi r^2 \rho(r)$, $N=10^3$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/rdens1e3-1g2j.png}} 
+		\subfloat[$2\pi r^2 \rho(r)$, $N=10^4$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/rdens1e4-1g2j.png}}
+		\subfloat[$2\pi r^2 \rho(r)$, $N=10^5$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/rdens1e5-1g2j.png}} \\
+		\subfloat[$P(u)$, $N=10^3$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/pint1e3.png}} 
+		\subfloat[$P(u)$, $N=10^4$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/pint1e4.png}}
+		\subfloat[$P(u)$, $N=10^5$ samples]{\includegraphics[width = 0.33\linewidth]{../plots/pint1e5.png}}
+		\caption{Top row: Electron density of the Hookium atom, sampled from a single Gaussian trial function, with optimised exponent and two term Jastrow factor. Middle row: Radial electron density for a single electron. Bottom row: The position intracule of the samples in top row, compared with the known analytical form.}
+		\label{fig:wfsandpints}
 	\end{figure*}
-		\begin{figure}[h]
-			\centering
-			\includegraphics[width=\linewidth]{../plots/vmc-opt-1g.png}
-			\caption{Comparison of energy (red) and variance (blue) optimisation of a 1g+J1 trial wave function over 600 epochs with $10^5$ samples. Variance optimisation is much more robust and finds optimal parameters ($\alpha = 0.25, b_{12} = 0.202$) from a very bad initialisation.}
-			\label{fig:basic-optim}
-		\end{figure}
-	\begin{figure}[h]
-	\centering
-	\includegraphics[width=\linewidth]{../plots/corrPlot.png}
-	\caption{Correlation energy for different Hooke coefficients $k \in [0.5, 2.0]$. The Hartree-Fock energy was computed with sto-6g basis optimised over $15$ epochs with learning rate $\alpha_{HF} = 0.05$ and the true ground state with 1g+J1 basis optimised over $10^3$ epochs with learning rate $\alpha=0.005$ and $10^5$ samples.}
-	\label{fig:correng}
+	\afterpage{\FloatBarrier}
+	\noindent
+	did not provide any advantage over optimising all parameters at once.
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=\linewidth]{../plots/vmc-opt-1g.png}
+		\caption{Comparison of energy (red) and variance (blue) optimisation of a 1g+J1 trial wave function over 600 epochs with $10^5$ samples. Variance optimisation is much more robust and finds optimal parameters ($\alpha = 0.25, b_{12} = 0.202$) from a very bad initialisation.}
+		\label{fig:basic-optim}
 	\end{figure}
 
+	When using a Gaussians of only $s$-type orbitals, there is a redundancy in the basis as really only one Gaussian and the Jastrow factor are needed to properly describe Hookium. Moreover, the optimisation procedure reliably found that it is best to set one orbital coefficient to $0.25$ and push all other expansion coefficients $c_{ij}$ towards zero, set all orbital parameters to $0.25$ or a mixture of both. If we use only one Gaussian in the trial wave function and optimise only the Jastrow factor, we see that the factor as given in eq.~\eqref{eq:jast} approaches $(1 + \frac{1}{2}r_{12})$ when we include more terms in expansion~\eqref{eq:u}, depicted on Figure~\ref{fig:jast-optim}.
+	
+	Simulation results of a VMC simulation with 1g+J2 optimised basis are shown and compared to analytical expressions for the radial electron density and position intracule on Figure~\ref{fig:wfsandpints}. Ground state energies obtained with different bases are presented in Table~\ref{tab:VMCenergies}, our implementation outperforms DFT results using BLYP and BP functionals. Quite importantly blind usage of Hartree-Fock basis (rows 1-4) proved detrimental when studying Hookium, as the exponent parameters of Gaussians that were optimal in HF need not contain an exponent close to $0.25$. If the basis is not optimised during VMC it results in higher energies and variance.
+	
+	% Address the results in the table
+
+	\begin{figure}
+		\centering
+		\includegraphics[width=\linewidth]{../plots/jastopt.png}
+		\caption{Optimised Jastrow factors for a single Gaussian trial wave function. $J_1$: one $b_{1} = 0.20198$ expansion term and $J_2:$ two $b_1 = 0.22442$, $b_2=-0.00407$ terms.}
+		\label{fig:jast-optim}
+	\end{figure}
 	\begin{table*}
 		\centering
-		\begin{tabular}{@{}lcccr@{}} 
+		\begin{tabular}{@{}lcccccl@{}} 
 			\toprule
-			Basis & Optim. & $b^{(1)}_{ij}$ & $b^{(2)}_{ij}$ & $E_V \pm \sigma_E$\\ \midrule
-			STO-2g + J1 & \xmark & \textbackslash & \textbackslash & 2.375010 $\pm$ 0.783208 \\ 
-			STO-2g + J1 & \cmark & -0.06367405 & \textbackslash & 2.144614 $\pm$ 0.508516\\ 
-			STO-4g + J1 & \xmark & \textbackslash & \textbackslash & 2.024604 $\pm$ 0.237808 \\ 
-			STO-4g + J1 & \cmark & 0.32431903 & \textbackslash & 2.009259 $\pm$ 0.169574\\ 
-			1g + J1 	& \cmark & 0.20198098 & \textbackslash & 2.000155 $\pm$ 0.012942\\ 
-			1g + J2 	& \cmark & 0.22442447 & -0.00406822 & 2.000112 $\pm$ 0.006640\\ 
+			Basis & Optimised & Method & Source & $b^{(1)}_{ij}$ & $b^{(2)}_{ij}$ & $E_V \pm \sigma_E$ [$E_h$]\\ \midrule
+			STO-2g + J1 & \xmark & VMC & o.w. & \textbackslash & \textbackslash & 2.375010 $\pm$ 0.783208 \\ 
+			STO-2g + J1 & \cmark & VMC & o.w. & -0.06367405 & \textbackslash & 2.144614 $\pm$ 0.508516\\ 
+			STO-4g + J1 & \xmark & VMC & o.w. & \textbackslash & \textbackslash & 2.024604 $\pm$ 0.237808 \\ 
+			STO-4g + J1 & \cmark & VMC & o.w. & 0.32431903 & \textbackslash & 2.009259 $\pm$ 0.169574\\ 
+			1g + J1 	& \cmark & VMC & o.w. & 0.20198098 & \textbackslash & 2.000155 $\pm$ 0.012942\\ 
+			1g + J2 	& \cmark & VMC & o.w. & 0.22442447 & -0.00406822 & 2.000112 $\pm$ 0.006640\\
+			BLYP 		& \xmark & DFT & \cite{kais1993density} & \textbackslash & \textbackslash & 2.0172 $\pm$ \textbackslash \\ 
+			BP			& \xmark & DFT & \cite{kais1993density} & \textbackslash & \textbackslash & 1.9985 $\pm$ \textbackslash \\ 
 			\bottomrule
 		\end{tabular}
-		\caption{Ground state energies for different trial wave functions, calculated with $10^6$ samples. The second column indicates if the Jastrow factor was optimised.}
+		\caption{\label{tab:VMCenergies}Ground state energies for different trial wave functions, calculated with $10^6$ samples. The second column indicates if the Jastrow factor was optimised, otherwise it was fixed with $a=-\frac{1}{2}$ and $b=1.0$.}
 	\end{table*}
-
-	\subsubsection{CPU vs. GPU speedup}
 	
-	\newpage
+	\subsection{CPU vs. GPU speedup}
+	
 	\section{Conclusion}
 	\label{sec:conclusion}
-	
-	\subsection{Code expandability and complexity}
-	Remember that HF is slow as hell!
-	
-	
+	In this paper we have introduced the variational quantum Monte Carlo algorithm and provided an implementation of it, including a Hartree-Fock module for trial wave construction. The method was used to study properties of the Hookium atom and was in good agreement with analytically known results. A single Gaussian basis with the Jastrow factor was found sufficient to describe the ground state of the model and was easiest to optimise. Stochastic optimisation, by computing the gradient of energy variance from the sampled configurations, was stable when used for a handful ($\leq 15$) of variational parameters, minimisation of variational energy was not. 
+
+	\subsection{Future work}
+	In this work we were limited to studying one single system but the code was written in such a way that expansions should be straightforward, as it stands the Gaussian basis already implements integrals for non collocated $s$-type Gaussians. The computational bottleneck of the Hartree-Fock module has not been addressed, the generalized eigensolver implementation cannot run on the GPU which limits the applicability of the HF module to larger systems. Speeding up the module as well as including more bases to chose from (i.e. plane waves) would enable us to study more interesting, larger systems. 
+	The VMC module could be expanded to automatically generate trial wave functions from the HF basis, for arbitrary numbers of electrons, Jastrow factor functionality would need to be expanded in order to accommodate this. When using the method to study multi atomic systems, geometry optimisation could be implemented without much difficulty, because of JAX's strength in computing gradients. Finally, more advanced optimisation techniques should be explored and the VMC code could be expanded into DMC.
 	
 	\bibliographystyle{elsarticle-num}
 	\bibliography{WA2-references.bib}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2021.1.21)  18 MAR 2021 21:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2021.1.21)  20 MAR 2021 10:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -297,12 +297,21 @@ LaTeX Font Info:    Trying to load font information for U+psy on input line 64.
 (/usr/share/texmf-dist/tex/latex/psnfss/upsy.fd
 File: upsy.fd 2001/06/04 font definitions for U/psy.
 ))
+(/usr/share/texmf-dist/tex/latex/placeins/placeins.sty
+Package: placeins 2005/04/18  v 2.2
+)
+(/usr/share/texmf-dist/tex/latex/tools/afterpage.sty
+Package: afterpage 2014/10/28 v1.08 After-Page Package (DPC)
+\AP@output=\toks21
+\AP@partial=\box56
+\AP@footins=\box57
+)
 (/usr/share/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\@emptytoks=\toks21
+\@emptytoks=\toks22
 LaTeX Font Info:    Redeclaring symbol font `AMSa' on input line 59.
 LaTeX Font Info:    Overwriting symbol font `AMSa' in version `normal'
 (Font)                  U/txsya/m/n --> U/msa/m/n on input line 59.
@@ -537,10 +546,10 @@ LaTeX Font Info:    Redeclaring math symbol \backepsilon on input line 265.
 (/usr/share/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count272
-\float@exts=\toks22
-\float@box=\box56
-\@float@everytoks=\toks23
-\@floatcapt=\box57
+\float@exts=\toks23
+\float@box=\box58
+\@float@everytoks=\toks24
+\@floatcapt=\box59
 )
 (/usr/share/texmf-dist/tex/latex/subfig/subfig.sty
 Package: subfig 2005/06/28 ver: 1.3 subfig package
@@ -596,8 +605,8 @@ Package: xkeyval 2020/11/20 v2.8 package option processing (HA)
 
 (/usr/share/texmf-dist/tex/generic/xkeyval/xkeyval.tex
 (/usr/share/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-\XKV@toks=\toks24
-\XKV@tempa@toks=\toks25
+\XKV@toks=\toks25
+\XKV@tempa@toks=\toks26
 )
 \XKV@depth=\count282
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
@@ -643,7 +652,7 @@ Package: amstext 2000/06/29 v2.01 AMS text
 
 (/usr/share/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks26
+\@emptytoks=\toks27
 \ex@=\dimen181
 ))
 (/usr/share/texmf-dist/tex/latex/amsmath/amsbsy.sty
@@ -663,8 +672,8 @@ LaTeX Info: Redefining \overline on input line 399.
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
-\Mathstrutbox@=\box58
-\strutbox@=\box59
+\Mathstrutbox@=\box60
+\strutbox@=\box61
 \big@size=\dimen183
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
@@ -673,21 +682,21 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
 \dotsspace@=\muskip16
 \c@parentequation=\count290
 \dspbrk@lvl=\count291
-\tag@help=\toks27
+\tag@help=\toks28
 \row@=\count292
 \column@=\count293
 \maxfields@=\count294
-\andhelp@=\toks28
+\andhelp@=\toks29
 \eqnshift@=\dimen184
 \alignsep@=\dimen185
 \tagshift@=\dimen186
 \tagwidth@=\dimen187
 \totwidth@=\dimen188
 \lineht@=\dimen189
-\@envbody=\toks29
+\@envbody=\toks30
 \multlinegap=\skip63
 \multlinetaggap=\skip64
-\mathdisplay@stack=\toks30
+\mathdisplay@stack=\toks31
 LaTeX Info: Redefining \[ on input line 2923.
 LaTeX Info: Redefining \] on input line 2924.
 )
@@ -830,16 +839,16 @@ Package: relsize 2013/03/29 ver 4.1
 \interspacealgoruled=\dimen194
 \interspacetitleboxruled=\dimen195
 \algocf@ruledwidth=\skip74
-\algocf@inoutbox=\box60
-\algocf@inputbox=\box61
+\algocf@inoutbox=\box62
+\algocf@inputbox=\box63
 \AlCapSkip=\skip75
 \AlCapHSkip=\skip76
 \algoskipindent=\skip77
-\algocf@nlbox=\box62
-\algocf@hangingbox=\box63
-\algocf@untilbox=\box64
+\algocf@nlbox=\box64
+\algocf@hangingbox=\box65
+\algocf@untilbox=\box66
 \algocf@skipuntil=\skip78
-\algocf@capbox=\box65
+\algocf@capbox=\box67
 \algocf@lcaptionbox=\skip79
 \algoheightruledefault=\skip80
 \algoheightrule=\skip81
@@ -848,8 +857,8 @@ Package: relsize 2013/03/29 ver 4.1
 \c@algocfline=\count297
 \c@algocfproc=\count298
 \c@algocf=\count299
-\algocf@algoframe=\box66
-\algocf@algobox=\box67
+\algocf@algoframe=\box68
+\algocf@algobox=\box69
 )
 (/usr/share/texmf-dist/tex/latex/bbold/bbold.sty
 Package: bbold 1994/04/06 Bbold symbol package
@@ -863,78 +872,78 @@ Package tocbibind Info: The document has section divisions on input line 50.
 Package tocbibind Note: Using section or other style headings.
 
 ) (./BS-WA2-Variational_QMC.aux)
-LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 106.
+LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 108.
 LaTeX Font Info:    Trying to load font information for OML+txmi on input line 
-106.
+108.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/omltxmi.fd
 File: omltxmi.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for OMS/txsy/m/n on input line 106.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OMS/txsy/m/n on input line 108.
 LaTeX Font Info:    Trying to load font information for OMS+txsy on input line 
-106.
+108.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/omstxsy.fd
 File: omstxsy.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for OMX/txex/m/n on input line 106.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OMX/txex/m/n on input line 108.
 LaTeX Font Info:    Trying to load font information for OMX+txex on input line 
-106.
+108.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/omxtxex.fd
 File: omxtxex.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for U/txexa/m/n on input line 106.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for U/txexa/m/n on input line 108.
 LaTeX Font Info:    Trying to load font information for U+txexa on input line 1
-06.
+08.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/utxexa.fd
 File: utxexa.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    ... okay on input line 108.
 LaTeX Font Info:    Checking defaults for LS1/libertinust1math/m/n on input lin
-e 106.
+e 108.
 LaTeX Font Info:    Trying to load font information for LS1+libertinust1math on
- input line 106.
+ input line 108.
 
 (/usr/share/texmf-dist/tex/latex/libertinust1math/ls1libertinust1math.fd
 File: ls1libertinust1math.fd 2016/03/23 Fontinst v1.933 font definitions for LS
 1/libertinust1math.
 )
-LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    ... okay on input line 108.
 LaTeX Font Info:    Checking defaults for LS2/libertinust1mathsym/m/n on input 
-line 106.
+line 108.
 LaTeX Font Info:    Trying to load font information for LS2+libertinust1mathsym
- on input line 106.
+ on input line 108.
 
 (/usr/share/texmf-dist/tex/latex/libertinust1math/ls2libertinust1mathsym.fd
 File: ls2libertinust1mathsym.fd 2015/04/17 v1.1.2-latex LibertinusT1Mathsym LS2
  font definitions
 )
-LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    ... okay on input line 108.
 
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count300
 \scratchdimen=\dimen196
-\scratchbox=\box68
+\scratchbox=\box70
 \nofMPsegments=\count301
 \nofMParguments=\count302
-\everyMPshowfont=\toks31
+\everyMPshowfont=\toks32
 \MPscratchCnt=\count303
 \MPscratchDim=\dimen197
 \MPnumerator=\count304
 \makeMPintoPDFobject=\count305
-\everyMPtoPDFconversion=\toks32
+\everyMPtoPDFconversion=\toks33
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 
@@ -1024,95 +1033,95 @@ Package caption Info: End \AtBeginDocument code.
 \c@mv@tabular=\count306
 \c@mv@boldtabular=\count307
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 10.0pt on input line 143.
+(Font)              scaled to size 10.0pt on input line 145.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
-(Font)              scaled to size 10.0pt on input line 144.
+(Font)              scaled to size 10.0pt on input line 146.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
-(Font)              scaled to size 8.0pt on input line 144.
+(Font)              scaled to size 8.0pt on input line 146.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
-(Font)              scaled to size 6.5pt on input line 144.
+(Font)              scaled to size 6.5pt on input line 146.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
-(Font)              scaled to size 10.0pt on input line 144.
+(Font)              scaled to size 10.0pt on input line 146.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
-(Font)              scaled to size 8.0pt on input line 144.
+(Font)              scaled to size 8.0pt on input line 146.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
-(Font)              scaled to size 6.5pt on input line 144.
+(Font)              scaled to size 6.5pt on input line 146.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
-(Font)              scaled to size 10.0pt on input line 144.
+(Font)              scaled to size 10.0pt on input line 146.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
-(Font)              scaled to size 8.0pt on input line 144.
+(Font)              scaled to size 8.0pt on input line 146.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
-(Font)              scaled to size 6.5pt on input line 144.
+(Font)              scaled to size 6.5pt on input line 146.
 LaTeX Font Info:    Trying to load font information for LS2+libertinust1mathex 
-on input line 144.
+on input line 146.
 
 (/usr/share/texmf-dist/tex/latex/libertinust1math/ls2libertinust1mathex.fd
 File: ls2libertinust1mathex.fd 2016/03/15 v1.0.0-latex LibertinusMath extension
 s LS2 font definitions
 )
 LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
-(Font)              scaled to size 10.0pt on input line 144.
+(Font)              scaled to size 10.0pt on input line 146.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
-(Font)              scaled to size 8.0pt on input line 144.
+(Font)              scaled to size 8.0pt on input line 146.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
-(Font)              scaled to size 6.5pt on input line 144.
+(Font)              scaled to size 6.5pt on input line 146.
 LaTeX Font Info:    Trying to load font information for U+txmia on input line 1
-44.
+46.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/utxmia.fd
 File: utxmia.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 144
+LaTeX Font Info:    Trying to load font information for U+msa on input line 146
 .
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 144
+LaTeX Font Info:    Trying to load font information for U+msb on input line 146
 .
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+txsyc on input line 1
-44.
+46.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/utxsyc.fd
 File: utxsyc.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Trying to load font information for LS1+libertinust1mathbb 
-on input line 144.
+on input line 146.
 
 (/usr/share/texmf-dist/tex/latex/libertinust1math/ls1libertinust1mathbb.fd
 File: ls1libertinust1mathbb.fd 2016/08/22 latex LibertinusT1Mathbb LS1 font def
 initions
 )
 LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
-(Font)              scaled to size 10.0pt on input line 144.
+(Font)              scaled to size 10.0pt on input line 146.
 LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
-(Font)              scaled to size 8.0pt on input line 144.
+(Font)              scaled to size 8.0pt on input line 146.
 LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
-(Font)              scaled to size 6.5pt on input line 144.
+(Font)              scaled to size 6.5pt on input line 146.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
-(Font)              scaled to size 10.0pt on input line 144.
+(Font)              scaled to size 10.0pt on input line 146.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
-(Font)              scaled to size 8.0pt on input line 144.
-LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
-(Font)              scaled to size 6.5pt on input line 144.
-LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
-(Font)              scaled to size 10.0pt on input line 144.
-LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
-(Font)              scaled to size 8.0pt on input line 144.
-LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
-(Font)              scaled to size 6.5pt on input line 144.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 14.4pt on input line 146.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 14.4pt on input line 146.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 8.0pt on input line 146.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
+LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
+(Font)              scaled to size 6.5pt on input line 146.
+LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
+(Font)              scaled to size 10.0pt on input line 146.
+LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
 (Font)              scaled to size 8.0pt on input line 146.
+LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
+(Font)              scaled to size 6.5pt on input line 146.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 14.4pt on input line 148.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
+(Font)              scaled to size 14.4pt on input line 148.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 8.0pt on input line 148.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
+(Font)              scaled to size 8.0pt on input line 148.
 
 (./BS-WA2-Variational_QMC.toc)
 \tf@toc=\write4
@@ -1126,25 +1135,25 @@ Overfull \hbox (1.667pt too wide) has occurred while \output is active
 
 ]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 10.0pt on input line 161.
+(Font)              scaled to size 10.0pt on input line 163.
 
-Underfull \hbox (badness 1087) in paragraph at lines 166--170
+Underfull \hbox (badness 1087) in paragraph at lines 168--172
 \T1/LinuxLibertineT-TLF/m/n/10 Carlo is also very ver-sa-tile and can be ap-pli
 ed at
  []
 
 
-Underfull \hbox (badness 1735) in paragraph at lines 166--170
+Underfull \hbox (badness 1735) in paragraph at lines 168--172
 \T1/LinuxLibertineT-TLF/m/n/10 it di-rectly eval-u-ates the vari-a-tional en-er
 gy $\LS1/libertinust1math/m/it/10 E[] \LS1/libertinust1math/m/n/10 =
  []
 
 LaTeX Font Info:    Trying to load font information for U+bbold on input line 1
-72.
+74.
 (/usr/share/texmf-dist/tex/latex/bbold/Ubbold.fd)
 
 LaTeX Font Warning: Font shape `U/bbold/m/n' in size <6.5> not available
-(Font)              size <6> substituted on input line 172.
+(Font)              size <6> substituted on input line 174.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1153,7 +1162,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 <../diagrams/cuda-gpu.png, id=18, 776.6616pt x 383.5128pt>
 File: ../diagrams/cuda-gpu.png Graphic file (type png)
 <use ../diagrams/cuda-gpu.png>
-Package pdftex.def Info: ../diagrams/cuda-gpu.png  used on input line 190.
+Package pdftex.def Info: ../diagrams/cuda-gpu.png  used on input line 192.
 (pdftex.def)             Requested size: 222.0pt x 109.61829pt.
 
 
@@ -1163,49 +1172,49 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: ../diagrams/Hookium/Hookium_diagram.pdf Graphic file (type pdf)
 <use ../diagrams/Hookium/Hookium_diagram.pdf>
 Package pdftex.def Info: ../diagrams/Hookium/Hookium_diagram.pdf  used on input
- line 205.
+ line 207.
 (pdftex.def)             Requested size: 77.70135pt x 106.80682pt.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
-(Font)              scaled to size 6.0pt on input line 206.
+(Font)              scaled to size 6.0pt on input line 208.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
-(Font)              scaled to size 5.0pt on input line 206.
+(Font)              scaled to size 5.0pt on input line 208.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
-(Font)              scaled to size 6.0pt on input line 206.
+(Font)              scaled to size 6.0pt on input line 208.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
-(Font)              scaled to size 5.0pt on input line 206.
+(Font)              scaled to size 5.0pt on input line 208.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
-(Font)              scaled to size 6.0pt on input line 206.
+(Font)              scaled to size 6.0pt on input line 208.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
-(Font)              scaled to size 5.0pt on input line 206.
+(Font)              scaled to size 5.0pt on input line 208.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
-(Font)              scaled to size 6.0pt on input line 206.
+(Font)              scaled to size 6.0pt on input line 208.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
-(Font)              scaled to size 5.0pt on input line 206.
+(Font)              scaled to size 5.0pt on input line 208.
 LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
-(Font)              scaled to size 6.0pt on input line 206.
+(Font)              scaled to size 6.0pt on input line 208.
 LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
-(Font)              scaled to size 5.0pt on input line 206.
+(Font)              scaled to size 5.0pt on input line 208.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
-(Font)              scaled to size 6.0pt on input line 206.
+(Font)              scaled to size 6.0pt on input line 208.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
-(Font)              scaled to size 5.0pt on input line 206.
+(Font)              scaled to size 5.0pt on input line 208.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
-(Font)              scaled to size 6.0pt on input line 206.
+(Font)              scaled to size 6.0pt on input line 208.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
-(Font)              scaled to size 5.0pt on input line 206.
+(Font)              scaled to size 5.0pt on input line 208.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [3 <../diagrams/cuda-gpu.png>]
-Overfull \hbox (0.82857pt too wide) detected at line 216
+Overfull \hbox (0.82857pt too wide) detected at line 218
 \LS1/libertinust1math/m/n/10 	 [] = [] [] [] [] \LS1/libertinust1math/m/it/10 ;
 
  []
 
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.5pt on input line 239.
+(Font)              scaled to size 6.5pt on input line 241.
 
-Underfull \hbox (badness 1629) in paragraph at lines 251--253
+Underfull \hbox (badness 1629) in paragraph at lines 253--255
 \T1/LinuxLibertineT-TLF/m/n/10 Under con-di-tions where the cen-tral limit the-
 o-rem
  []
@@ -1215,19 +1224,19 @@ o-rem
 File: ../diagrams/Software/software_diagram.pdf Graphic file (type pdf)
 <use ../diagrams/Software/software_diagram.pdf>
 Package pdftex.def Info: ../diagrams/Software/software_diagram.pdf  used on inp
-ut line 387.
+ut line 391.
 (pdftex.def)             Requested size: 608.40143pt x 430.20563pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Overfull \hbox (2.27298pt too wide) detected at line 400
+Overfull \hbox (2.27298pt too wide) detected at line 405
 \LS1/libertinust1math/m/n/10 T [] = [] [] [] \LS1/libertinust1math/m/it/10 ;
  []
 
 LaTeX Font Info:    Trying to load font information for T1+LinuxLibertineMonoT-
-TLF on input line 404.
+TLF on input line 409.
 (/usr/share/texmf-dist/tex/latex/libertine/T1LinuxLibertineMonoT-TLF.fd
 File: T1LinuxLibertineMonoT-TLF.fd 2019/05/20 (autoinst) Font definitions for T
 1/LinuxLibertineMonoT-TLF.
@@ -1235,112 +1244,128 @@ File: T1LinuxLibertineMonoT-TLF.fd 2019/05/20 (autoinst) Font definitions for T
 LaTeX Font Info:    Font shape `T1/LinuxLibertineMonoT-TLF/m/n' in size <10> no
 t available
 (Font)              Font shape `T1/LinuxLibertineMonoT-TLF/regular/n' tried ins
-tead on input line 404.
+tead on input line 409.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineMonoT-TLF/regular/n' will be
-(Font)              scaled to size 10.0pt on input line 404.
+(Font)              scaled to size 10.0pt on input line 409.
 
 [7]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-<../plots/HF_optimization.png, id=48, 763.8939pt x 463.9734pt>
-File: ../plots/HF_optimization.png Graphic file (type png)
-<use ../plots/HF_optimization.png>
-Package pdftex.def Info: ../plots/HF_optimization.png  used on input line 419.
-(pdftex.def)             Requested size: 222.0pt x 134.83202pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [8 <../diagrams/Software/software_diagram.pdf>]
-<../plots/blocking.png, id=87, 744.381pt x 742.2129pt>
-File: ../plots/blocking.png Graphic file (type png)
-<use ../plots/blocking.png>
-Package pdftex.def Info: ../plots/blocking.png  used on input line 428.
-(pdftex.def)             Requested size: 222.0pt x 221.35185pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<../plots/wf-8g-1j-1e3.png, id=88, 1003.75pt x 938.50626pt>
-File: ../plots/wf-8g-1j-1e3.png Graphic file (type png)
-<use ../plots/wf-8g-1j-1e3.png>
-Package pdftex.def Info: ../plots/wf-8g-1j-1e3.png  used on input line 434.
-(pdftex.def)             Requested size: 154.44086pt x 144.39293pt.
-<../plots/wf-8g-1j-1e4.png, id=89, 1003.75pt x 938.50626pt>
-File: ../plots/wf-8g-1j-1e4.png Graphic file (type png)
-<use ../plots/wf-8g-1j-1e4.png>
-Package pdftex.def Info: ../plots/wf-8g-1j-1e4.png  used on input line 435.
-(pdftex.def)             Requested size: 154.44086pt x 144.39293pt.
-<../plots/wf-8g-1j-1e5.png, id=90, 1003.75pt x 938.50626pt>
-File: ../plots/wf-8g-1j-1e5.png Graphic file (type png)
-<use ../plots/wf-8g-1j-1e5.png>
-Package pdftex.def Info: ../plots/wf-8g-1j-1e5.png  used on input line 436.
-(pdftex.def)             Requested size: 154.44086pt x 144.39293pt.
-<../plots/pint1e3-8g1j.png, id=91, 465.4188pt x 457.4691pt>
-File: ../plots/pint1e3-8g1j.png Graphic file (type png)
-<use ../plots/pint1e3-8g1j.png>
-Package pdftex.def Info: ../plots/pint1e3-8g1j.png  used on input line 437.
-(pdftex.def)             Requested size: 154.44086pt x 151.80292pt.
-<../plots/pint1e4-8g1j.png, id=92, 465.4188pt x 457.4691pt>
-File: ../plots/pint1e4-8g1j.png Graphic file (type png)
-<use ../plots/pint1e4-8g1j.png>
-Package pdftex.def Info: ../plots/pint1e4-8g1j.png  used on input line 438.
-(pdftex.def)             Requested size: 154.44086pt x 151.80292pt.
-<../plots/pint1e5-8g1j.png, id=93, 465.4188pt x 457.4691pt>
-File: ../plots/pint1e5-8g1j.png Graphic file (type png)
-<use ../plots/pint1e5-8g1j.png>
-Package pdftex.def Info: ../plots/pint1e5-8g1j.png  used on input line 439.
-(pdftex.def)             Requested size: 154.44086pt x 151.80292pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<../plots/vmc-opt-1g.png, id=94, 758.835pt x 463.9734pt>
-File: ../plots/vmc-opt-1g.png Graphic file (type png)
-<use ../plots/vmc-opt-1g.png>
-Package pdftex.def Info: ../plots/vmc-opt-1g.png  used on input line 445.
-(pdftex.def)             Requested size: 222.0pt x 135.73114pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<../plots/corrPlot.png, id=95, 795.6927pt x 463.9734pt>
+<../plots/HF_optimization.png, id=85, 763.8939pt x 463.9734pt>
+File: ../plots/HF_optimization.png Graphic file (type png)
+<use ../plots/HF_optimization.png>
+Package pdftex.def Info: ../plots/HF_optimization.png  used on input line 428.
+(pdftex.def)             Requested size: 222.0pt x 134.83202pt.
+<../plots/corrPlot.png, id=87, 795.6927pt x 463.9734pt>
 File: ../plots/corrPlot.png Graphic file (type png)
 <use ../plots/corrPlot.png>
-Package pdftex.def Info: ../plots/corrPlot.png  used on input line 451.
+Package pdftex.def Info: ../plots/corrPlot.png  used on input line 469.
 (pdftex.def)             Requested size: 222.0pt x 129.4444pt.
+
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-(./BS-WA2-Variational_QMC.bbl [9 <../plots/HF_optimization.png> <../plots/block
-ing.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+[9 <../plots/HF_optimization.png>]
+<../plots/blocking.png, id=93, 744.381pt x 742.2129pt>
+File: ../plots/blocking.png Graphic file (type png)
+<use ../plots/blocking.png>
+Package pdftex.def Info: ../plots/blocking.png  used on input line 495.
+(pdftex.def)             Requested size: 222.0pt x 221.35185pt.
+<../plots/wf-8g-1j-1e3.png, id=94, 1003.75pt x 938.50626pt>
+File: ../plots/wf-8g-1j-1e3.png Graphic file (type png)
+<use ../plots/wf-8g-1j-1e3.png>
+Package pdftex.def Info: ../plots/wf-8g-1j-1e3.png  used on input line 502.
+(pdftex.def)             Requested size: 154.44086pt x 144.39293pt.
+<../plots/wf-8g-1j-1e4.png, id=95, 1003.75pt x 938.50626pt>
+File: ../plots/wf-8g-1j-1e4.png Graphic file (type png)
+<use ../plots/wf-8g-1j-1e4.png>
+Package pdftex.def Info: ../plots/wf-8g-1j-1e4.png  used on input line 503.
+(pdftex.def)             Requested size: 154.44086pt x 144.39293pt.
+<../plots/wf-8g-1j-1e5.png, id=96, 1003.75pt x 938.50626pt>
+File: ../plots/wf-8g-1j-1e5.png Graphic file (type png)
+<use ../plots/wf-8g-1j-1e5.png>
+Package pdftex.def Info: ../plots/wf-8g-1j-1e5.png  used on input line 504.
+(pdftex.def)             Requested size: 154.44086pt x 144.39293pt.
+<../plots/rdens1e3-1g2j.png, id=97, 466.8642pt x 456.0237pt>
+File: ../plots/rdens1e3-1g2j.png Graphic file (type png)
+<use ../plots/rdens1e3-1g2j.png>
+Package pdftex.def Info: ../plots/rdens1e3-1g2j.png  used on input line 505.
+(pdftex.def)             Requested size: 154.44086pt x 150.85011pt.
+<../plots/rdens1e4-1g2j.png, id=98, 466.8642pt x 458.1918pt>
+File: ../plots/rdens1e4-1g2j.png Graphic file (type png)
+<use ../plots/rdens1e4-1g2j.png>
+Package pdftex.def Info: ../plots/rdens1e4-1g2j.png  used on input line 506.
+(pdftex.def)             Requested size: 154.44086pt x 151.5673pt.
+<../plots/rdens1e5-1g2j.png, id=99, 466.8642pt x 456.0237pt>
+File: ../plots/rdens1e5-1g2j.png Graphic file (type png)
+<use ../plots/rdens1e5-1g2j.png>
+Package pdftex.def Info: ../plots/rdens1e5-1g2j.png  used on input line 507.
+(pdftex.def)             Requested size: 154.44086pt x 150.85011pt.
+<../plots/pint1e3.png, id=100, 465.4188pt x 457.4691pt>
+File: ../plots/pint1e3.png Graphic file (type png)
+<use ../plots/pint1e3.png>
+Package pdftex.def Info: ../plots/pint1e3.png  used on input line 508.
+(pdftex.def)             Requested size: 154.44086pt x 151.80292pt.
+<../plots/pint1e4.png, id=101, 465.4188pt x 457.4691pt>
+File: ../plots/pint1e4.png Graphic file (type png)
+<use ../plots/pint1e4.png>
+Package pdftex.def Info: ../plots/pint1e4.png  used on input line 509.
+(pdftex.def)             Requested size: 154.44086pt x 151.80292pt.
+<../plots/pint1e5.png, id=102, 465.4188pt x 457.4691pt>
+File: ../plots/pint1e5.png Graphic file (type png)
+<use ../plots/pint1e5.png>
+Package pdftex.def Info: ../plots/pint1e5.png  used on input line 510.
+(pdftex.def)             Requested size: 154.44086pt x 151.80292pt.
+ [10 <../plots/corrPlot.png> <../plots/blocking.png>] [11 <../plots/wf-8g-1j-1e
+3.png (PNG copy)> <../plots/wf-8g-1j-1e4.png (PNG copy)> <../plots/wf-8g-1j-1e5
+.png (PNG copy)> <../plots/rdens1e3-1g2j.png> <../plots/rdens1e4-1g2j.png> <../
+plots/rdens1e5-1g2j.png> <../plots/pint1e3.png> <../plots/pint1e4.png> <../plot
+s/pint1e5.png>]
+<../plots/vmc-opt-1g.png, id=117, 758.835pt x 463.9734pt>
+File: ../plots/vmc-opt-1g.png Graphic file (type png)
+<use ../plots/vmc-opt-1g.png>
+Package pdftex.def Info: ../plots/vmc-opt-1g.png  used on input line 520.
+(pdftex.def)             Requested size: 222.0pt x 135.73114pt.
+<../plots/jastopt.png, id=118, 739.3221pt x 456.0237pt>
+File: ../plots/jastopt.png Graphic file (type png)
+<use ../plots/jastopt.png>
+Package pdftex.def Info: ../plots/jastopt.png  used on input line 533.
+(pdftex.def)             Requested size: 222.0pt x 136.93341pt.
+ (./BS-WA2-Variational_QMC.bbl
+Underfull \vbox (badness 1748) has occurred while \output is active []
 
+ [12
 
+ <../plots/vmc-opt-1g.png> <../plots/jastopt.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 98--100
 \T1/LinuxLibertineT-TLF/m/n/8 https://docs.nvidia.com/cuda/cuda-c-programming-
  []
 
 
+Underfull \hbox (badness 1831) in paragraph at lines 152--155
+\T1/LinuxLibertineT-TLF/m/n/8 model atom and ap-prox-i-mate pro-pos-als for re-
+al-is-tic two-
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [10 <../plots/wf-8g-1j-1e3.png (PNG copy)> <../plots/wf-8g-1j-1e4.png (PNG cop
-y)> <../plots/wf-8g-1j-1e5.png (PNG copy)> <../plots/pint1e3-8g1j.png> <../plot
-s/pint1e4-8g1j.png> <../plots/pint1e5-8g1j.png>]) [11 <../plots/vmc-opt-1g.png>
- <../plots/corrPlot.png>] [12]
-Underfull \vbox (badness 2261) has occurred while \output is active []
-
- [13]
-[14
-
-] (./BS-WA2-Variational_QMC.aux)
+ [13])
+[14] [15] [16] (./BS-WA2-Variational_QMC.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.5pt have occurred.
 
  ) 
 Here is how much of TeX's memory you used:
- 11312 strings out of 479383
- 174521 string characters out of 5875830
- 476533 words of memory out of 5000000
- 28144 multiletter control sequences out of 15000+600000
+ 11387 strings out of 479383
+ 175951 string characters out of 5875830
+ 477415 words of memory out of 5000000
+ 28208 multiletter control sequences out of 15000+600000
  493140 words of font info for 128 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  80i,15n,85p,1903b,505s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1358,10 +1383,10 @@ public/libertine/LinLibertineT.pfb></usr/share/texmf-dist/fonts/type1/public/li
 bertine/LinLibertineTB.pfb></usr/share/texmf-dist/fonts/type1/public/libertine/
 LinLibertineTI.pfb></usr/share/texmf-dist/fonts/type1/public/bbold-type1/bbold7
 .pfb></usr/share/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on BS-WA2-Variational_QMC.pdf (14 pages, 1750807 bytes).
+Output written on BS-WA2-Variational_QMC.pdf (16 pages, 1867124 bytes).
 PDF statistics:
- 157 PDF objects out of 1000 (max. 8388607)
- 111 compressed objects within 2 object streams
+ 171 PDF objects out of 1000 (max. 8388607)
+ 115 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 66 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 86 words of extra memory for PDF output out of 10000 (max. 10000000)
 

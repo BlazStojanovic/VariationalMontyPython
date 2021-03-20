@@ -14,7 +14,6 @@ matplotlib.rcParams.update({'font.size': 22})
 matplotlib.rcParams['text.usetex'] = True
 matplotlib.rcParams['text.latex.preamble'] = r'\usepackage{libertine}'
 
-
 # Variational HF data
 e2g = np.load("../data/hfEnergy/hf2g.npy")
 e3g = np.load("../data/hfEnergy/hf3g.npy")
@@ -73,5 +72,5 @@ ax.set_ylabel("$E_{HF}$ [a.u.]")
 
 plt.ylim([2.038, 2.045])
 plt.savefig("../plots/HF_optimization.png", bbox_inches='tight')
-plt.show()
-# plt.close()
+# plt.show()
+plt.close()
