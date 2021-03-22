@@ -30,9 +30,7 @@ def VMC(it, jastParam, bparam, c):
 	key = rnd.PRNGKey(seed)
 	k = 0.25
 	config = np.random.random((2, 3)) # TODO fix later, but for now start at origin
-	configurations = jnp.zeros((2*it, 3))
-
-	Els = jnp.zeros(it)
+	Ev = 0.0
 
 	# define trial wave function
 	@jit
@@ -62,7 +60,7 @@ def VMC(it, jastParam, bparam, c):
 
 	@jit
 	def loop_bdy(i, state):
-		key, config, jastParam, bparam, c, Els = state
+		key, config, jastParam, bparam, c, Ev = state
 
 		key, subkey = rnd.split(key) 
 
@@ -96,16 +94,15 @@ def VMC(it, jastParam, bparam, c):
 		psii = twf(r1, r2, jastParam, bparam, c)
 		Hl = T/psii + V + C
 
-		Els = jax.ops.index_update(Els, i, Hl)
+		Ev = Ev + (Hl - Ev)/(i+1)
 
-		return key, config, jastParam, bparam, c, Els
+		return key, config, jastParam, bparam, c, Ev
 
-	key, config, jastParam, bparam, c, Els = lax.fori_loop(0, it, loop_bdy, (key, config, jastParam, bparam, c, Els))
+	key, config, jastParam, bparam, c, Ev = lax.fori_loop(0, it, loop_bdy, (key, config, jastParam, bparam, c, Ev))
 	
-	Ev = jnp.average(Els)
-	stdev = jnp.std(Els)*(it)/(it-1)
+	# stdev = jnp.std(Els)*(it)/(it-1)
 
-	return Ev, stdev
+	return Ev
 
 VMC = jit(VMC, static_argnums=[0])
 
@@ -126,9 +123,15 @@ if __name__ == '__main__':
 	gj2 = jnp.array([0.22442447, -0.00406822])
 
 
-	for it in [1000, 10000, 100000]:
+	for it in [1000, 10000, 100000, 1000000]:
 		start_time = time.time()
-		e, s = VMC(it, jnp.array([1.0]), sto2ge, sto2gc)
+		e = VMC(it, jnp.array([1.0]), sto2ge, sto2gc) # jit compile
+		ct = time.time() - start_time
+		print("Jit time")
+
+		start_time = time.time()
+		e = VMC(it, jnp.array([1.0]), sto2ge, sto2gc) # time compiled
+		e.block_until_ready()
 		t = time.time() - start_time
-		print("{} iterations with basis sto2g + J1:  {}+-{}".format(it, e, s))
+		print("{} iterations with basis sto2g + J1:  {}+-{}".format(it, e, jnp.inf))
 		print("Execution time: {}".format(t))
