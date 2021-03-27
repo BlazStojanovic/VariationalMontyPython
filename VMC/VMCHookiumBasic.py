@@ -145,7 +145,7 @@ if __name__ == '__main__':
 
 		print("Variational energy: E_V = {}".format(jnp.average(Els)))
 
-		print("Variance: sigma_e = {}".format(jnp.std(Els)))
+		print("Variance: sigma_e = {}".format(jnp.sqrt(1/it/(it-1)*jnp.sum(jnp.square(jnp.average(Els-Ev)))))
 
 		jnp.save("../data/vmcConfigurations/vmc-1g-1e{}.npy".format(i), configurations)
 

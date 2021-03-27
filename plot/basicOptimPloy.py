@@ -8,11 +8,11 @@ matplotlib.rcParams['text.usetex'] = True
 matplotlib.rcParams['text.latex.preamble'] = r'\usepackage{libertine}'
 
 
-eoptE = np.load('../data/vmcEnergies/vmc-opt-1g-1j-EE.npy')
-eoptV = np.load('../data/vmcEnergies/vmc-opt-1g-1j-Es.npy')
+eoptE = np.load('../data/vmcEnergies/vmc-opt-1g-1j-EE1.npy')
+eoptV = np.load('../data/vmcEnergies/vmc-opt-1g-1j-Es1.npy')
 
-soptE = np.load('../data/vmcEnergies/vmc-opt-1g-1j-sE.npy')
-soptV = np.load('../data/vmcEnergies/vmc-opt-1g-1j-ss.npy')
+soptE = np.load('../data/vmcEnergies/vmc-opt-1g-1j-sE1.npy')
+soptV = np.load('../data/vmcEnergies/vmc-opt-1g-1j-ss1.npy')
 
 plt.figure(figsize=(12, 7))
 plt.xlabel("epochs")
@@ -32,7 +32,7 @@ plt.xlim([0, 600])
 
 plt.legend()
 plt.savefig('../plots/vmc-opt-1g.png', bbox_inches='tight')
-plt.show()
+# plt.show()
 
 # plt.semilogy(abs(soptE-2.0))
 # plt.show()

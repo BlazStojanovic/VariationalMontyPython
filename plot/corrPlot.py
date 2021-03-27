@@ -8,8 +8,10 @@ matplotlib.rcParams['text.usetex'] = True
 matplotlib.rcParams['text.latex.preamble'] = r'\usepackage{libertine}'
 
 Ehfs = np.load("../data/vmcEnergies/corr-Ehf.npy")
-Evs = np.load("../data/vmcEnergies/corr-Ev.npy")
-Sigvs = np.load("../data/vmcEnergies/corr-sigma.npy")
+Evs = np.load("../data/vmcEnergies/corr1-Ev.npy")
+Sigvs = np.load("../data/vmcEnergies/corr1-sigma.npy")
+
+print(Sigvs)
 
 N = len(Ehfs)
 k = np.linspace(0.1, 2, N, endpoint=True)
@@ -20,14 +22,16 @@ ax2 = ax1.twinx()
 
 ax1.plot(k, Ehfs, 'ro', label='$E_{HF}$')
 ax1.errorbar(k, Evs, Sigvs, marker='.', color='blue', linestyle=' ', label=r'$E_V \pm \sigma_E$')
-ax2.plot(k, Ehfs-Evs, 'ko--', label='Correlation Energy')
+ax2.plot(k, Ehfs-Evs, 'k--')#, label='Correlation Energy')
+# ax2.plot(k, Ehfs-Evs, 'ko--', label='Correlation Energy')
+ax2.errorbar(k, Ehfs-Evs, Sigvs, marker='.', color='black', linestyle=' ', label='Correlation Energy')
 
 ax1.legend(loc='lower right')
 ax2.legend(loc='lower center')
 ax1.set_xlabel("$k$")
 ax1.set_ylabel("$E$ [a.u.]")
 ax2.set_ylabel(r"$E_c$ [a.u.]")
-ax2.set_ylim([0.02, 0.07])
+ax2.set_ylim([0.03, 0.06])
 
 axins1 = ax1.inset_axes([0.07,0.65,0.3,0.3])
 # axins2 = axins1.twinx()

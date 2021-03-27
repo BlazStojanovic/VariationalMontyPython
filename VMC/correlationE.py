@@ -100,24 +100,46 @@ def VMC(it, jastParam, bparam, c, k):
 	key, config, jastParam, bparam, c, Els = lax.fori_loop(0, it, loop_bdy, (key, config, jastParam, bparam, c, Els))
 	
 	Ev = jnp.average(Els)
-	stdev = jnp.std(Els)*(it)/(it-1)
+	stdev = jnp.sqrt(1/it/(it-1)*jnp.sum(jnp.square(Els-Ev)))
 
-	return Ev, stdev
+	return Ev, stdev#, Els
 
 VMC = jit(VMC, static_argnums=[0])
 
 def update_sig(it, jastParam, bparam, c, alpha, k):
+	# dE, dsig, dEls = jacfwd(VMC, argnums=[1, 2])(it, jastParam, bparam, c, k)
 	dE, dsig = jacfwd(VMC, argnums=[1, 2])(it, jastParam, bparam, c, k)
 	
 	dj, db = dsig
 
-	return jastParam-alpha*dj, bparam-alpha*db
+	return jastParam-3*alpha*dj, bparam-alpha*db
 
 update_sig = jit(update_sig, static_argnums=[0])
 
 def update(bparam, cpos, centers, ccoefs, ncs, M, nel, maxiter, alpha):
 	db, (dD, dC) = jacfwd(hf.SCFLoop, argnums=0)(bparam, cpos, centers, ccoefs, ncs, M, nel, maxiter=maxiter, mintol=1e-6)
 	return bparam - alpha*db
+
+def blocking_transform(E, Nb):
+	Eb = np.zeros(np.shape(E)[0])
+	n = (np.shape(E)[0])//Nb
+	# print(n)
+	for i in range(n-1):
+		Eb[i*Nb:(i+1)*Nb] = np.average(E[i*Nb:(i+1)*Nb])
+	Eb[Nb*(n-1)::] = np.average(E[Nb*(n-1)::])
+	return Eb
+
+def blocking_average(E, Nb):
+	ar = E[::Nb]
+	n = (np.shape(E)[0])//Nb
+	av = np.cumsum(ar)/(np.arange(n)+1)
+	return np.repeat(av, Nb)
+
+def blocking_var(E, Ev, Nb):
+	ar = E[::Nb]
+	n = (np.shape(E)[0])//Nb
+	av = np.cumsum(np.square(ar-Ev))/(np.arange(n))
+	return np.repeat(av, Nb)
 
 if __name__ == '__main__':
 	
@@ -143,14 +165,15 @@ if __name__ == '__main__':
 	mintol  = 1e-5
 
 	# VMC optimization
-	epochs = 1000
-	alpha = 0.005
+	epochs = 300
+	alpha = 0.05
 
 	# MC params
 	it = 10000
 	beta = 5/epochs
 
 	for i, k in enumerate(ks):
+		print(i)
 
 		print("Solving for k = ", k)
 		bparam = orbitals.sto6g_exponents.get('He-s')
@@ -166,10 +189,13 @@ if __name__ == '__main__':
 		print("Hartree-Fock energy: ", Ehfs[i])
 
 		ci = C[:, 0]
-		if i == 0:
+		if i==0:
 			jastParam = jnp.array([0.2])
 			vbparam = jnp.array([0.15])
 			ci = jnp.array([1.0])
+
+		if i==1:
+			epochs = 100
 
 		for j in range(epochs):
 			alpex = alpha*jnp.exp(-beta*i)
@@ -177,8 +203,17 @@ if __name__ == '__main__':
 			print(jastParam, vbparam)
 
 		Evs[i], sigvs[i] = VMC(it, jastParam, vbparam, ci, k)
+
+		# Evs[i], s, Els = VMC(it, jastParam, vbparam, ci, k)
+		# Eb = blocking_transform(Els, 20)
+		# bav = blocking_average(Els, 20)
+		# Ev = np.average(Els)
+		# bvar = blocking_var(Els, Ev, 20)
+		# be, bs = Eb[-1], bvar[-1]
+		# sigvs[i] = bs
+
 		print("VMC energy: ", Evs[i], " +-", sigvs[i])
 
-	np.save("../data/vmcEnergies/corr-Ehf.npy", Ehfs)
-	np.save("../data/vmcEnergies/corr-Ev.npy", Evs)
-	np.save("../data/vmcEnergies/corr-sigma.npy", sigvs)
+	# np.save("../data/vmcEnergies/corr1-Ehf.npy", Ehfs)
+	np.save("../data/vmcEnergies/corr1-Ev.npy", Evs)
+	np.save("../data/vmcEnergies/corr1-sigma.npy", sigvs)

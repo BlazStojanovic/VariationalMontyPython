@@ -101,15 +101,36 @@ def VMC(it, jastParam, bparam, c):
 	key, config, jastParam, bparam, c, Els = lax.fori_loop(0, it, loop_bdy, (key, config, jastParam, bparam, c, Els))
 	
 	Ev = jnp.average(Els)
-	stdev = jnp.std(Els)*(it)/(it-1)
+	stdev = jnp.sqrt(1/it/(it-1)*jnp.sum(jnp.square(Els-Ev)))
 
-	return Ev, stdev
+	return Ev, stdev, Els
 
 VMC = jit(VMC, static_argnums=[0])
 
 if __name__ == '__main__':
 
-	it = 1000000
+	def blocking_transform(E, Nb):
+		Eb = np.zeros(np.shape(E)[0])
+		n = (np.shape(E)[0])//Nb
+		# print(n)
+		for i in range(n-1):
+			Eb[i*Nb:(i+1)*Nb] = np.average(E[i*Nb:(i+1)*Nb])
+		Eb[Nb*(n-1)::] = np.average(E[Nb*(n-1)::])
+		return Eb
+
+	def blocking_average(E, Nb):
+		ar = E[::Nb]
+		n = (np.shape(E)[0])//Nb
+		av = np.cumsum(ar)/(np.arange(n)+1)
+		return np.repeat(av, Nb)
+
+	def blocking_var(E, Ev, Nb):
+		ar = E[::Nb]
+		n = (np.shape(E)[0])//Nb
+		av = np.cumsum(np.square(ar-Ev))/(np.arange(n))
+		return np.repeat(av, Nb)
+
+	it = 10000000
 
 	# Setup of initial parameters
 	sto2ge = orbitals.sto2g_exponents.get('He-s')
@@ -121,19 +142,50 @@ if __name__ == '__main__':
 	sto4gOj1 = jnp.array([0.32431903])
 	
 	ge1 = jnp.array([0.25])
-	gj1 = jnp.array([0.20198098])
-	gj2 = jnp.array([0.22442447, -0.00406822])
+	gj1 = jnp.array([0.2020724])
+	gj2 = jnp.array([0.22433668, -0.00510384])
 
-	e, s = VMC(it, jnp.array([1.0]), sto2ge, sto2gc)
-	print("sto2g + J1:  {}+-{}".format(e, s))
-	e, s = VMC(it, jnp.array([1.0]), sto4ge, sto4gc)
-	print("sto4g + J1: {}+-{}".format(e, s))
-	e, s = VMC(it, sto2gOj1, sto2ge, sto2gc)
-	print("sto2g + J1 + opt:  {}+-{}".format(e, s) )
-	e, s = VMC(it, sto4gOj1, sto4ge, sto4gc)
-	print("sto4g + J1 + opt:  {}+-{}".format(e, s))
-	e, s = VMC(it, gj1, ge1, jnp.array([1.0]))
-	print("sto1g + J1 + opt:  {}+-{}".format(e, s))
-	e, s = VMC(it, gj2, ge1	, jnp.array([1.0]))
-	print("sto1g + J2 + opt:  {}+-{}".format(e, s))
+	e, s, Els = VMC(it, jnp.array([1.0]), sto2ge, sto2gc)
+	Eb = blocking_transform(Els, 20)
+	bav = blocking_average(Els, 20)
+	Ev = np.average(Els)
+	bvar = blocking_var(Els, Ev, 20)
+	be, bs = Eb[-1], bvar[-1]
+
+	print("sto2g + J1: {}+-{}".format(e, s), "\n {}+-{}".format(be, bs) )
+	e, s, Els = VMC(it, jnp.array([1.0]), sto4ge, sto4gc)
+	Eb = blocking_transform(Els, 20)
+	bav = blocking_average(Els, 20)
+	Ev = np.average(Els)
+	bvar = blocking_var(Els, Ev, 20)
+	be, bs = Eb[-1], bvar[-1]
+	print("sto4g + J1: {}+-{}".format(e, s), "\n {}+-{}".format(be, bs) )
+	e, s, Els = VMC(it, sto2gOj1, sto2ge, sto2gc)
+	Eb = blocking_transform(Els, 20)
+	bav = blocking_average(Els, 20)
+	Ev = np.average(Els)
+	bvar = blocking_var(Els, Ev, 20)
+	be, bs = Eb[-1], bvar[-1]
+	print("sto2g + J1 + opt: {}+-{}".format(e, s), "\n {}+-{}".format(be, bs) )
+	e, s, Els = VMC(it, sto4gOj1, sto4ge, sto4gc)
+	Eb = blocking_transform(Els, 20)
+	bav = blocking_average(Els, 20)
+	Ev = np.average(Els)
+	bvar = blocking_var(Els, Ev, 20)
+	be, bs = Eb[-1], bvar[-1]
+	print("sto4g + J1 + opt: {}+-{}".format(e, s), "\n {}+-{}".format(be, bs) )
+	e, s, Els = VMC(it, gj1, ge1, jnp.array([1.0]))
+	Eb = blocking_transform(Els, 20)
+	bav = blocking_average(Els, 20)
+	Ev = np.average(Els)
+	bvar = blocking_var(Els, Ev, 20)
+	be, bs = Eb[-1], bvar[-1]
+	print("sto1g + J1 + opt: {}+-{}".format(e, s), "\n {}+-{}".format(be, bs) )
+	e, s, Els = VMC(it, gj2, ge1, jnp.array([1.0]))
+	Eb = blocking_transform(Els, 20)
+	bav = blocking_average(Els, 20)
+	Ev = np.average(Els)
+	bvar = blocking_var(Els, Ev, 20)
+	be, bs = Eb[-1], bvar[-1]
+	print("sto1g + J2 + opt: {}+-{}".format(e, s), "\n {}+-{}".format(be, bs) )
 	

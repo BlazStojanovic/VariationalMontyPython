@@ -53,7 +53,7 @@ def VMC(it, jastParam, bparam, c):
 		
 		a = 1.0/2.0 # opposite spin electron cusp condition
 
-		b = jnp.abs(jastParam[0])
+		b = jnp.abs(jastParam)
 		jast = js.Jastrow(r12, a, b)
 
 		return b1*b2*jast
@@ -108,7 +108,7 @@ def VMC(it, jastParam, bparam, c):
 	key, config, jastParam, bparam, c, Els = lax.fori_loop(0, it, loop_bdy, (key, config, jastParam, bparam, c, Els))
 	
 	Ev = jnp.average(Els)
-	stdev = jnp.std(Els)*(it)/(it-1)
+	stdev = jnp.sqrt(1/it/(it-1)*jnp.sum(jnp.square(Els-Ev)))
 
 	return Ev, stdev
 
@@ -127,45 +127,45 @@ def update_sig(it, jastParam, bparam, c, alpha):
 	
 	dj, db = dsig
 
-	return jastParam-alpha*dj, bparam-alpha*db
+	return jastParam-10*alpha*dj, bparam-alpha*db
 
 update_sig = jit(update_sig, static_argnums=[0])
 update_E = jit(update_E, static_argnums=[0])
 
 if __name__ == '__main__':
 	# Optimise variance
-	epochs = 1000
-	alpha = 0.01
+	# epochs = 600
+	# alpha = 0.5
 
-	Evs = np.zeros(epochs)
-	sigs = np.zeros(epochs)
+	# Evs = np.zeros(epochs)
+	# sigs = np.zeros(epochs)
 
-	# MC params
-	it = 10000
-	beta = 10**(-3)
+	# # MC params
+	# it = 10000
+	# beta = 10**(-2)
 
-	# Wave function parameters
-	bparam = jnp.array([[1.0]])
-	jastParam = jnp.array([1.0])
+	# # Wave function parameters
+	# bparam = jnp.array([[1.0]])
+	# jastParam = jnp.array([1.0])
 	
-	ci = jnp.array([1.0])
+	# ci = jnp.array([1.0])
 
-	for i in range(epochs):
-		Ev, stdev = VMC(it, jastParam, bparam, ci, thprop=0.2, nw=1, tau=0.2, seed=4202)
-		print("Variational energy: E_V = {}".format(Ev))
-		print("Variance: sigma_e = {}".format(stdev))
+	# for i in range(epochs):
+	# 	Ev, stdev = VMC(it, jastParam, bparam, ci)
+	# 	print("Variational energy: E_V = {}".format(Ev))
+	# 	print("Variance: sigma_e = {}".format(stdev))
 
-		Evs[i], sigs[i] = VMC(it, jastParam, bparam, ci)
+	# 	Evs[i], sigs[i] = VMC(it, jastParam, bparam, ci)
 
-		alpex = alpha*jnp.exp(-beta*i)
-		jastParam, bparam = update_sig(it, jastParam, bparam, ci, alpex)
-		print(i, jastParam, bparam)
+	# 	alpex = alpha*jnp.exp(-beta*i)
+	# 	jastParam, bparam = update_sig(it, jastParam, bparam, ci, alpex)
+	# 	print(i, jastParam, bparam)
 
-	np.save("../data/vmcEnergies/vmc-opt-1g-1j-ss.npy", sigs)
-	np.save("../data/vmcEnergies/vmc-opt-1g-1j-sE.npy", Evs)
+	# np.save("../data/vmcEnergies/vmc-opt-1g-1j-ss1.npy", sigs)
+	# np.save("../data/vmcEnergies/vmc-opt-1g-1j-sE1.npy", Evs)
 	
 	# Optimise Variational energy
-	epochs = 1000
+	epochs = 600
 	alpha = 0.05
 
 	Evs = np.zeros(epochs)
@@ -182,7 +182,7 @@ if __name__ == '__main__':
 	ci = jnp.array([1.0])
 
 	for i in range(epochs):
-		Ev, stdev = VMC(it, jastParam, bparam, ci, thprop=0.2, nw=1, tau=0.2, seed=4202)
+		Ev, stdev = VMC(it, jastParam, bparam, ci)
 		print("Variational energy: E_V = {}".format(Ev))
 		print("Variance: sigma_e = {}".format(stdev))
 
@@ -192,5 +192,5 @@ if __name__ == '__main__':
 		jastParam, bparam = update_E(it, jastParam, bparam, ci, alpex)
 		print(i, jastParam, bparam)
 
-	np.save("../data/vmcEnergies/vmc-opt-1g-1j-Es.npy", sigs)
-	np.save("../data/vmcEnergies/vmc-opt-1g-1j-EE.npy", Evs)
+	np.save("../data/vmcEnergies/vmc-opt-1g-1j-Es1.npy", sigs)
+	np.save("../data/vmcEnergies/vmc-opt-1g-1j-EE1.npy", Evs)

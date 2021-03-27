@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2021.1.21)  17 MAR 2021 23:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2021.1.21)  27 MAR 2021 01:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -837,7 +837,7 @@ Overfull \hbox (95.38861pt too wide) in paragraph at lines 131--132
 Here is how much of TeX's memory you used:
  16605 strings out of 479383
  326337 string characters out of 5875830
- 580706 words of memory out of 5000000
+ 580702 words of memory out of 5000000
  33405 multiletter control sequences out of 15000+600000
  496816 words of font info for 95 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -854,7 +854,7 @@ ype1/public/libertinust1math/LibertinusT1Math.pfb></usr/share/texmf-dist/fonts/
 type1/public/libertine/LinLibertineT.pfb></usr/share/texmf-dist/fonts/type1/pub
 lic/libertine/LinLibertineTB.pfb></usr/share/texmf-dist/fonts/type1/public/libe
 rtine/LinLibertineTI.pfb>
-Output written on software_diagram.pdf (1 page, 354307 bytes).
+Output written on software_diagram.pdf (1 page, 354291 bytes).
 PDF statistics:
  46 PDF objects out of 1000 (max. 8388607)
  38 compressed objects within 1 object stream

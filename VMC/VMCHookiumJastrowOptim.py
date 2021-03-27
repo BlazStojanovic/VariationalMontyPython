@@ -101,7 +101,7 @@ def VMC(it, jastParam, bparam, c):
 	key, config, jastParam, bparam, c, Els = lax.fori_loop(0, it, loop_bdy, (key, config, jastParam, bparam, c, Els))
 	
 	Ev = jnp.average(Els)
-	stdev = jnp.std(Els)*(it)/(it-1)
+	stdev = jnp.sqrt(1/it/(it-1)*jnp.sum(jnp.square(Els-Ev)))
 
 	return Ev, stdev
 
@@ -127,20 +127,20 @@ update_E = jit(update_E, static_argnums=[0])
 
 if __name__ == '__main__':
 	epochs = 100
-	alpha = 0.0005
+	alpha = 0.005
 
 	Evs = np.zeros(epochs)
 	sigs = np.zeros(epochs)
 
 	# MC params
-	it = 100000
+	it = 10000
 	beta = 1e-3
 
 	# Wave function parameters
 	bparam = jnp.array([0.25])
 	ci = jnp.array([1.0])
 
-	jastParam = jnp.array([0.22442447, -0.00406822])
+	jastParam = jnp.array([0.20198098])
 	
 	for i in range(epochs):
 		# Ev, stdev = VMC(it, jastParam, bparam, ci, thprop=0.2, nw=1, tau=0.2, seed=4202)

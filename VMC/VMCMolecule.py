@@ -114,7 +114,7 @@ def VMC(it, jastParam, bparam, c, a):
 	key, config, jastParam, bparam, c, Els = lax.fori_loop(0, it, loop_bdy, (key, config, jastParam, bparam, c, Els))
 	
 	Ev = jnp.average(Els)
-	stdev = jnp.std(Els)*(it)/(it-1)
+	stdev = jnp.sqrt(1/it/(it-1)*jnp.sum(jnp.square(Els-Ev)))
 
 	return Ev, stdev
 

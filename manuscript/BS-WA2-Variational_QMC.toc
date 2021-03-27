@@ -14,7 +14,6 @@
 \contentsline {section}{\numberline {3}Results and analysis}{9}{}%
 \contentsline {subsection}{\numberline {3.1}Hartree-Fock and correlation energy}{9}{}%
 \contentsline {subsection}{\numberline {3.2}Variational Monte Carlo}{10}{}%
-\contentsline {subsection}{\numberline {3.3}CPU vs. GPU speedup}{12}{}%
 \contentsline {section}{\numberline {4}Conclusion}{12}{}%
 \contentsline {subsection}{\numberline {4.1}Future work}{12}{}%
 \contentsline {section}{Bibliography}{13}{}%
